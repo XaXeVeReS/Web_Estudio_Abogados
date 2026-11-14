@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contáctanos | Estudio Jurídico Ureta & Asociados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-info" style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center;">
+                <span><i class="fa-solid fa-scale-balanced" style="color: var(--dorado);"></i> <strong id="topNombreEstudio">Estudio Jurídico Ureta & Asociados</strong></span>
+                <span><i class="fa-solid fa-location-dot" style="color: var(--dorado);"></i> <span id="topDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></span>
+                <span><i class="fa-solid fa-phone" style="color: var(--dorado);"></i> <span id="topTelefono">(054) 419349 / 999 322 490</span></span>
+            </div>
+            <div class="top-links">
+                <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Panel Admin</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">U&A</div>
+                <div class="logo-text">
+                    <span class="logo-title">URETA & ASOCIADOS</span>
+                    <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                </div>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                    <li class="dropdown" id="areasDropdown">
+                        <a href="areas.html" class="nav-link dropdown-toggle">
+                            Nuestras Áreas <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu" id="navAreasDropdownMenu">
+                            <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                            <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                            <li><a href="area-detalle.html?area=recuperaciones">Recuperaciones</a></li>
+                            <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                            <li><a href="area-detalle.html?area=derecho-administrativo">Derecho Administrativo</a></li>
+                            <li><a href="area-detalle.html?area=area-arbitral">Área Arbitral</a></li>
+                            <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                            <li><a href="area-detalle.html?area=derecho-familia">Derecho de Familia</a></li>
+                            <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                            <li><a href="area-detalle.html?area=competencia-consumidor">Competencia y Protección del Consumidor</a></li>
+                            <li><a href="area-detalle.html?area=procedimientos-concursales">Procedimientos Concursales</a></li>
+                            <li><a href="area-detalle.html?area=propiedad-intelectual">Propiedad Intelectual</a></li>
+                            <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="staff.html" class="nav-link">Nuestro Staff</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="trabaja-con-nosotros.html" class="nav-link">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html" class="btn-nav">Contáctanos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PORTADA PRINCIPAL CONTÁCTANOS -->
+    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');">
+        <div class="page-banner-overlay"></div>
+        <div class="container page-banner-content">
+            <span class="hero-badge">ATENCIÓN PERSONALIZADA Y RESERVADA</span>
+            <h1>Estamos aquí para ayudarte</h1>
+            <p>Agenda una consulta presencial en nuestra sede de Yanahuara o solicita asesoría legal virtual con absoluta confidencialidad.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PRINCIPAL: PANEL EJECUTIVO DE CONTACTO + FORMULARIO -->
+    <section class="section bg-light">
+        <div class="container contact-executive-grid">
+            
+            <!-- Columna Izquierda: Tarjeta Institucional Oscura con Canales Directos -->
+            <aside class="contact-dark-sidebar">
+                <span class="sidebar-gold-tag">CANALES OFICIALES DE ATENCIÓN</span>
+                <h2>Central de Consultas y Citas Legales</h2>
+                <p class="sidebar-lead">
+                    Nuestro equipo de abogados especialistas evalúa cada caso de forma personalizada, garantizando reserva profesional desde el primer contacto.
+                </p>
+
+                <div class="contact-channels-list">
+                    <div class="channel-row">
+                        <div class="channel-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <h4>Sede Principal (Arequipa)</h4>
+                            <p id="contactoDireccionTexto">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</p>
+                        </div>
+                    </div>
+
+                    <a href="tel:054419349" class="channel-row clickable">
+                        <div class="channel-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                        <div>
+                            <h4>Central Telefónica y Celular</h4>
+                            <p id="contactoTelefonoTexto">(054) 419349 / 999 322 490</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:contacto@estudio-ureta.com" class="channel-row clickable">
+                        <div class="channel-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div>
+                            <h4>Correo Institucional</h4>
+                            <p id="contactoCorreoTexto">contacto@estudio-ureta.com</p>
+                        </div>
+                    </a>
+
+                    <div class="channel-row">
+                        <div class="channel-icon"><i class="fa-regular fa-clock"></i></div>
+                        <div>
+                            <h4>Horario de Atención</h4>
+                            <p id="contactoHorarioTexto">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caja de Atención Rápida por WhatsApp -->
+                <div class="whatsapp-direct-box">
+                    <div>
+                        <strong><i class="fa-brands fa-whatsapp"></i> ¿Requieres coordinación inmediata?</strong>
+                        <span>Escríbenos directamente a nuestra central de WhatsApp para agendar tu reunión.</span>
+                    </div>
+                    <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20agendar%20una%20consulta%20legal" target="_blank" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:10px;">
+                        <i class="fa-brands fa-whatsapp"></i> Iniciar Chat por WhatsApp
+                    </a>
+                </div>
+
+                <div class="sidebar-social-footer">
+                    <span>Síguenos en redes oficiales:</span>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/estudioureta/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/EstudioUreta" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/estudio_ureta/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Columna Derecha: Formulario Ejecutivo de Consulta Legal -->
+            <div class="contact-form-executive">
+                <div class="form-header-banner">
+                    <div>
+                        <span class="section-tag">SOLICITUD CONFIDENCIAL</span>
+                        <h3>Formulario de Consulta Legal</h3>
+                    </div>
+                    <div class="security-badge">
+                        <i class="fa-solid fa-user-shield"></i> Protegido por Secreto Profesional
+                    </div>
+                </div>
+
+                <p class="form-intro-note">
+                    Completa los siguientes campos para derivar tu requerimiento al especialista del área correspondiente. Tu información es estrictamente privada.
+                </p>
+
+                <form id="formContactoPrincipal">
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label><i class="fa-regular fa-user" style="color:var(--dorado);"></i> Nombres y apellidos *</label>
+                            <input type="text" id="conNombres" placeholder="Ej. Carlos Mendoza Vargas" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-regular fa-envelope" style="color:var(--dorado);"></i> Correo electrónico *</label>
+                            <input type="email" id="conCorreo" placeholder="nombre@correo.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-mobile-screen" style="color:var(--dorado);"></i> Teléfono / Celular *</label>
+                            <input type="tel" id="conTelefono" placeholder="Ej. 999 888 777" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-regular fa-building" style="color:var(--dorado);"></i> Empresa o Institución (Opcional)</label>
+                            <input type="text" id="conEmpresa" placeholder="Razón social o entidad">
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-scale-balanced" style="color:var(--dorado);"></i> Área legal de interés *</label>
+                            <select id="conAreaInteres" required>
+                                <option value="">Seleccione una especialidad...</option>
+                                <option value="Derecho Corporativo">Derecho Corporativo</option>
+                                <option value="Derecho Laboral">Derecho Laboral</option>
+                                <option value="Recuperaciones">Recuperaciones</option>
+                                <option value="Saneamiento de Propiedades">Saneamiento de Propiedades</option>
+                                <option value="Derecho Administrativo">Derecho Administrativo</option>
+                                <option value="Área Arbitral">Área Arbitral</option>
+                                <option value="Derecho Civil">Derecho Civil</option>
+                                <option value="Derecho de Familia">Derecho de Familia</option>
+                                <option value="Derecho Penal">Derecho Penal</option>
+                                <option value="Competencia y Protección del Consumidor">Competencia y Protección del Consumidor</option>
+                                <option value="Procedimientos Concursales">Procedimientos Concursales</option>
+                                <option value="Propiedad Intelectual">Propiedad Intelectual</option>
+                                <option value="Derecho Tributario">Derecho Tributario</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-regular fa-pen-to-square" style="color:var(--dorado);"></i> Asunto de la consulta *</label>
+                            <input type="text" id="conAsunto" placeholder="Resumen breve del motivo" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-regular fa-comment-dots" style="color:var(--dorado);"></i> Descripción detallada de su caso o consulta *</label>
+                        <textarea id="conDescripcion" rows="4" placeholder="Describa los hechos principales o el tipo de asesoría que necesita..." required></textarea>
+                    </div>
+
+                    <div class="form-check-box">
+                        <input type="checkbox" id="conPrivacidad" required>
+                        <label for="conPrivacidad">
+                            Acepto la Política de Privacidad y autorizo el tratamiento confidencial de mis datos personales conforme a la Ley N.° 29733 (Ley de Protección de Datos Personales del Perú) exclusivamente para la atención de mi solicitud.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-gold btn-submit-large">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar Solicitud de Asesoría Legal
+                    </button>
+
+                    <div id="alertaExitoContacto" class="alert-success-box" style="display: none; margin-top: 16px;">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div>
+                            <strong>¡Solicitud registrada con éxito en nuestro sistema!</strong>
+                            <p>Hemos recibido su consulta de forma reservada. Nuestro equipo legal se comunicará con usted a la brevedad.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE MAPA EJECUTIVO Y UBICACIÓN EN YANAHUARA -->
+    <section class="section">
+        <div class="container">
+            <div class="map-card-wrapper">
+                <div class="map-card-header">
+                    <div>
+                        <span class="section-tag">UBICACIÓN ESTRATÉGICA</span>
+                        <h3>Visítanos en Nuestra Sede de Yanahuara, Arequipa</h3>
+                        <p>Calle Las Orquídeas 105 Urb. Primavera, Yanahuara (Zona empresarial de fácil acceso y estacionamiento).</p>
+                    </div>
+                    <a href="https://www.google.com/maps?q=Calle+Las+Orquideas+105+Yanahuara+Arequipa" target="_blank" class="btn btn-primary-dark">
+                        <i class="fa-solid fa-location-arrow"></i> Abrir en Google Maps
+                    </a>
+                </div>
+                <div class="map-frame-container">
+                    <iframe 
+                        src="https://www.google.com/maps?q=Calle+Las+Orquideas+105+Yanahuara+Arequipa&output=embed" 
+                        width="100%" 
+                        height="400" 
+                        style="border:0; display:block;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER INSTITUCIONAL COMPLETO -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <div class="logo-icon">U&A</div>
+                    <div class="logo-text">
+                        <span class="logo-title">URETA & ASOCIADOS</span>
+                        <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                    </div>
+                </a>
+                <p class="footer-desc">
+                    Firma de abogados dedicada a brindar asesoría legal integral, preventiva y patrocinio estratégico con los más altos estándares éticos y profesionales.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/estudioureta/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/EstudioUreta" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/estudio_ureta/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="areas.html">Nuestras Áreas</a></li>
+                    <li><a href="staff.html">Nuestro Staff</a></li>
+                    <li><a href="blog.html">Blog Jurídico</a></li>
+                    <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html">Contáctanos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Áreas Jurídicas</h4>
+                <ul class="footer-links">
+                    <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                    <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                    <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                    <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                    <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                    <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                    <li><a href="areas.html">Ver las 13 especialidades →</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Central de Atención</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i> <span id="sitioDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></li>
+                    <li><i class="fa-solid fa-phone"></i> <span id="sitioTelefono">(054) 419349 / 999 322 490</span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span id="sitioCorreo">contacto@estudio-ureta.com</span></li>
+                    <li><i class="fa-regular fa-clock"></i> <span id="sitioHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p>© 2026 Estudio Jurídico Ureta & Asociados. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante de WhatsApp con la clase correcta -->
+    <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20solicitar%20asesor%C3%ADa%20legal" target="_blank" class="whatsapp-float" aria-label="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i> <span>Consulta por WhatsApp</span>
+    </a>
+
+    <script src="js/datos-estudio.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

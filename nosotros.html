@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosotros | Estudio Jurídico Ureta & Asociados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-info" style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center;">
+                <span><i class="fa-solid fa-scale-balanced" style="color: var(--dorado);"></i> <strong id="topNombreEstudio">Estudio Jurídico Ureta & Asociados</strong></span>
+                <span><i class="fa-solid fa-location-dot" style="color: var(--dorado);"></i> <span id="topDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></span>
+                <span><i class="fa-solid fa-phone" style="color: var(--dorado);"></i> <span id="topTelefono">(054) 419349 / 999 322 490</span></span>
+            </div>
+            <div class="top-links">
+                <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Panel Admin</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">U&A</div>
+                <div class="logo-text">
+                    <span class="logo-title">URETA & ASOCIADOS</span>
+                    <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                </div>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="nosotros.html" class="nav-link active">Nosotros</a></li>
+                    <li class="dropdown" id="areasDropdown">
+                        <a href="areas.html" class="nav-link dropdown-toggle">
+                            Nuestras Áreas <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu" id="navAreasDropdownMenu">
+                            <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                            <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                            <li><a href="area-detalle.html?area=recuperaciones">Recuperaciones</a></li>
+                            <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                            <li><a href="area-detalle.html?area=derecho-administrativo">Derecho Administrativo</a></li>
+                            <li><a href="area-detalle.html?area=area-arbitral">Área Arbitral</a></li>
+                            <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                            <li><a href="area-detalle.html?area=derecho-familia">Derecho de Familia</a></li>
+                            <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                            <li><a href="area-detalle.html?area=competencia-consumidor">Competencia y Protección del Consumidor</a></li>
+                            <li><a href="area-detalle.html?area=procedimientos-concursales">Procedimientos Concursales</a></li>
+                            <li><a href="area-detalle.html?area=propiedad-intelectual">Propiedad Intelectual</a></li>
+                            <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="staff.html" class="nav-link">Nuestro Staff</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="trabaja-con-nosotros.html" class="nav-link">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html" class="btn-nav">Contáctanos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- BANNER INTERNO -->
+    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');">
+        <div class="page-banner-overlay"></div>
+        <div class="container page-banner-content">
+            <span class="hero-badge">QUIÉNES SOMOS</span>
+            <h1>Nuestra Firma Jurídica</h1>
+            <p>Liderazgo, ética profesional y alta especialización al servicio de personas y empresas en la Región Sur y todo el Perú.</p>
+        </div>
+    </section>
+
+    <!-- HISTORIA Y PRESENTACIÓN EJECUTIVA (ADMINISTRABLE DESDE SUPABASE) -->
+    <section class="section">
+        <div class="container about-grid-executive">
+            <div class="about-visual-wrapper">
+                <div class="about-main-photo">
+                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85" alt="Instalaciones Estudio Jurídico Ureta & Asociados">
+                </div>
+                <div class="about-floating-badge">
+                    <div class="badge-icon-box">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <div class="badge-text-box">
+                        <strong>Estudio Jurídico Líder en la Región Sur</strong>
+                        <span id="nosotrosFraseInsignia">Manteniendo un alto nivel de especialización en 13 áreas del Derecho</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-text-executive">
+                <span class="section-tag">HISTORIA E IDENTIDAD INSTITUCIONAL</span>
+                <h2 class="section-title-left" id="nosotrosTituloEstudio">Estudio Jurídico Ureta & Asociados</h2>
+                
+                <p class="about-lead-highlight" id="nosotrosHistoriaTexto">
+                    Somos una de las prestigiosas firmas de abogados del Sur del Perú, que ofrece una amplia gama de profesionales de primer nivel, especializados en distintas áreas del Derecho, los mismos que están avocados a encontrar soluciones innovadoras e impulsar el crecimiento y desarrollo de sus clientes.
+                </p>
+
+                <div class="pillars-cards-grid">
+                    <div class="pillar-box">
+                        <div class="pillar-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                        <div>
+                            <h4>Servicio al cliente</h4>
+                            <p>El mejor servicio de asesoría y asistencia legal dedicada a todos nuestros patrocinados.</p>
+                        </div>
+                    </div>
+                    <div class="pillar-box">
+                        <div class="pillar-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <h4>Calidad y Eficiencia</h4>
+                            <p>Servicios legales de la más alta calidad mediante procesos eficientes y optimizados.</p>
+                        </div>
+                    </div>
+                    <div class="pillar-box">
+                        <div class="pillar-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <div>
+                            <h4>Reconocimiento y Prestigio</h4>
+                            <p>Profesionales con alta formación académica y especialización continua.</p>
+                        </div>
+                    </div>
+                    <div class="pillar-box">
+                        <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h4>Ética y Reserva</h4>
+                            <p>Manejo estrictamente confidencial y transparente en cada estrategia procesal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISIÓN, VISIÓN Y FILOSOFÍA (CONECTADOS A SUPABASE) -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">PROPÓSITO INSTITUCIONAL</span>
+                <h2 class="section-title">Misión, Visión y Filosofía de Trabajo</h2>
+            </div>
+
+            <div class="cards-grid-3">
+                <div class="detail-box highlight-box">
+                    <h3><i class="fa-solid fa-bullseye" style="color:var(--dorado); margin-right:8px;"></i> Nuestra Misión</h3>
+                    <p id="nosotrosMisionTexto" style="font-size:0.94rem; color:var(--gris-texto); line-height:1.75;">
+                        Brindar asesoría jurídica integral, preventiva y patrocinio estratégico con los más altos estándares éticos, técnicos y de eficiencia, protegiendo los intereses patrimoniales, corporativos y personales de nuestros clientes.
+                    </p>
+                </div>
+
+                <div class="detail-box highlight-box">
+                    <h3><i class="fa-solid fa-eye" style="color:var(--dorado); margin-right:8px;"></i> Nuestra Visión</h3>
+                    <p id="nosotrosVisionTexto" style="font-size:0.94rem; color:var(--gris-texto); line-height:1.75;">
+                        Mantener y consolidar nuestro liderazgo como estudio jurídico referente en la Región Sur y a nivel nacional, reconocido por su excelencia académica, innovación legal y solidez en cada área de práctica.
+                    </p>
+                </div>
+
+                <div class="detail-box highlight-box">
+                    <h3><i class="fa-solid fa-Gavel" style="color:var(--dorado); margin-right:8px;"></i> Filosofía de Trabajo</h3>
+                    <p style="font-size:0.94rem; color:var(--gris-texto); line-height:1.75;">
+                        Integramos el análisis preventivo con la litigación estratégica. Cada caso es evaluado de forma colegiada por nuestros especialistas para anticipar contingencias y ofrecer soluciones claras, honestas y oportunas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA CONTACTO -->
+    <section class="cta-banner">
+        <div class="container cta-content">
+            <div class="cta-text">
+                <h2>Conoce a nuestros especialistas y áreas de práctica</h2>
+                <p>Estamos ubicados en Yanahuara, Arequipa, listos para atender tus consultas de forma presencial o virtual.</p>
+            </div>
+            <div class="cta-buttons">
+                <a href="staff.html" class="btn btn-gold">Ver Nuestro Staff</a>
+                <a href="contacto.html" class="btn btn-outline-light">Agendar una Cita</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER CONECTADO A SUPABASE -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <div class="logo-icon">U&A</div>
+                    <div class="logo-text">
+                        <span class="logo-title">URETA & ASOCIADOS</span>
+                        <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                    </div>
+                </a>
+                <p class="footer-desc">
+                    Firma de abogados dedicada a brindar asesoría legal integral, preventiva y patrocinio estratégico con los más altos estándares éticos y profesionales.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/estudioureta/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/EstudioUreta" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/estudio_ureta/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="areas.html">Nuestras Áreas</a></li>
+                    <li><a href="staff.html">Nuestro Staff</a></li>
+                    <li><a href="blog.html">Blog Jurídico</a></li>
+                    <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html">Contáctanos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Áreas Jurídicas</h4>
+                <ul class="footer-links" id="footerAreasLinks">
+                    <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                    <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                    <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                    <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                    <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                    <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                    <li><a href="areas.html">Ver las 13 especialidades →</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Central de Atención</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i> <span id="sitioDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></li>
+                    <li><i class="fa-solid fa-phone"></i> <span id="sitioTelefono">(054) 419349 / 999 322 490</span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span id="sitioCorreo">contacto@estudio-ureta.com</span></li>
+                    <li><i class="fa-regular fa-clock"></i> <span id="sitioHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p>© 2026 Estudio Jurídico Ureta & Asociados. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/datos-estudio.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

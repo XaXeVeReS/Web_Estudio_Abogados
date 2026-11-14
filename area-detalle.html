@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageAreaTitle">Especialidad Legal | Estudio Jurídico Ureta & Asociados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-info" style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center;">
+                <span><i class="fa-solid fa-scale-balanced" style="color: var(--dorado);"></i> <strong id="topNombreEstudio">Estudio Jurídico Ureta & Asociados</strong></span>
+                <span><i class="fa-solid fa-location-dot" style="color: var(--dorado);"></i> <span id="topDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></span>
+                <span><i class="fa-solid fa-phone" style="color: var(--dorado);"></i> <span id="topTelefono">(054) 419349 / 999 322 490</span></span>
+            </div>
+            <div class="top-links">
+                <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Panel Admin</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">U&A</div>
+                <div class="logo-text">
+                    <span class="logo-title">URETA & ASOCIADOS</span>
+                    <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                </div>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                    <li class="dropdown" id="areasDropdown">
+                        <a href="areas.html" class="nav-link dropdown-toggle active">
+                            Nuestras Áreas <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu" id="navAreasDropdownMenu">
+                            <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                            <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                            <li><a href="area-detalle.html?area=recuperaciones">Recuperaciones</a></li>
+                            <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                            <li><a href="area-detalle.html?area=derecho-administrativo">Derecho Administrativo</a></li>
+                            <li><a href="area-detalle.html?area=area-arbitral">Área Arbitral</a></li>
+                            <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                            <li><a href="area-detalle.html?area=derecho-familia">Derecho de Familia</a></li>
+                            <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                            <li><a href="area-detalle.html?area=competencia-consumidor">Competencia y Protección del Consumidor</a></li>
+                            <li><a href="area-detalle.html?area=procedimientos-concursales">Procedimientos Concursales</a></li>
+                            <li><a href="area-detalle.html?area=propiedad-intelectual">Propiedad Intelectual</a></li>
+                            <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="staff.html" class="nav-link">Nuestro Staff</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="trabaja-con-nosotros.html" class="nav-link">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html" class="btn-nav">Contáctanos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- BANNER DINÁMICO DE LA ESPECIALIDAD -->
+    <section class="page-banner" id="areaBannerImg" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80');">
+        <div class="page-banner-overlay"></div>
+        <div class="container page-banner-content">
+            <span class="hero-badge"><i id="areaIcono" class="fa-solid fa-scale-balanced"></i> ÁREA DE PRÁCTICA ESPECIALIZADA</span>
+            <h1 id="areaNombre">Derecho Corporativo</h1>
+            <p id="areaResumen">Asesoría societaria integral, gobierno corporativo, contratos mercantiles y operaciones empresariales.</p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO DE LA ESPECIALIDAD + BARRA LATERAL INTERACTIVA -->
+    <section class="section">
+        <div class="container area-detail-layout">
+            
+            <!-- Columna Principal: Alcance, Servicios y Situaciones Frecuentes -->
+            <div class="area-main-content">
+                <div class="detail-box">
+                    <span class="section-tag">ALCANCE DEL SERVICIO</span>
+                    <h2 class="section-title-left" style="margin-bottom: 14px;">Presentación del Área</h2>
+                    <p id="areaDescripcion" style="font-size: 1.02rem; line-height: 1.8; color: #334155;"></p>
+                </div>
+
+                <div class="detail-box">
+                    <h3><i class="fa-solid fa-list-check" style="color: var(--dorado); margin-right: 8px;"></i> Principales Servicios que Ofrecemos</h3>
+                    <ul class="check-list" id="areaListaServicios"></ul>
+                </div>
+
+                <div class="detail-box highlight-box">
+                    <h3><i class="fa-solid fa-shield-halved" style="color: var(--dorado); margin-right: 8px;"></i> ¿En qué situaciones brindamos asesoría?</h3>
+                    <ul class="situations-list" id="areaListaSituaciones"></ul>
+                </div>
+
+                <!-- Bloque de Llamada a la Acción Directa -->
+                <div class="spontaneous-banner-executive" style="margin-top: 28px;">
+                    <div class="spontaneous-banner-text">
+                        <span class="sidebar-gold-tag">ATENCIÓN PERSONALIZADA</span>
+                        <h3>¿Requieres patrocinio o consultoría en esta especialidad?</h3>
+                        <p>Agenda una reunión con nuestros especialistas para analizar la estrategia legal más segura para tu caso.</p>
+                    </div>
+                    <a href="contacto.html" id="btnSolicitarAsesoriaArea" class="btn btn-gold">
+                        Solicitar Asesoría en esta Área <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna Lateral: Formulario Rápido + Menú de las 13 Áreas -->
+            <aside class="area-sidebar">
+                
+                <!-- Formulario Rápido de la Especialidad (Conectado a Supabase) -->
+                <div class="sidebar-form-card" style="background: #142B40; color: #ffffff; padding: 28px; border-radius: 8px; border-top: 4px solid var(--dorado); margin-bottom: 28px;">
+                    <span class="sidebar-gold-tag">CONSULTA DIRECTA</span>
+                    <h3 style="font-family: var(--fuente-titulos); color: #ffffff; font-size: 1.35rem; margin-bottom: 8px;">Consultar con un Especialista</h3>
+                    <p style="font-size: 0.84rem; color: #cbd5e1; margin-bottom: 18px;">Déjanos tus datos y el equipo de esta área te responderá a la brevedad.</p>
+
+                    <form id="formConsultaRapidaArea">
+                        <input type="hidden" id="inputAreaSeleccionada">
+                        <div class="form-group">
+                            <input type="text" id="rapidoNombre" placeholder="Nombres y apellidos *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="rapidoTelefono" placeholder="Teléfono / Celular *" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="rapidoCorreo" placeholder="Correo electrónico *" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="rapidoMensaje" rows="3" placeholder="Breve descripción de su consulta *" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center;">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Consulta Rápida
+                        </button>
+                        <p id="msgConfirmacionArea" style="display: none; color: #4ade80; font-size: 0.84rem; margin-top: 12px; font-weight: 600;">
+                            ✓ Su consulta fue registrada exitosamente en nuestra base de datos.
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Navegador Lateral de las 13 Especialidades -->
+                <div class="sidebar-widget">
+                    <h4>Todas Nuestras Especialidades</h4>
+                    <ul class="sidebar-areas-nav" id="sidebarAreasList"></ul>
+                </div>
+
+            </aside>
+
+        </div>
+    </section>
+
+    <!-- FOOTER INSTITUCIONAL COMPLETO DE 4 COLUMNAS -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <div class="logo-icon">U&A</div>
+                    <div class="logo-text">
+                        <span class="logo-title">URETA & ASOCIADOS</span>
+                        <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                    </div>
+                </a>
+                <p class="footer-desc">
+                    Firma de abogados dedicada a brindar asesoría legal integral, preventiva y patrocinio estratégico con los más altos estándares éticos y profesionales.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/estudioureta/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/EstudioUreta" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/estudio_ureta/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="areas.html">Nuestras Áreas</a></li>
+                    <li><a href="staff.html">Nuestro Staff</a></li>
+                    <li><a href="blog.html">Blog Jurídico</a></li>
+                    <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html">Contáctanos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Áreas Jurídicas</h4>
+                <ul class="footer-links">
+                    <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                    <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                    <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                    <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                    <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                    <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                    <li><a href="areas.html">Ver las 13 especialidades →</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Central de Atención</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i> <span id="sitioDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></li>
+                    <li><i class="fa-solid fa-phone"></i> <span id="sitioTelefono">(054) 419349 / 999 322 490</span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span id="sitioCorreo">contacto@estudio-ureta.com</span></li>
+                    <li><i class="fa-regular fa-clock"></i> <span id="sitioHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p>© 2026 Estudio Jurídico Ureta & Asociados. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="contacto.html">Aviso de Privacidad y Protección de Datos Personales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20realizar%20una%20consulta%20legal" target="_blank" class="whatsapp-float" aria-label="Consultar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i> <span>Consulta por WhatsApp</span>
+    </a>
+
+    <script src="js/datos-estudio.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

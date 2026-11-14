@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestras Áreas Legales | Estudio Jurídico Ureta & Asociados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-info" style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center;">
+                <span><i class="fa-solid fa-scale-balanced" style="color: var(--dorado);"></i> <strong id="topNombreEstudio">Estudio Jurídico Ureta & Asociados</strong></span>
+                <span><i class="fa-solid fa-location-dot" style="color: var(--dorado);"></i> <span id="topDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></span>
+                <span><i class="fa-solid fa-phone" style="color: var(--dorado);"></i> <span id="topTelefono">(054) 419349 / 999 322 490</span></span>
+            </div>
+            <div class="top-links">
+                <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Panel Admin</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">U&A</div>
+                <div class="logo-text">
+                    <span class="logo-title">URETA & ASOCIADOS</span>
+                    <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                </div>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
+                    <li class="dropdown" id="areasDropdown">
+                        <a href="areas.html" class="nav-link dropdown-toggle active">
+                            Nuestras Áreas <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu" id="navAreasDropdownMenu">
+                            <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                            <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                            <li><a href="area-detalle.html?area=recuperaciones">Recuperaciones</a></li>
+                            <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                            <li><a href="area-detalle.html?area=derecho-administrativo">Derecho Administrativo</a></li>
+                            <li><a href="area-detalle.html?area=area-arbitral">Área Arbitral</a></li>
+                            <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                            <li><a href="area-detalle.html?area=derecho-familia">Derecho de Familia</a></li>
+                            <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                            <li><a href="area-detalle.html?area=competencia-consumidor">Competencia y Protección del Consumidor</a></li>
+                            <li><a href="area-detalle.html?area=procedimientos-concursales">Procedimientos Concursales</a></li>
+                            <li><a href="area-detalle.html?area=propiedad-intelectual">Propiedad Intelectual</a></li>
+                            <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="staff.html" class="nav-link">Nuestro Staff</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="trabaja-con-nosotros.html" class="nav-link">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html" class="btn-nav">Contáctanos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PORTADA DE ESPECIALIDADES -->
+    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80');">
+        <div class="page-banner-overlay"></div>
+        <div class="container page-banner-content">
+            <span class="hero-badge">PRÁCTICA MULTIDISCIPLINARIA</span>
+            <h1>Nuestras Áreas de Especialización Legal</h1>
+            <p>Contamos con especialistas altamente calificados en las 13 ramas principales del Derecho para brindar asesoría preventiva, corporativa y patrocinio procesal.</p>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO INTERACTIVO DE LAS 13 ESPECIALIDADES -->
+    <section class="section bg-light">
+        <div class="container">
+            
+            <!-- Buscador rápido de especialidades -->
+            <div class="filter-bar" style="margin-bottom: 34px;">
+                <div class="search-box" style="flex: 1;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="buscarAreaCatalogoInput" placeholder="Buscar especialidad jurídica (Ej. Corporativo, Civil, Laboral, Propiedades, SUNAT, INDECOPI)...">
+                </div>
+                <a href="contacto.html" class="btn btn-gold">
+                    <i class="fa-solid fa-calendar-check"></i> Solicitar Asesoría General
+                </a>
+            </div>
+
+            <!-- Grilla de las 13 Áreas Legales (Se llena desde Supabase / datos-estudio.js) -->
+            <div class="cards-grid-3" id="catalogoAreasContainer"></div>
+
+        </div>
+    </section>
+
+    <!-- BANNER CTA DE ATENCIÓN -->
+    <section class="cta-banner">
+        <div class="container cta-content">
+            <div class="cta-text">
+                <h2>¿No estás seguro de qué área legal corresponde a tu caso?</h2>
+                <p>Escríbenos y derivaremos tu consulta internamente al abogado especialista indicado.</p>
+            </div>
+            <div class="cta-buttons">
+                <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20orientaci%C3%B3n%20sobre%20una%20consulta%20legal" target="_blank" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Orientación por WhatsApp
+                </a>
+                <a href="contacto.html" class="btn btn-gold">Ir al Formulario de Contacto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER INSTITUCIONAL COMPLETO DE 4 COLUMNAS -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="logo footer-logo">
+                    <div class="logo-icon">U&A</div>
+                    <div class="logo-text">
+                        <span class="logo-title">URETA & ASOCIADOS</span>
+                        <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
+                    </div>
+                </a>
+                <p class="footer-desc">
+                    Firma de abogados dedicada a brindar asesoría legal integral, preventiva y patrocinio estratégico con los más altos estándares éticos y profesionales.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/estudioureta/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/EstudioUreta" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/estudio_ureta/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="areas.html">Nuestras Áreas</a></li>
+                    <li><a href="staff.html">Nuestro Staff</a></li>
+                    <li><a href="blog.html">Blog Jurídico</a></li>
+                    <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
+                    <li><a href="contacto.html">Contáctanos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Áreas Jurídicas</h4>
+                <ul class="footer-links">
+                    <li><a href="area-detalle.html?area=derecho-corporativo">Derecho Corporativo</a></li>
+                    <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
+                    <li><a href="area-detalle.html?area=saneamiento-propiedades">Saneamiento de Propiedades</a></li>
+                    <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
+                    <li><a href="area-detalle.html?area=derecho-penal">Derecho Penal</a></li>
+                    <li><a href="area-detalle.html?area=derecho-tributario">Derecho Tributario</a></li>
+                    <li><a href="areas.html">Ver las 13 especialidades →</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Central de Atención</h4>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i> <span id="sitioDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></li>
+                    <li><i class="fa-solid fa-phone"></i> <span id="sitioTelefono">(054) 419349 / 999 322 490</span></li>
+                    <li><i class="fa-solid fa-envelope"></i> <span id="sitioCorreo">contacto@estudio-ureta.com</span></li>
+                    <li><i class="fa-regular fa-clock"></i> <span id="sitioHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p>© 2026 Estudio Jurídico Ureta & Asociados. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="contacto.html">Aviso de Privacidad y Protección de Datos Personales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20realizar%20una%20consulta%20legal" target="_blank" class="whatsapp-float" aria-label="Consultar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i> <span>Consulta por WhatsApp</span>
+    </a>
+
+    <script src="js/datos-estudio.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Filtro en vivo en el catálogo de áreas legales
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputBuscarArea = document.getElementById('buscarAreaCatalogoInput');
+            const contenedor = document.getElementById('catalogoAreasContainer');
+            if (inputBuscarArea && contenedor && typeof obtenerAreasLegales === 'function') {
+                inputBuscarArea.addEventListener('input', () => {
+                    const q = inputBuscarArea.value.toLowerCase().trim();
+                    const activas = obtenerAreasLegales().filter(a => a.activo && (
+                        a.nombre.toLowerCase().includes(q) ||
+                        a.resumen.toLowerCase().includes(q) ||
+                        a.descripcion.toLowerCase().includes(q)
+                    ));
+                    contenedor.innerHTML = activas.map(area => `
+                        <article class="area-card">
+                            <div class="area-card-img">
+                                <img src="${area.imagen}" alt="${area.nombre}">
+                            </div>
+                            <div class="area-card-body">
+                                <h3><i class="${area.icono || 'fa-solid fa-scale-balanced'}" style="color: var(--dorado); margin-right: 6px;"></i> ${area.nombre}</h3>
+                                <p>${area.resumen}</p>
+                                <a href="area-detalle.html?area=${area.slug}" class="card-link">
+                                    Conocer más <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                    `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:24px;">No se encontraron especialidades con ese término.</p>`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
