@@ -615,7 +615,7 @@ function obtenerVacantes() {
 
 
 // =========================================================================
-// 6. SINCRONIZACIÓN ULTRA RÁPIDA EN PARALELO (PROMISE.ALL)
+// 6. SINCRONIZACIÓN ULTRA RÁPIDA EN PARALELO (INCLUYE CONSULTAS Y POSTULACIONES)
 // =========================================================================
 let promesaSincronizacion = null;
 
@@ -625,15 +625,26 @@ async function sincronizarVistasSupabase() {
 
     promesaSincronizacion = (async () => {
         try {
-            // Descargar TODAS las vistas al mismo tiempo en 1 solo viaje de red
-            const [areasDB, staffDB, blogDB, vacDB, portadasDB, testDB, configArr] = await Promise.all([
+            const [
+                areasDB,
+                staffDB,
+                blogDB,
+                vacDB,
+                portadasDB,
+                testDB,
+                configArr,
+                contactosDB,
+                postDB
+            ] = await Promise.all([
                 consultarVistaSupabase('vw_areas_legales_activas'),
                 consultarVistaSupabase('vw_abogados_completos'),
                 consultarVistaSupabase('vw_blog_publicaciones'),
                 consultarVistaSupabase('vw_vacantes_con_postulantes'),
                 consultarVistaSupabase('vw_portadas_activas', '?select=*&publicado=eq.true&order=orden.asc'),
                 consultarVistaSupabase('vw_testimonios_completos', '?select=*&estado=eq.Aprobado'),
-                consultarVistaSupabase('configuracion_sitio', '?select=*&limit=1')
+                consultarVistaSupabase('configuracion_sitio', '?select=*&limit=1'),
+                consultarVistaSupabase('solicitudes_contacto', '?select=*&order=solicitud_id.desc'),
+                consultarVistaSupabase('postulaciones', '?select=*&order=postulacion_id.desc')
             ]);
 
             if (areasDB && areasDB.length > 0) {
@@ -700,13 +711,49 @@ async function sincronizarVistasSupabase() {
                 }))));
             }
 
-            // Guardar en caché instantáneo Portadas, Testimonios y Configuración
+            // Sincronizar Solicitudes de Contacto para admin.html
+            if (Array.isArray(contactosDB)) {
+                localStorage.setItem('ureta_contactos_db', JSON.stringify(contactosDB.map(c => ({
+                    id: c.solicitud_id,
+                    nombres: c.nombres_apellidos,
+                    correo: c.correo_electronico,
+                    telefono: c.telefono,
+                    empresa: c.empresa || '',
+                    area: c.nombre_area_texto || 'Consulta General',
+                    asunto: c.asunto,
+                    descripcion: c.descripcion_consulta,
+                    estado: c.estado_gestion || 'Nueva',
+                    observaciones: c.observaciones_internas || '',
+                    fecha: c.fecha_registro ? new Date(c.fecha_registro).toLocaleString('es-PE') : ''
+                }))));
+            }
+
+            // Sincronizar Postulaciones y CVs para admin.html
+            if (Array.isArray(postDB)) {
+                localStorage.setItem('ureta_postulaciones_db', JSON.stringify(postDB.map(p => ({
+                    id: p.postulacion_id,
+                    nombres: p.nombres_apellidos,
+                    documento: p.documento_identidad,
+                    correo: p.correo,
+                    telefono: p.telefono,
+                    profesion: p.profesion,
+                    puesto: p.puesto_postula,
+                    experiencia: p.resumen_experiencia,
+                    mensaje: p.mensaje_presentacion || '',
+                    nombreArchivoCv: p.nombre_archivo_cv,
+                    url_archivo_cv: p.url_archivo_cv,
+                    tamanoKb: p.tamano_kb,
+                    estado: p.estado_postulacion || 'Recibida',
+                    fecha: p.fecha_postulacion ? new Date(p.fecha_postulacion).toLocaleString('es-PE') : ''
+                }))));
+            }
+
             if (portadasDB) localStorage.setItem('ureta_portadas_cache', JSON.stringify(portadasDB));
             if (testDB) localStorage.setItem('ureta_testimonios_cache', JSON.stringify(testDB));
             if (configArr && configArr[0]) localStorage.setItem('ureta_config_cache', JSON.stringify(configArr[0]));
 
         } catch (err) {
-            console.warn('Usando caché local instantáneo:', err);
+            console.warn('Error sincronizando vistas de Supabase:', err);
         } finally {
             promesaSincronizacion = null;
         }
