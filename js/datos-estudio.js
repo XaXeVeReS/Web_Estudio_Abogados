@@ -763,3 +763,57 @@ async function sincronizarVistasSupabase() {
 }
 
 sincronizarVistasSupabase();
+
+// =========================================================================
+// 7. SUBIDA DIRECTA DE IMÁGENES A SUPABASE STORAGE (imagenes_web)
+// =========================================================================
+async function subirImagenWebSupabase(archivo, carpeta = 'general') {
+    if (!archivo) return null;
+    if (!supabaseEstaConfigurado()) {
+        alert('Supabase no está configurado.');
+        return null;
+    }
+
+    // Limpiar nombre de archivo y evitar colisiones
+    const ext = archivo.name.split('.').pop().toLowerCase() || 'jpg';
+    const nombreLimpio = `${carpeta}/${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${ext}`;
+
+    const resp = await fetch(`${SUPABASE_URL}/storage/v1/object/imagenes_web/${nombreLimpio}`, {
+        method: 'POST',
+        headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': archivo.type || 'image/jpeg',
+            'x-upsert': 'true'
+        },
+        body: archivo
+    });
+
+    if (!resp.ok) {
+        const errTxt = await resp.text();
+        console.error('Error al subir imagen a Supabase:', errTxt);
+        alert('No se pudo subir la imagen. Verifica que pese menos de 5 MB y sea JPG, PNG o WEBP.');
+        return null;
+    }
+
+    return `${SUPABASE_URL}/storage/v1/object/public/imagenes_web/${nombreLimpio}`;
+}
+
+// Helper genérico REST para CRUD de tablas directas (eventos_academicos, historias_carrera, areas_legales)
+async function supabaseRest(tabla, metodo = 'GET', query = '', body = null) {
+    const headers = {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+    };
+    const opciones = { method: metodo, headers };
+    if (body) opciones.body = JSON.stringify(body);
+
+    const resp = await fetch(`${SUPABASE_URL}/rest/v1/${tabla}${query}`, opciones);
+    if (!resp.ok) {
+        console.error(`Error REST [${metodo}] ${tabla}:`, await resp.text());
+        return null;
+    }
+    return metodo === 'DELETE' ? true : await resp.json();
+}

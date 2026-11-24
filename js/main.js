@@ -251,8 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${ab.formacion}</p>
                     </div>
                     <div class="staff-detail-block">
-                        <h4>Experiencia Profesional</h4>
-                        <p>${ab.experiencia}</p>
                     </div>
                     <div class="staff-detail-block">
                         <h4>Cursos y Especializaciones</h4>

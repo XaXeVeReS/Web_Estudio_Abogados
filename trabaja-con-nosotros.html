@@ -66,8 +66,9 @@
                         </ul>
                     </li>
                     <li><a href="staff.html" class="nav-link">Nuestro Staff</a></li>
-                    <li><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li><a href="trabaja-con-nosotros.html" class="nav-link active">Trabaja con nosotros</a></li>
+                    <li><a href="blog.html" class="nav-link">Artículos</a></li>
+                    <li><a href="eventos.html" class="nav-link">Eventos</a></li>
+                    <li><a href="trabaja-con-nosotros.html" class="nav-link">Trabaja con nosotros</a></li>
                     <li><a href="contacto.html" class="btn-nav">Contáctanos</a></li>
                 </ul>
             </nav>
@@ -78,9 +79,24 @@
     <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80');">
         <div class="page-banner-overlay"></div>
         <div class="container page-banner-content">
-            <span class="hero-badge">TALENTO Y VOCACIÓN JURÍDICA</span>
-            <h1>Construye tu futuro profesional con nosotros</h1>
-            <p>En Estudio Jurídico Ureta & Asociados creemos en el talento, la preparación y el compromiso ético. Buscamos profesionales y estudiantes destacados que compartan nuestra pasión por la excelencia legal.</p>
+            <span class="hero-badge">PROGRAMA DE PRACTICANTES Y LÍNEA DE CARRERA</span>
+            <h1>Inicia tu formación jurídica y haz línea de carrera con nosotros</h1>
+            <p>En Estudio Jurídico Ureta & Asociados formamos a futuros abogados de excelencia. Si eres estudiante de los últimos ciclos o recién egresado, te ofrecemos mentoría directa de nuestros socios y oportunidades reales de crecimiento profesional.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN NUEVA: DE PRACTICANTE A ABOGADO (CONECTADA A SUPABASE) -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">HISTORIAS DE CRECIMIENTO REAL</span>
+                <h2 class="section-title">De Practicante a Abogado</h2>
+                <p class="section-subtitle">Conoce a los profesionales que iniciaron su formación como practicantes en nuestra firma y hoy lideran casos estratégicos como abogados del estudio.</p>
+            </div>
+
+            <div class="career-stories-grid" id="historiasCarreraGrid">
+                <!-- Se carga dinámicamente desde la tabla historias_carrera de Supabase -->
+            </div>
         </div>
     </section>
 
@@ -303,14 +319,16 @@
                     <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80" alt="Oficinas del Estudio Jurídico Ureta & Asociados">
                     <div class="office-sidebar-body">
                         <h4><i class="fa-solid fa-building-columns" style="color:var(--dorado);"></i> Nuestra Sede en Arequipa</h4>
-                        <p><strong>Dirección:</strong> <span id="sitioDireccion">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</span></p>
+                        <p><strong>Dirección:</strong> <span id="sitioDireccion">Calle 28 de Julio 701, Arequipa 04001</span></p>
                         <p><strong>Horario:</strong> <span id="sitioHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</span></p>
                         <iframe 
-                            src="https://www.google.com/maps?q=Calle+Las+Orquideas+105+Yanahuara+Arequipa&output=embed" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1137.9061683052162!2d-71.54235147273542!3d-16.402217408554232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91424a58d1e52a3f%3A0x4f1606ef61ec2030!2s28%20de%20Julio%20701%2C%20Arequipa%2004001!5e0!3m2!1ses-419!2spe!4v1794692588599!5m2!1ses-419!2spe" 
                             width="100%" 
-                            height="180" 
-                            style="border:0; border-radius:6px; margin-top:10px;" 
-                            loading="lazy">
+                            height="210" 
+                            style="border:0; border-radius:6px; margin-top:10px; display:block;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="strict-origin-when-cross-origin">
                         </iframe>
                     </div>
                 </div>
@@ -323,12 +341,8 @@
     <footer class="footer">
         <div class="container footer-grid">
             <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <div class="logo-icon">U&A</div>
-                    <div class="logo-text">
-                        <span class="logo-title">URETA & ASOCIADOS</span>
-                        <span class="logo-subtitle">ESTUDIO JURÍDICO</span>
-                    </div>
+                 <a href="index.html" class="logo">
+                    <img src="img/logo.png" alt="Estudio Jurídico Ureta & Asociados" class="logo-img-oficial">
                 </a>
                 <p class="footer-desc">
                     Firma de abogados dedicada a brindar asesoría legal integral, preventiva y patrocinio estratégico con los más altos estándares éticos y profesionales.
@@ -391,5 +405,26 @@
 
     <script src="js/datos-estudio.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const gridHistorias = document.getElementById('historiasCarreraGrid');
+            if (!gridHistorias || typeof consultarVistaSupabase !== 'function') return;
+
+            const historias = await consultarVistaSupabase('historias_carrera', '?select=*&activo=eq.true&order=orden.asc') || [];
+            gridHistorias.innerHTML = historias.map(h => `
+                <article class="story-card">
+                    <div class="story-photo-wrap">
+                        <img src="${h.foto_url}" alt="${h.nombre_completo}">
+                        <span class="story-badge-start"><i class="fa-solid fa-seedling"></i> ${h.etapa_inicio}</span>
+                    </div>
+                    <div class="story-body">
+                        <span class="story-role-now">${h.cargo_actual}</span>
+                        <h3>${h.nombre_completo}</h3>
+                        <p>"${h.historia}"</p>
+                    </div>
+                </article>
+            `).join('');
+        });
+    </script>
 </body>
 </html>

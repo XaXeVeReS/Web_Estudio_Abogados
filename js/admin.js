@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================
-    // 2. NAVEGACIÓN ENTRE LOS 10 MÓDULOS DEL PANEL
+    // 2. NAVEGACIÓN ENTRE TODOS LOS MÓDULOS DEL PANEL
     // =========================================================
     const tabBtns = document.querySelectorAll('.admin-tab-btn');
     const tabPanels = document.querySelectorAll('.admin-tab-panel');
@@ -69,7 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             btn.classList.add('active');
             const target = btn.getAttribute('data-tab');
-            document.getElementById(target).classList.add('active');
+            const panelDestino = document.getElementById(target);
+            if (panelDestino) panelDestino.classList.add('active');
             tituloSeccion.textContent = btn.textContent.trim();
         });
     });
@@ -92,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const contactos = JSON.parse(localStorage.getItem('ureta_contactos_db') || '[]');
         const postulaciones = JSON.parse(localStorage.getItem('ureta_postulaciones_db') || '[]');
 
-        // Consultar Vistas adicionales de Supabase (Portadas, Testimonios, Comentarios, Configuración y Usuarios)
         if (typeof consultarVistaSupabase === 'function' && supabaseEstaConfigurado()) {
             cachePortadas = (await consultarVistaSupabase('vw_portadas_activas')) || [];
             cacheTestimonios = (await consultarVistaSupabase('vw_testimonios_completos')) || [];
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // KPIs del Dashboard (sp_obtener_dashboard_kpis)
+        // KPIs del Dashboard
         if (typeof llamarProcedimiento === 'function' && supabaseEstaConfigurado()) {
             const kpis = await llamarProcedimiento('sp_obtener_dashboard_kpis');
             if (kpis) {
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 1. Renderizar Tabla de Portadas
+        // 1. Portadas
         document.getElementById('tablaAdminPortadas').innerHTML = cachePortadas.map((p, idx) => `
             <tr>
                 <td><strong>#${p.orden}</strong></td>
@@ -144,10 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `).join('') || `<tr><td colspan="5" style="text-align:center;">No hay portadas registradas.</td></tr>`;
 
-        // 2. Renderizar Tabla de las 13 Áreas Legales
+        // 2. Áreas Legales (9 especialidades)
         document.getElementById('tablaAdminAreas').innerHTML = areas.map((a, idx) => `
             <tr>
-                <td><strong><i class="${a.icono}" style="color:var(--dorado); margin-right:6px;"></i>${a.nombre}</strong></td>
+                <td>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <img src="${a.imagen}" alt="${a.nombre}" style="width:46px; height:36px; object-fit:cover; border-radius:4px;">
+                        <strong><i class="${a.icono}" style="color:var(--dorado); margin-right:6px;"></i>${a.nombre}</strong>
+                    </div>
+                </td>
                 <td>${a.resumen}</td>
                 <td><span class="badge-status ${a.activo ? 'badge-active' : 'badge-hidden'}">${a.activo ? 'Activa' : 'Oculta'}</span></td>
                 <td>
@@ -158,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `).join('');
 
-        // 3. Renderizar Tabla de Abogados (Staff)
+        // 3. Abogados (Staff)
         document.getElementById('tablaAdminStaff').innerHTML = staff.map((s, idx) => `
             <tr>
                 <td><strong>${s.nombre}</strong></td>
@@ -173,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `).join('');
 
-        // 4. Renderizar Tabla del Blog
+        // 4. Artículos Jurídicos (Blog)
         document.getElementById('tablaAdminBlog').innerHTML = blog.map((b, idx) => `
             <tr>
                 <td><strong>${b.destacado ? '★ ' : ''}${b.titulo}</strong></td>
@@ -188,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `).join('');
 
-        // 5. Renderizar Testimonios de Clientes y Comentarios del Blog
+        // 5. Testimonios y Comentarios
         document.getElementById('tablaAdminTestimonios').innerHTML = cacheTestimonios.map((t, idx) => `
             <tr>
                 <td><strong>${t.identificacion_cliente}</strong><br><small>${t.cargo_o_tipo_cliente || ''}</small></td>
@@ -216,9 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="btn-sm-action" onclick="borrarComentarioBlog(${c.comentario_id})" style="color:#dc2626;">Borrar</button>
                 </td>
             </tr>
-        `).join('') || `<tr><td colspan="6" style="text-align:center;">No hay comentarios en artículos del blog.</td></tr>`;
+        `).join('') || `<tr><td colspan="6" style="text-align:center;">No hay comentarios en artículos.</td></tr>`;
 
-        // 6. Renderizar Solicitudes de Contacto con selector de estado y notas internas
+        // 6. Consultas Recibidas
         const tbodyContactos = document.getElementById('tablaAdminContactos');
         if (contactos.length === 0) {
             tbodyContactos.innerHTML = `<tr><td colspan="6" style="text-align:center;">No se han recibido consultas todavía.</td></tr>`;
@@ -248,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('');
         }
 
-        // 7. Renderizar Postulaciones y CVs con selector de etapa de selección
+        // 7. Postulaciones y CVs
         const tbodyPost = document.getElementById('tablaAdminPostulaciones');
         if (postulaciones.length === 0) {
             tbodyPost.innerHTML = `<tr><td colspan="7" style="text-align:center;">No hay postulaciones registradas todavía.</td></tr>`;
@@ -280,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('');
         }
 
-        // 8. Renderizar Tabla de Vacantes
+        // 8. Vacantes / Practicantes
         document.getElementById('tablaAdminVacantes').innerHTML = vacantes.map((v, idx) => `
             <tr>
                 <td><strong>${v.puesto}</strong></td>
@@ -296,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </tr>
         `).join('');
 
-        // 10. Renderizar Tabla de Usuarios Administradores
+        // 10. Usuarios Administradores
         document.getElementById('tablaAdminUsuarios').innerHTML = cacheUsuariosAdmin.map((u, idx) => `
             <tr>
                 <td>#${u.usuario_id}</td>
@@ -319,7 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. FUNCIONES PARA CARGAR DATOS EN EL FORMULARIO AL DAR CLIC EN "EDITAR"
     // =========================================================
 
-    // Editar Portada
     window.cargarEdicionPortada = function(idx) {
         const p = cachePortadas[idx];
         if (!p) return;
@@ -344,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btnCancelarPortada').style.display = 'none';
     });
 
-    // Editar Área Legal
     window.cargarEdicionArea = function(idx) {
         const a = obtenerAreasLegales()[idx];
         if (!a) return;
@@ -368,7 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btnCancelarArea').style.display = 'none';
     });
 
-    // Editar Abogado del Staff
     window.cargarEdicionStaff = function(idx) {
         const s = obtenerStaff()[idx];
         if (!s) return;
@@ -395,7 +397,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btnCancelarAbogado').style.display = 'none';
     });
 
-    // Editar Publicación del Blog
     window.cargarEdicionBlog = function(idx) {
         const b = obtenerBlog()[idx];
         if (!b) return;
@@ -411,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('blogDestacado').checked = Boolean(b.destacado);
         document.getElementById('blogSubtitulo').value = b.subtitulo || '';
         document.getElementById('blogContenido').value = (b.contenido || '').replace(/<\/?p>/g, '');
-        document.getElementById('tituloFormBlog').textContent = `Editando Publicación: ${b.titulo}`;
+        document.getElementById('tituloFormBlog').textContent = `Editando Artículo: ${b.titulo}`;
         document.getElementById('btnCancelarBlog').style.display = 'inline-block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -419,11 +420,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnCancelarBlog').addEventListener('click', () => {
         document.getElementById('formNuevoBlog').reset();
         document.getElementById('blogIdEdit').value = '';
-        document.getElementById('tituloFormBlog').textContent = 'Crear / Editar Publicación del Blog';
+        document.getElementById('tituloFormBlog').textContent = 'Crear / Editar Artículo Jurídico';
         document.getElementById('btnCancelarBlog').style.display = 'none';
     });
 
-    // Editar Testimonio
     window.cargarEdicionTestimonio = function(idx) {
         const t = cacheTestimonios[idx];
         if (!t) return;
@@ -445,7 +445,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('btnCancelarTestimonio').style.display = 'none';
     });
 
-    // Editar Vacante
     window.cargarEdicionVacante = function(idx) {
         const v = obtenerVacantes()[idx];
         if (!v) return;
@@ -464,11 +463,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnCancelarVacante').addEventListener('click', () => {
         document.getElementById('formNuevaVacante').reset();
         document.getElementById('vacIdEdit').value = '';
-        document.getElementById('tituloFormVacante').textContent = 'Publicar / Editar Oportunidad Laboral';
+        document.getElementById('tituloFormVacante').textContent = 'Publicar / Editar Convocatoria para Practicantes';
         document.getElementById('btnCancelarVacante').style.display = 'none';
     });
 
-    // Editar Usuario Admin
     window.cargarEdicionUsuario = function(idx) {
         const u = cacheUsuariosAdmin[idx];
         if (!u) return;
@@ -493,12 +491,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. ENVÍO DE TODOS LOS FORMULARIOS (CREAR Y EDITAR EN SUPABASE)
     // =========================================================
 
-    // 1. Guardar / Editar Portada -> sp_guardar_portada
+    // 1. Portada
     document.getElementById('formPortada').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('portadaIdEdit').value ? parseInt(document.getElementById('portadaIdEdit').value) : null;
         let urlImagen = document.getElementById('portadaImagenUrl').value.trim();
-        const archivoImg = document.getElementById('portadaArchivoImg').files[0];
+        const archivoImg = document.getElementById('portadaArchivoImg')?.files[0];
 
         if (archivoImg && typeof subirArchivoStorageSupabase === 'function') {
             const subida = await subirArchivoStorageSupabase('imagenes_sitio', archivoImg);
@@ -522,14 +520,14 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     });
 
-    // 2. Guardar / Editar Área Legal -> sp_guardar_area_legal
+    // 2. Área Legal (Incluye PATCH directo para que las imágenes subidas desde PC se actualicen al instante)
     document.getElementById('formNuevaArea').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('areaIdEdit').value ? parseInt(document.getElementById('areaIdEdit').value) : null;
         const nombre = document.getElementById('areaNuevoNombre').value.trim();
         const icono = document.getElementById('areaNuevoIcono').value.trim() || 'fa-solid fa-scale-balanced';
         let imagen = document.getElementById('areaNuevaImg').value.trim();
-        const archivoImg = document.getElementById('areaArchivoImg').files[0];
+        const archivoImg = document.getElementById('areaArchivoImg')?.files[0];
 
         if (archivoImg && typeof subirArchivoStorageSupabase === 'function') {
             const subida = await subirArchivoStorageSupabase('imagenes_sitio', archivoImg);
@@ -553,16 +551,25 @@ document.addEventListener('DOMContentLoaded', () => {
             p_orden: 1
         });
 
+        // Forzar actualización de la imagen directa en la tabla areas_legales
+        if (imagen && typeof supabaseRest === 'function') {
+            const filtro = idEdit ? `?area_id=eq.${idEdit}` : `?nombre=eq.${encodeURIComponent(nombre)}`;
+            await supabaseRest('areas_legales', 'PATCH', filtro, {
+                imagen_id: null,
+                url_imagen_directa: imagen
+            });
+        }
+
         document.getElementById('btnCancelarArea').click();
         await inicializarPanelConSupabase();
     });
 
-    // 3. Guardar / Editar Abogado -> sp_guardar_abogado
+    // 3. Abogado
     document.getElementById('formNuevoAbogado').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('abIdEdit').value ? parseInt(document.getElementById('abIdEdit').value) : null;
         let foto = document.getElementById('abFoto').value.trim();
-        const archivoFoto = document.getElementById('abArchivoFoto').files[0];
+        const archivoFoto = document.getElementById('abArchivoFoto')?.files[0];
 
         if (archivoFoto && typeof subirArchivoStorageSupabase === 'function') {
             const subida = await subirArchivoStorageSupabase('imagenes_sitio', archivoFoto);
@@ -589,12 +596,12 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     });
 
-    // 4. Guardar / Editar Publicación del Blog -> sp_guardar_publicacion_blog
+    // 4. Artículos Jurídicos (Blog)
     document.getElementById('formNuevoBlog').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('blogIdEdit').value ? parseInt(document.getElementById('blogIdEdit').value) : null;
         let imagen = document.getElementById('blogImagen').value.trim();
-        const archivoImg = document.getElementById('blogArchivoImg').files[0];
+        const archivoImg = document.getElementById('blogArchivoImg')?.files[0];
 
         if (archivoImg && typeof subirArchivoStorageSupabase === 'function') {
             const subida = await subirArchivoStorageSupabase('imagenes_sitio', archivoImg);
@@ -623,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     });
 
-    // 5. Guardar / Editar Testimonio -> sp_guardar_testimonio
+    // 5. Testimonios
     document.getElementById('formTestimonio').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('testimonioIdEdit').value ? parseInt(document.getElementById('testimonioIdEdit').value) : null;
@@ -641,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     });
 
-    // 8. Guardar / Editar Vacante -> sp_guardar_vacante
+    // 8. Vacantes
     document.getElementById('formNuevaVacante').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('vacIdEdit').value ? parseInt(document.getElementById('vacIdEdit').value) : null;
@@ -662,15 +669,15 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     });
 
-    // 9. Guardar Configuración General y Nosotros -> sp_actualizar_configuracion_sitio
+    // 9. Configuración General y Nosotros
     document.getElementById('formConfigGeneral').addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const nuevaConfig = {
             nombre_estudio: document.getElementById('cfgNombreEstudio') ? document.getElementById('cfgNombreEstudio').value.trim() : 'Estudio Jurídico Ureta & Asociados',
-            frase_institucional: document.getElementById('cfgFrase') ? document.getElementById('cfgFrase').value.trim() : 'Solidez jurídica, prestigio y excelencia profesional',
+            frase_institucional: document.getElementById('cfgFrase') ? document.getElementById('cfgFrase').value.trim() : 'Lealtad, trascendencia y excelencia',
             telefono_principal: document.getElementById('cfgTelefono').value.trim(),
-            whatsapp_numero: document.getElementById('cfgWhatsapp') ? document.getElementById('cfgWhatsapp').value.trim() : '51999322490',
+            whatsapp_numero: document.getElementById('cfgWhatsapp') ? document.getElementById('cfgWhatsapp').value.trim() : '51980249579',
             correo_contacto: document.getElementById('cfgCorreo').value.trim(),
             direccion_fisica: document.getElementById('cfgDireccion').value.trim(),
             horario_atencion: document.getElementById('cfgHorario').value.trim(),
@@ -692,12 +699,11 @@ document.addEventListener('DOMContentLoaded', () => {
             p_vision: nuevaConfig.vision
         });
 
-        // Actualizar el caché instantáneo para que el cambio se vea en 0 ms en toda la web
         localStorage.setItem('ureta_config_cache', JSON.stringify(nuevaConfig));
         document.getElementById('msgConfigGuardada').style.display = 'block';
     });
 
-    // 10. Guardar / Editar Usuario Administrador -> sp_guardar_usuario_admin
+    // 10. Usuarios Administradores
     document.getElementById('formUsuarioAdmin').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('userIdEdit').value ? parseInt(document.getElementById('userIdEdit').value) : null;
@@ -724,7 +730,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. ACCIONES INDIVIDUALES DE ESTADO Y ELIMINACIÓN EN SUPABASE
     // =========================================================
 
-    // Portadas
     window.alternarEstadoPortada = async function(id, nuevoEstado) {
         await llamarProcedimiento('sp_estado_portada', { p_portada_id: id, p_publicado: nuevoEstado });
         await inicializarPanelConSupabase();
@@ -734,7 +739,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Áreas Legales
     window.alternarEstadoArea = async function(idx) {
         const areas = obtenerAreasLegales();
         const nuevoEstado = !areas[idx].activo;
@@ -751,7 +755,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Staff de Abogados
     window.alternarEstadoStaff = async function(idx) {
         const staff = obtenerStaff();
         const nuevoEstado = !staff[idx].activo;
@@ -768,7 +771,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Blog
     window.alternarEstadoBlog = async function(idx) {
         const blog = obtenerBlog();
         const nuevoEstado = blog[idx].estado === 'Publicado' ? 'Archivado' : 'Publicado';
@@ -785,7 +787,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Testimonios y Comentarios del Blog
     window.cambiarEstadoTestimonio = async function(id, nuevoEstado, destacado) {
         await llamarProcedimiento('sp_estado_testimonio', { p_testimonio_id: id, p_estado: nuevoEstado, p_destacado: destacado });
         await inicializarPanelConSupabase();
@@ -803,7 +804,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Consultas de Contacto
     window.guardarGestionContacto = async function(idx) {
         const contactos = JSON.parse(localStorage.getItem('ureta_contactos_db') || '[]');
         const nuevoEstado = document.getElementById(`estContacto_${idx}`).value;
@@ -826,7 +826,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Postulaciones
     window.cambiarEstadoPostulacion = async function(idx, nuevoEstado) {
         const postulaciones = JSON.parse(localStorage.getItem('ureta_postulaciones_db') || '[]');
         if (postulaciones[idx] && postulaciones[idx].id) {
@@ -845,7 +844,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Vacantes
     window.alternarVacante = async function(idx) {
         const vacantes = obtenerVacantes();
         const nuevoEstado = !vacantes[idx].activa;
@@ -862,7 +860,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Usuarios Administradores
     window.cambiarEstadoUsuario = async function(id, nuevoEstado) {
         await llamarProcedimiento('sp_estado_usuario_admin', { p_usuario_id: id, p_activo: nuevoEstado });
         await inicializarPanelConSupabase();
@@ -872,7 +869,6 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     };
 
-    // Botón para resincronizar todo desde Supabase
     document.getElementById('btnResetDatabase').addEventListener('click', async () => {
         localStorage.removeItem('ureta_areas_db');
         localStorage.removeItem('ureta_staff_db');
@@ -881,4 +877,205 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
         alert('Todos los módulos han sido sincronizados desde Supabase.');
     });
+
+    // =========================================================================
+    // 11. SUBIDA AUTOMÁTICA DE FOTOS DESDE LA PC EN TODOS LOS FORMULARIOS
+    // =========================================================================
+    document.querySelectorAll('.input-subir-foto-pc').forEach(inputFile => {
+        inputFile.addEventListener('change', async (e) => {
+            const archivo = e.target.files[0];
+            if (!archivo) return;
+
+            const targetId = inputFile.dataset.target;
+            const carpeta = inputFile.dataset.carpeta || 'general';
+            const inputUrl = document.getElementById(targetId);
+            const estadoEl = inputFile.closest('.upload-img-inline')?.querySelector('.estado-subida-foto');
+
+            if (estadoEl) estadoEl.textContent = 'Subiendo imagen a la nube...';
+
+            const urlPublica = await subirImagenWebSupabase(archivo, carpeta);
+            if (urlPublica && inputUrl) {
+                inputUrl.value = urlPublica;
+                if (estadoEl) estadoEl.textContent = '✓ Imagen subida lista para guardar';
+            } else if (estadoEl) {
+                estadoEl.textContent = '✗ Error al subir imagen';
+            }
+            inputFile.value = '';
+        });
+    });
+
+    // =========================================================================
+    // 12. CRUD DE EVENTOS ACADÉMICOS (CON ENLACE EDITABLE DE GOOGLE FORMS)
+    // =========================================================================
+    const tablaEventos = document.getElementById('tablaAdminEventos');
+    const formEvento = document.getElementById('formAdminEvento');
+    let cacheEventosAdmin = [];
+
+    async function cargarEventosAdmin() {
+        if (!tablaEventos) return;
+        cacheEventosAdmin = await supabaseRest('eventos_academicos', 'GET', '?select=*&order=evento_id.desc') || [];
+        tablaEventos.innerHTML = cacheEventosAdmin.map(ev => `
+            <tr>
+                <td>
+                    <strong>${ev.titulo}</strong><br>
+                    <small style="color:#64748b;">${ev.categoria} • ${ev.ponente}</small>
+                </td>
+                <td>${ev.fecha_evento || '-'}<br><small>${ev.modalidad}</small></td>
+                <td>
+                    ${ev.link_inscripcion ? `<a href="${ev.link_inscripcion}" target="_blank" style="color:#238d41; font-weight:600;">Abrir Forms ↗</a>` : 'Sin enlace'}
+                </td>
+                <td><span class="badge-status ${ev.estado === 'Publicado' ? 'badge-active' : 'badge-hidden'}">${ev.estado}</span></td>
+                <td>
+                    <button class="btn-sm-action" onclick="editarEventoAdmin(${ev.evento_id})"><i class="fa-solid fa-pen"></i> Editar</button>
+                    <button class="btn-sm-action" onclick="eliminarEventoAdmin(${ev.evento_id})" style="color:#dc2626;">Eliminar</button>
+                </td>
+            </tr>
+        `).join('') || '<tr><td colspan="5" style="text-align:center;">No hay eventos registrados.</td></tr>';
+    }
+
+    window.editarEventoAdmin = (id) => {
+        const ev = cacheEventosAdmin.find(x => x.evento_id === id);
+        if (!ev) return;
+        document.getElementById('evId').value = ev.evento_id;
+        document.getElementById('evTitulo').value = ev.titulo || '';
+        document.getElementById('evCategoria').value = ev.categoria || '';
+        document.getElementById('evFecha').value = ev.fecha_evento || '';
+        document.getElementById('evModalidad').value = ev.modalidad || 'Presencial / Virtual';
+        document.getElementById('evHoraLugar').value = ev.hora_lugar || '';
+        document.getElementById('evPonente').value = ev.ponente || '';
+        document.getElementById('evLinkForms').value = ev.link_inscripcion || '';
+        document.getElementById('evImagen').value = ev.imagen_url || '';
+        document.getElementById('evSubtitulo').value = ev.subtitulo || '';
+        document.getElementById('evDescripcion').value = (ev.descripcion_html || '').replace(/<[^>]+>/g, '');
+        document.getElementById('evDestacado').checked = !!ev.destacado;
+        document.getElementById('evEstado').value = ev.estado || 'Publicado';
+        document.getElementById('tituloFormEvento').textContent = 'Editando Evento #' + ev.evento_id;
+        formEvento.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.eliminarEventoAdmin = async (id) => {
+        if (!confirm('¿Eliminar este evento académico permanentemente?')) return;
+        await supabaseRest('eventos_academicos', 'DELETE', `?evento_id=eq.${id}`);
+        cargarEventosAdmin();
+    };
+
+    if (formEvento) {
+        formEvento.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('evId').value;
+            const descTexto = document.getElementById('evDescripcion').value.trim();
+            const payload = {
+                titulo: document.getElementById('evTitulo').value.trim(),
+                categoria: document.getElementById('evCategoria').value.trim(),
+                fecha_evento: document.getElementById('evFecha').value,
+                modalidad: document.getElementById('evModalidad').value,
+                hora_lugar: document.getElementById('evHoraLugar').value.trim(),
+                ponente: document.getElementById('evPonente').value.trim(),
+                link_inscripcion: document.getElementById('evLinkForms').value.trim(),
+                imagen_url: document.getElementById('evImagen').value.trim() || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80',
+                subtitulo: document.getElementById('evSubtitulo').value.trim(),
+                descripcion_html: `<p>${descTexto.replace(/\n/g, '</p><p>')}</p>`,
+                destacado: document.getElementById('evDestacado').checked,
+                estado: document.getElementById('evEstado').value
+            };
+
+            if (id) {
+                await supabaseRest('eventos_academicos', 'PATCH', `?evento_id=eq.${id}`, payload);
+            } else {
+                await supabaseRest('eventos_academicos', 'POST', '', payload);
+            }
+            formEvento.reset();
+            document.getElementById('evId').value = '';
+            document.getElementById('tituloFormEvento').textContent = 'Crear / Editar Evento Académico';
+            cargarEventosAdmin();
+            alert('Evento guardado correctamente en Supabase.');
+        });
+
+        document.getElementById('btnCancelarEvento')?.addEventListener('click', () => {
+            formEvento.reset();
+            document.getElementById('evId').value = '';
+            document.getElementById('tituloFormEvento').textContent = 'Crear / Editar Evento Académico';
+        });
+
+        cargarEventosAdmin();
+    }
+
+    // =========================================================================
+    // 13. CRUD DE HISTORIAS "DE PRACTICANTE A ABOGADO"
+    // =========================================================================
+    const tablaHistorias = document.getElementById('tablaAdminHistorias');
+    const formHistoria = document.getElementById('formAdminHistoria');
+    let cacheHistoriasAdmin = [];
+
+    async function cargarHistoriasAdmin() {
+        if (!tablaHistorias) return;
+        cacheHistoriasAdmin = await supabaseRest('historias_carrera', 'GET', '?select=*&order=orden.asc,historia_id.asc') || [];
+        tablaHistorias.innerHTML = cacheHistoriasAdmin.map(h => `
+            <tr>
+                <td><img src="${h.foto_url}" alt="${h.nombre_completo}" style="width:46px; height:46px; border-radius:50%; object-fit:cover;"></td>
+                <td><strong>${h.nombre_completo}</strong><br><small style="color:#238d41;">${h.cargo_actual}</small></td>
+                <td>${h.etapa_inicio}</td>
+                <td>${h.orden}</td>
+                <td>
+                    <button class="btn-sm-action" onclick="editarHistoriaAdmin(${h.historia_id})"><i class="fa-solid fa-pen"></i> Editar</button>
+                    <button class="btn-sm-action" onclick="eliminarHistoriaAdmin(${h.historia_id})" style="color:#dc2626;">Eliminar</button>
+                </td>
+            </tr>
+        `).join('') || '<tr><td colspan="5" style="text-align:center;">No hay historias registradas.</td></tr>';
+    }
+
+    window.editarHistoriaAdmin = (id) => {
+        const h = cacheHistoriasAdmin.find(x => x.historia_id === id);
+        if (!h) return;
+        document.getElementById('histId').value = h.historia_id;
+        document.getElementById('histNombre').value = h.nombre_completo || '';
+        document.getElementById('histCargo').value = h.cargo_actual || '';
+        document.getElementById('histInicio').value = h.etapa_inicio || '';
+        document.getElementById('histOrden').value = h.orden || 1;
+        document.getElementById('histFoto').value = h.foto_url || '';
+        document.getElementById('histRelato').value = h.historia || '';
+        document.getElementById('tituloFormHistoria').textContent = 'Editando Historia de ' + h.nombre_completo;
+        formHistoria.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.eliminarHistoriaAdmin = async (id) => {
+        if (!confirm('¿Eliminar esta historia de carrera?')) return;
+        await supabaseRest('historias_carrera', 'DELETE', `?historia_id=eq.${id}`);
+        cargarHistoriasAdmin();
+    };
+
+    if (formHistoria) {
+        formHistoria.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('histId').value;
+            const payload = {
+                nombre_completo: document.getElementById('histNombre').value.trim(),
+                cargo_actual: document.getElementById('histCargo').value.trim(),
+                etapa_inicio: document.getElementById('histInicio').value.trim(),
+                orden: parseInt(document.getElementById('histOrden').value, 10) || 1,
+                foto_url: document.getElementById('histFoto').value.trim(),
+                historia: document.getElementById('histRelato').value.trim(),
+                activo: true
+            };
+
+            if (id) {
+                await supabaseRest('historias_carrera', 'PATCH', `?historia_id=eq.${id}`, payload);
+            } else {
+                await supabaseRest('historias_carrera', 'POST', '', payload);
+            }
+            formHistoria.reset();
+            document.getElementById('histId').value = '';
+            document.getElementById('tituloFormHistoria').textContent = 'Agregar / Editar Historia de Carrera';
+            cargarHistoriasAdmin();
+            alert('Historia guardada correctamente.');
+        });
+
+        document.getElementById('btnCancelarHistoria')?.addEventListener('click', () => {
+            formHistoria.reset();
+            document.getElementById('histId').value = '';
+            document.getElementById('tituloFormHistoria').textContent = 'Agregar / Editar Historia de Carrera';
+        });
+
+        cargarHistoriasAdmin();
+    }
 });

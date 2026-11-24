@@ -2771,3 +2771,295 @@ ul {
         padding: 28px 22px;
     }
 }
+/* =========================================================================
+   REBRANDING OFICIAL URETA & ASOCIADOS (PALETA VERDE BOSQUE + DORADO + CREMA)
+   ========================================================================= */
+:root {
+    --azul-marino: #123c2a;       /* Verde bosque institucional */
+    --azul-oscuro: #171a18;       /* Carbón oscuro */
+    --verde-acento: #238d41;      /* Verde corporativo */
+    --dorado: #b59a62;            /* Dorado oficial */
+    --dorado-hover: #9c824e;
+    --crema-fondo: #e6e0db;       /* Fondo cálido crema */
+    --gris-salvia: #a8ada8;       /* Gris salvia */
+    --gris-texto: #3d4440;
+    --blanco: #ffffff;
+}
+
+/* 1. Barra superior, Header, Footer y Fondos */
+.top-bar {
+    background-color: #171a18 !important;
+    border-bottom: 1px solid rgba(181, 154, 98, 0.25);
+}
+
+.header {
+    background-color: #123c2a !important;
+    border-bottom: 2px solid #b59a62;
+}
+
+.header .nav-link,
+.header .logo-title {
+    color: #ffffff !important;
+}
+
+.header .logo-subtitle {
+    color: #e6e0db !important;
+}
+
+.header .nav-link:hover,
+.header .nav-link.active {
+    color: #b59a62 !important;
+}
+
+.header .menu-toggle {
+    color: #ffffff !important;
+}
+
+.bg-light {
+    background-color: #e6e0db !important;
+}
+
+/* 2. Logotipo oficial en PNG */
+.logo-img-oficial {
+    height: 52px;
+    width: auto;
+    max-width: 230px;
+    object-fit: contain;
+    display: block;
+}
+
+.footer-logo .logo-img-oficial {
+    height: 58px;
+}
+
+/* 3. Botones, Portadas y Tarjetas Oscuras con la nueva paleta */
+.btn-gold,
+.btn-nav {
+    background-color: #b59a62 !important;
+    color: #171a18 !important;
+    font-weight: 700 !important;
+    border-color: #b59a62 !important;
+}
+
+.btn-gold:hover,
+.btn-nav:hover {
+    background-color: #238d41 !important;
+    color: #ffffff !important;
+    border-color: #238d41 !important;
+}
+
+.btn-primary-dark {
+    background-color: #123c2a !important;
+    color: #ffffff !important;
+    border: 1px solid #123c2a !important;
+}
+
+.btn-primary-dark:hover {
+    background-color: #238d41 !important;
+    border-color: #238d41 !important;
+}
+
+.hero-overlay,
+.page-banner-overlay {
+    background: linear-gradient(135deg, rgba(18, 60, 42, 0.88) 0%, rgba(23, 26, 24, 0.86) 100%) !important;
+}
+
+.why-us-section,
+.cta-banner,
+.footer,
+.about-floating-badge,
+.pillar-icon,
+.benefit-icon-wrap,
+.selection-steps-card,
+.contact-dark-sidebar,
+.spontaneous-banner-executive,
+.sidebar-form-card {
+    background: linear-gradient(160deg, #123c2a 0%, #171a18 100%) !important;
+}
+
+.footer-bottom {
+    background-color: #171a18 !important;
+    border-top: 1px solid rgba(168, 173, 168, 0.2) !important;
+}
+
+.section-title,
+.section-title-left,
+.area-card-body h3,
+.staff-info h3,
+.blog-card-body h3,
+.detail-box h3,
+.pillar-box h4,
+.career-benefit-card h3,
+.form-header-banner h3,
+.map-card-header h3 {
+    color: #123c2a !important;
+}
+
+.section-tag,
+.hero-badge,
+.staff-role,
+.card-link {
+    color: #b59a62 !important;
+}
+
+.card-link:hover {
+    color: #238d41 !important;
+}
+
+.area-card,
+.staff-card,
+.blog-card,
+.detail-box,
+.pillar-box,
+.career-benefit-card,
+.contact-form-executive {
+    border-color: rgba(168, 173, 168, 0.45) !important;
+}
+
+.contact-form-executive {
+    border-top-color: #123c2a !important;
+}
+
+.about-lead-highlight {
+    background-color: rgba(230, 224, 219, 0.45) !important;
+    border-left-color: #238d41 !important;
+}
+
+/* 4. Sección "De Practicante a Abogado" (4 tarjetas de trayectoria) */
+.career-stories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 18px;
+}
+
+.story-card {
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(168, 173, 168, 0.45);
+    border-top: 4px solid #b59a62;
+    box-shadow: 0 10px 26px rgba(18, 60, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(18, 60, 42, 0.14);
+}
+
+.story-photo-wrap {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background: #123c2a;
+}
+
+.story-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.story-badge-start {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    background: rgba(18, 60, 42, 0.92);
+    color: #e6e0db;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border-left: 3px solid #238d41;
+}
+
+.story-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.story-role-now {
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #238d41;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+}
+
+.story-body h3 {
+    font-family: var(--fuente-titulos, 'Playfair Display', serif);
+    font-size: 1.15rem;
+    color: #123c2a;
+    margin-bottom: 10px;
+}
+
+.story-body p {
+    font-size: 0.86rem;
+    color: #3d4440;
+    line-height: 1.55;
+    margin: 0;
+}
+
+@media (max-width: 1100px) {
+    .career-stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .career-stories-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Aumentar altura del encabezado para que luzca el logo más grande */
+.nav-container {
+    height: 105px !important;
+}
+
+/* Logotipo oficial en la barra superior (Header) */
+.logo-img-oficial {
+    height: 90px !important;
+    width: auto !important;
+    max-width: 320px !important;
+    object-fit: contain;
+    display: block;
+}
+
+/* Logotipo oficial en el pie de página (Footer) */
+.footer-logo .logo-img-oficial {
+    height: 92px !important;
+    max-width: 350px !important;
+}
+
+/* Ajuste en celulares para que no ocupe toda la pantalla */
+@media (max-width: 768px) {
+    .nav-container {
+        height: 88px !important;
+    }
+    .logo-img-oficial {
+        height: 64px !important;
+        max-width: 240px !important;
+    }
+}
+.admin-login-logo img {
+    height: 90px !important;
+    width: auto !important;
+    max-width: 320px !important;
+    object-fit: contain;
+    display: block;
+}
+
+.admin-sidebar-header img {
+    height: 72px;
+    width: auto;
+    margin: 0 auto 10px;
+    display: block;
+}

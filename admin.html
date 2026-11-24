@@ -3,817 +3,1290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración | Estudio Jurídico Ureta & Asociados</title>
+    <title>Panel Administrativo | Estudio Jurídico Ureta & Asociados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
-</head>
-<body class="admin-body">
+    <style>
+        /* Estilos exclusivos del Panel Administrativo Ejecutivo */
+        body {
+            background-color: #e6e0db;
+            color: #171a18;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+        }
 
-    <!-- ==========================================
-         PANTALLA DE ACCESO PRIVADO (LOGIN ADMIN)
-         ========================================== -->
+        /* Pantalla de Login */
+        .admin-login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #123c2a 0%, #171a18 100%);
+            padding: 20px;
+        }
+
+        .admin-login-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 430px;
+            padding: 40px 36px;
+            border-radius: 10px;
+            border-top: 5px solid #b59a62;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+
+        .admin-login-logo {
+            background: #123c2a;
+            padding: 14px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 18px;
+        }
+
+        .admin-login-logo img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+
+        .admin-login-box h2 {
+            font-family: 'Playfair Display', serif;
+            color: #123c2a;
+            margin-bottom: 6px;
+            font-size: 1.65rem;
+        }
+
+        .admin-login-box p {
+            color: #525b56;
+            font-size: 0.88rem;
+            margin-bottom: 24px;
+        }
+
+        .admin-login-box .form-group {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+
+        /* Layout Principal del Panel */
+        .admin-app-layout {
+            display: none;
+            grid-template-columns: 270px 1fr;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            background: linear-gradient(180deg, #123c2a 0%, #171a18 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid #b59a62;
+        }
+
+        .admin-sidebar-header {
+            padding: 22px 20px;
+            border-bottom: 1px solid rgba(181, 154, 98, 0.25);
+            text-align: center;
+        }
+
+        .admin-sidebar-header img {
+            height: 46px;
+            width: auto;
+            margin: 0 auto 8px;
+            display: block;
+        }
+
+        .admin-sidebar-header span {
+            font-size: 0.74rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #b59a62;
+            font-weight: 700;
+        }
+
+        .admin-nav-list {
+            padding: 14px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .admin-tab-btn {
+            background: transparent;
+            border: none;
+            color: #e6e0db;
+            text-align: left;
+            padding: 11px 14px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.86rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .admin-tab-btn i {
+            width: 18px;
+            text-align: center;
+            color: #b59a62;
+        }
+
+        .admin-tab-btn:hover {
+            background: rgba(181, 154, 98, 0.16);
+            color: #ffffff;
+        }
+
+        .admin-tab-btn.active {
+            background: #b59a62;
+            color: #171a18;
+            font-weight: 700;
+        }
+
+        .admin-tab-btn.active i {
+            color: #171a18;
+        }
+
+        .admin-sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Área Principal Derecha */
+        .admin-main-area {
+            display: flex;
+            flex-direction: column;
+            background: #e6e0db;
+        }
+
+        .admin-topbar {
+            background: #ffffff;
+            padding: 16px 28px;
+            border-bottom: 1px solid #cbd5e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .admin-topbar h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            color: #123c2a;
+            margin: 0;
+        }
+
+        .admin-topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .admin-user-pill {
+            background: #f1f5f9;
+            color: #123c2a;
+            padding: 7px 14px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: 1px solid #cbd5e1;
+        }
+
+        .admin-content-body {
+            padding: 28px;
+            max-width: 1320px;
+            width: 100%;
+        }
+
+        .admin-tab-panel {
+            display: none;
+        }
+
+        .admin-tab-panel.active {
+            display: block;
+        }
+
+        /* Tarjetas y KPIs */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .kpi-card {
+            background: #ffffff;
+            padding: 22px 20px;
+            border-radius: 8px;
+            border-left: 5px solid #b59a62;
+            box-shadow: 0 4px 14px rgba(18, 60, 42, 0.06);
+        }
+
+        .kpi-card span {
+            font-size: 0.8rem;
+            color: #525b56;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .kpi-card strong {
+            font-size: 1.9rem;
+            color: #123c2a;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .admin-card {
+            background: #ffffff;
+            padding: 26px 28px;
+            border-radius: 8px;
+            border: 1px solid rgba(168, 173, 168, 0.5);
+            box-shadow: 0 6px 18px rgba(18, 60, 42, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .admin-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #123c2a;
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Tablas */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.86rem;
+        }
+
+        .admin-table th {
+            background: #123c2a;
+            color: #ffffff;
+            text-align: left;
+            padding: 12px 14px;
+            font-weight: 600;
+        }
+
+        .admin-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+
+        .admin-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-hidden {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-sm-action {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #123c2a;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+
+        .btn-sm-action:hover {
+            background: #b59a62;
+            color: #171a18;
+            border-color: #b59a62;
+        }
+
+        @media (max-width: 960px) {
+            .admin-app-layout {
+                grid-template-columns: 1fr;
+            }
+            .admin-nav-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =========================================================
+         PANTALLA DE INICIO DE SESIÓN PRIVADO
+         ========================================================= -->
     <div class="admin-login-screen" id="adminLoginScreen">
-        <div class="admin-login-card">
-            <div class="logo" style="justify-content: center; margin-bottom: 20px;">
-                <div class="logo-icon">U&A</div>
-                <div class="logo-text">
-                    <span class="logo-title">URETA & ASOCIADOS</span>
-                    <span class="logo-subtitle">PANEL ADMINISTRATIVO</span>
-                </div>
+        <div class="admin-login-box">
+            <div class="admin-login-logo">
+                <img src="img/logo.png" alt="Estudio Jurídico Ureta & Asociados">
             </div>
-            <h3>Acceso Restringido</h3>
-            <p>Ingrese sus credenciales de administrador para gestionar el sitio institucional.</p>
+            <h2>Panel Administrativo</h2>
+            <p>Acceso exclusivo para socios y personal autorizado del Estudio Jurídico Ureta & Asociados.</p>
+
             <form id="formLoginAdmin">
                 <div class="form-group">
-                    <label style="color: #cbd5e1;">Usuario / Correo institucional</label>
-                    <input type="email" id="loginEmail" value="admin@estudio-ureta.com" required>
+                    <label>Correo Institucional *</label>
+                    <input type="email" id="loginEmail" placeholder="admin@estudio-ureta.com" required>
                 </div>
                 <div class="form-group">
-                    <label style="color: #cbd5e1;">Contraseña</label>
-                    <input type="password" id="loginPass" value="Ureta2026*" required>
+                    <label>Contraseña *</label>
+                    <input type="password" id="loginPass" placeholder="••••••••••" required>
                 </div>
-                <p id="loginError" style="color: #f87171; font-size: 0.82rem; display: none; margin-bottom: 10px;">
+                <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center; margin-top: 8px;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Ingresar al Sistema
+                </button>
+                <p id="loginError" style="display: none; color: #dc2626; font-weight: 600; margin-top: 14px; font-size: 0.84rem;">
                     Credenciales incorrectas. Verifique su correo y contraseña.
                 </p>
-                <button type="submit" class="btn btn-gold" style="width: 100%;">
-                    <i class="fa-solid fa-right-to-bracket"></i> Ingresar al Panel
-                </button>
-                <a href="index.html" style="display:block; text-align:center; margin-top:16px; color:#94a3b8; font-size:0.84rem;">
+            </form>
+
+            <div style="margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 14px;">
+                <a href="index.html" style="color: #123c2a; font-size: 0.84rem; font-weight: 600; text-decoration: none;">
                     ← Volver al sitio web público
                 </a>
-            </form>
+            </div>
         </div>
     </div>
 
-    <!-- ==========================================
-         ESTRUCTURA DEL PANEL DE ADMINISTRACIÓN
-         ========================================== -->
-    <div class="admin-layout" id="adminAppLayout" style="display: none;">
+    <!-- =========================================================
+         INTERFAZ PRINCIPAL DEL PANEL ADMINISTRATIVO (12 MÓDULOS)
+         ========================================================= -->
+    <div class="admin-app-layout" id="adminAppLayout">
         
-        <!-- Menú Lateral Izquierdo (Sidebar) -->
+        <!-- Barra Lateral de Navegación -->
         <aside class="admin-sidebar">
-            <div class="admin-brand">
-                <div class="logo-icon">U&A</div>
-                <div>
-                    <h4>URETA & ASOCIADOS</h4>
-                    <span>CMS Jurídico • Supabase</span>
-                </div>
+            <div class="admin-sidebar-header">
+                <img src="img/logo.png" alt="Estudio Jurídico Ureta & Asociados">
+                <span>Sistema de Gestión Web</span>
             </div>
 
-            <ul class="admin-nav">
-                <li><button class="admin-tab-btn active" data-tab="tab-dashboard"><i class="fa-solid fa-chart-pie"></i> Dashboard General</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-portadas"><i class="fa-solid fa-images"></i> 1. Gestión de Portada</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-areas"><i class="fa-solid fa-scale-balanced"></i> 2. Nuestras Áreas (13)</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-staff"><i class="fa-solid fa-user-tie"></i> 3. Gestión de Abogados</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-blog"><i class="fa-solid fa-newspaper"></i> 4. Gestión del Blog</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-testimonios"><i class="fa-solid fa-comments"></i> 5. Testimonios y Comentarios</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-contactos"><i class="fa-solid fa-envelope-open-text"></i> 6. Consultas Recibidas</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-postulaciones"><i class="fa-solid fa-file-pdf"></i> 7. Postulaciones y CVs</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-vacantes"><i class="fa-solid fa-briefcase"></i> 8. Gestión de Vacantes</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-config"><i class="fa-solid fa-sliders"></i> 9. Configuración y Nosotros</button></li>
-                <li><button class="admin-tab-btn" data-tab="tab-usuarios"><i class="fa-solid fa-users-gear"></i> 10. Usuarios Admin</button></li>
-            </ul>
+            <nav class="admin-nav-list">
+                <button class="admin-tab-btn active" data-tab="tabDashboard"><i class="fa-solid fa-chart-line"></i> Resumen (KPIs)</button>
+                <button class="admin-tab-btn" data-tab="tabPortadas"><i class="fa-solid fa-images"></i> 1. Portadas (Hero)</button>
+                <button class="admin-tab-btn" data-tab="tabAreas"><i class="fa-solid fa-scale-balanced"></i> 2. Áreas Legales (9)</button>
+                <button class="admin-tab-btn" data-tab="tabStaff"><i class="fa-solid fa-user-tie"></i> 3. Nuestro Staff</button>
+                <button class="admin-tab-btn" data-tab="tabBlog"><i class="fa-solid fa-newspaper"></i> 4. Artículos Jurídicos</button>
+                <button class="admin-tab-btn" data-tab="tabEventos"><i class="fa-solid fa-calendar-days"></i> 5. Eventos Académicos</button>
+                <button class="admin-tab-btn" data-tab="tabHistorias"><i class="fa-solid fa-user-graduate"></i> 6. De Practicante a Abogado</button>
+                <button class="admin-tab-btn" data-tab="tabTestimonios"><i class="fa-solid fa-comments"></i> 7. Testimonios y Comentarios</button>
+                <button class="admin-tab-btn" data-tab="tabContactos"><i class="fa-solid fa-envelope-open-text"></i> 8. Consultas Recibidas</button>
+                <button class="admin-tab-btn" data-tab="tabPostulaciones"><i class="fa-solid fa-file-pdf"></i> 9. Postulaciones y CVs</button>
+                <button class="admin-tab-btn" data-tab="tabVacantes"><i class="fa-solid fa-briefcase"></i> 10. Convocatorias Prácticas</button>
+                <button class="admin-tab-btn" data-tab="tabConfig"><i class="fa-solid fa-gear"></i> 11. Configuración y Nosotros</button>
+                <button class="admin-tab-btn" data-tab="tabUsuarios"><i class="fa-solid fa-users-gear"></i> 12. Usuarios Admin</button>
+            </nav>
 
             <div class="admin-sidebar-footer">
-                <a href="index.html" class="btn btn-gold" style="width:100%; text-align:center; padding:10px;">
-                    <i class="fa-solid fa-globe"></i> Ver Sitio Público
+                <a href="index.html" target="_blank" class="btn btn-gold" style="justify-content: center; font-size: 0.82rem; padding: 9px;">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Web en Vivo
                 </a>
-                <button id="btnCerrarSesion" class="btn-logout">
-                    <i class="fa-solid fa-power-off"></i> Cerrar sesión
+                <button id="btnCerrarSesion" class="btn btn-primary-dark" style="justify-content: center; font-size: 0.82rem; padding: 9px; border-color: rgba(255,255,255,0.25) !important;">
+                    <i class="fa-solid fa-power-off"></i> Cerrar Sesión
                 </button>
             </div>
         </aside>
 
-        <!-- Área de Contenido Principal -->
-        <main class="admin-main">
-            
-            <!-- Encabezado Superior del Admin -->
+        <!-- Contenido Principal -->
+        <main class="admin-main-area">
             <header class="admin-topbar">
-                <div>
-                    <h2 id="adminSeccionTitulo">Dashboard de Indicadores</h2>
-                    <span>Conectado en tiempo real con la Base de Datos en Supabase</span>
-                </div>
-                <div class="admin-user-badge" id="adminNombreUsuario">
-                    <i class="fa-solid fa-user-shield"></i> Administrador General
+                <h1 id="adminSeccionTitulo">Resumen (KPIs)</h1>
+                <div class="admin-topbar-actions">
+                    <span class="admin-user-pill" id="adminNombreUsuario"><i class="fa-solid fa-user-shield"></i> Administrador Principal</span>
+                    <button id="btnResetDatabase" class="btn btn-primary-dark" style="padding: 8px 14px; font-size: 0.8rem;">
+                        <i class="fa-solid fa-rotate"></i> Sincronizar Supabase
+                    </button>
                 </div>
             </header>
 
-            <!-- ==========================================
-                 MÓDULO 0: DASHBOARD DE INDICADORES
-                 ========================================== -->
-            <section class="admin-tab-panel active" id="tab-dashboard">
-                <div class="kpi-grid">
-                    <div class="kpi-card">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                        <div>
-                            <h3 id="kpiTotalAreas">13</h3>
-                            <span>Total Áreas Legales</span>
+            <div class="admin-content-body">
+
+                <!-- =====================================
+                     PANEL 0: DASHBOARD KPIs
+                     ===================================== -->
+                <section class="admin-tab-panel active" id="tabDashboard">
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <span>Especialidades Activas</span>
+                            <strong id="kpiTotalAreas">9</strong>
                         </div>
-                    </div>
-                    <div class="kpi-card">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <div>
-                            <h3 id="kpiTotalAbogados">0</h3>
-                            <span>Total Abogados</span>
+                        <div class="kpi-card">
+                            <span>Abogados en Staff</span>
+                            <strong id="kpiTotalAbogados">0</strong>
                         </div>
-                    </div>
-                    <div class="kpi-card">
-                        <i class="fa-solid fa-newspaper"></i>
-                        <div>
-                            <h3 id="kpiTotalBlog">0</h3>
-                            <span>Publicaciones Publicadas</span>
+                        <div class="kpi-card">
+                            <span>Artículos Publicados</span>
+                            <strong id="kpiTotalBlog">0</strong>
                         </div>
-                    </div>
-                    <div class="kpi-card highlight">
-                        <i class="fa-solid fa-comments"></i>
-                        <div>
-                            <h3 id="kpiComentariosPendientes">0</h3>
-                            <span>Comentarios / Testimonios Pendientes</span>
+                        <div class="kpi-card">
+                            <span>Consultas Legales</span>
+                            <strong id="kpiTotalContactos">0</strong>
                         </div>
-                    </div>
-                    <div class="kpi-card highlight">
-                        <i class="fa-solid fa-envelope"></i>
-                        <div>
-                            <h3 id="kpiTotalContactos">0</h3>
-                            <span>Consultas Recibidas</span>
-                        </div>
-                    </div>
-                    <div class="kpi-card highlight">
-                        <i class="fa-solid fa-file-pdf"></i>
-                        <div>
-                            <h3 id="kpiTotalPostulaciones">0</h3>
+                        <div class="kpi-card">
                             <span>Postulaciones (CVs)</span>
+                            <strong id="kpiTotalPostulaciones">0</strong>
+                        </div>
+                        <div class="kpi-card">
+                            <span>Convocatorias Abiertas</span>
+                            <strong id="kpiTotalVacantes">0</strong>
+                        </div>
+                        <div class="kpi-card">
+                            <span>Comentarios Pendientes</span>
+                            <strong id="kpiComentariosPendientes">0</strong>
                         </div>
                     </div>
-                    <div class="kpi-card">
-                        <i class="fa-solid fa-briefcase"></i>
-                        <div>
-                            <h3 id="kpiTotalVacantes">0</h3>
-                            <span>Vacantes Activas</span>
+
+                    <div class="admin-card">
+                        <h3><i class="fa-solid fa-circle-info" style="color: #238d41;"></i> Guía Rápida de Administración</h3>
+                        <p style="font-size: 0.92rem; line-height: 1.7; color: #3d4440;">
+                            Desde este panel puedes gestionar todo el contenido de <strong>Estudio Jurídico Ureta & Asociados</strong> en tiempo real. Todos los cambios se almacenan directamente en <strong>Supabase</strong> y se reflejan automáticamente en tu portal web público. Para cambiar cualquier fotografía, puedes pegar un enlace o usar el botón <strong>"Subir foto desde mi PC"</strong>.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- =====================================
+                     PANEL 1: PORTADAS (HERO)
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabPortadas">
+                    <div class="admin-card">
+                        <h3 id="tituloFormPortada">Registrar / Editar Portada Principal (Hero)</h3>
+                        <form id="formPortada">
+                            <input type="hidden" id="portadaIdEdit">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Título Principal *</label>
+                                    <input type="text" id="portadaTitulo" placeholder="Ej. Lealtad, trascendencia y excelencia" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Etiqueta Superior (Subtítulo)</label>
+                                    <input type="text" id="portadaSubtitulo" placeholder="ESTUDIO JURÍDICO URETA & ASOCIADOS">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción breve *</label>
+                                <textarea id="portadaDescripcion" rows="2" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Imagen de Fondo (URL o subir desde tu PC) *</label>
+                                <input type="text" id="portadaImagenUrl" placeholder="https://..." required>
+                                <input type="file" id="portadaArchivoImg" accept="image/*" style="display:none;">
+                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                        <input type="file" class="input-subir-foto-pc" data-target="portadaImagenUrl" data-carpeta="portadas" accept="image/*" style="display:none;">
+                                    </label>
+                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Texto Botón 1</label>
+                                    <input type="text" id="portadaBtn1Texto" value="Conoce nuestros servicios">
+                                </div>
+                                <div class="form-group">
+                                    <label>Enlace Botón 1</label>
+                                    <input type="text" id="portadaBtn1Url" value="areas.html">
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Texto Botón 2</label>
+                                    <input type="text" id="portadaBtn2Texto" value="Solicita una asesoría">
+                                </div>
+                                <div class="form-group">
+                                    <label>Orden de aparición</label>
+                                    <input type="number" id="portadaOrden" value="1" min="1">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Portada</button>
+                            <button type="button" id="btnCancelarPortada" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Portadas Registradas</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Orden</th>
+                                        <th>Vista Previa</th>
+                                        <th>Título</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminPortadas"></tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="admin-panel-box">
-                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
-                        <div>
-                            <h3>Sincronizar Datos desde Supabase</h3>
-                            <p style="font-size:0.86rem; color:var(--gris-texto);">Recarga todas las vistas y procedimientos almacenados desde el servidor de Supabase.</p>
-                        </div>
-                        <button id="btnResetDatabase" class="btn btn-primary-dark">
-                            <i class="fa-solid fa-rotate"></i> Sincronizar con Base de Datos
-                        </button>
+                <!-- =====================================
+                     PANEL 2: ÁREAS LEGALES (9 ESPECIALIDADES)
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabAreas">
+                    <div class="admin-card">
+                        <h3 id="tituloFormArea">Registrar / Editar Especialidad Jurídica</h3>
+                        <form id="formNuevaArea">
+                            <input type="hidden" id="areaIdEdit">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Nombre de la Especialidad *</label>
+                                    <input type="text" id="areaNuevoNombre" placeholder="Ej. Derecho Civil" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Clase de Ícono FontAwesome</label>
+                                    <input type="text" id="areaNuevoIcono" value="fa-solid fa-scale-balanced">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Imagen de la Especialidad (URL o subir desde tu PC) *</label>
+                                <input type="text" id="areaNuevaImg" placeholder="https://..." required>
+                                <input type="file" id="areaArchivoImg" accept="image/*" style="display:none;">
+                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                        <input type="file" class="input-subir-foto-pc" data-target="areaNuevaImg" data-carpeta="areas" accept="image/*" style="display:none;">
+                                    </label>
+                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Resumen corto para tarjeta *</label>
+                                <textarea id="areaNuevoResumen" rows="2" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción completa del servicio *</label>
+                                <textarea id="areaNuevaDesc" rows="3" required></textarea>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Servicios ofrecidos (Uno por línea) *</label>
+                                    <textarea id="areaNuevosServicios" rows="4" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Situaciones en que brindamos asesoría (Uno por línea) *</label>
+                                    <textarea id="areaNuevasSituaciones" rows="4" required></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Especialidad</button>
+                            <button type="button" id="btnCancelarArea" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                        </form>
                     </div>
-                </div>
-            </section>
 
-            <!-- ==========================================
-                 MÓDULO 1: GESTIÓN DE PORTADAS (HERO SLIDER)
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-portadas">
-                <div class="admin-panel-box">
-                    <h3 id="tituloFormPortada">Registrar / Editar Portada Principal (Hero)</h3>
-                    <form id="formPortada" class="admin-form-grid">
-                        <input type="hidden" id="portadaIdEdit">
-                        <div>
-                            <label class="admin-label">Título principal de la portada *</label>
-                            <input type="text" id="portadaTitulo" placeholder="Ej. Solidez jurídica, prestigio y excelencia profesional" required>
+                    <div class="admin-card">
+                        <h3>Especialidades Registradas</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Especialidad e Imagen</th>
+                                        <th>Resumen</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminAreas"></tbody>
+                            </table>
                         </div>
-                        <div>
-                            <label class="admin-label">Frase superior / Insignia *</label>
-                            <input type="text" id="portadaSubtitulo" placeholder="Ej. ESTUDIO JURÍDICO URETA & ASOCIADOS" required>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Descripción breve *</label>
-                            <textarea id="portadaDescripcion" rows="2" placeholder="Descripción que acompaña el banner principal..." required></textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">URL de Imagen de Fondo *</label>
-                            <input type="url" id="portadaImagenUrl" placeholder="https://..." required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Subir Imagen desde tu PC (Opcional - se sube a Supabase)</label>
-                            <input type="file" id="portadaArchivoImg" accept="image/*">
-                        </div>
-                        <div>
-                            <label class="admin-label">Texto Botón 1</label>
-                            <input type="text" id="portadaBtn1Texto" value="Conoce nuestros servicios">
-                        </div>
-                        <div>
-                            <label class="admin-label">Enlace Botón 1</label>
-                            <input type="text" id="portadaBtn1Url" value="areas.html">
-                        </div>
-                        <div>
-                            <label class="admin-label">Texto Botón 2</label>
-                            <input type="text" id="portadaBtn2Texto" value="Solicita una asesoría">
-                        </div>
-                        <div>
-                            <label class="admin-label">Orden de aparición</label>
-                            <input type="number" id="portadaOrden" value="1" min="1">
-                        </div>
-                        <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                            <button type="submit" class="btn btn-gold" id="btnGuardarPortada">
-                                <i class="fa-solid fa-floppy-disk"></i> Guardar Portada
-                            </button>
-                            <button type="button" class="btn btn-primary-dark" id="btnCancelarPortada" style="display:none;">
-                                Cancelar Edición
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="admin-panel-box">
-                    <h3>Portadas Registradas (Editar / Activar / Eliminar)</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Vista Previa</th>
-                                    <th>Título y Subtítulo</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminPortadas"></tbody>
-                        </table>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ==========================================
-                 MÓDULO 2: GESTIÓN DE LAS 13 ÁREAS LEGALES
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-areas">
-                <div class="admin-panel-box">
-                    <h3 id="tituloFormArea">Registrar / Editar Especialidad Jurídica</h3>
-                    <form id="formNuevaArea" class="admin-form-grid">
-                        <input type="hidden" id="areaIdEdit">
-                        <div>
-                            <label class="admin-label">Nombre de la especialidad *</label>
-                            <input type="text" id="areaNuevoNombre" placeholder="Ej. Derecho Corporativo" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Clase de Icono (Font Awesome)</label>
-                            <input type="text" id="areaNuevoIcono" value="fa-solid fa-scale-balanced" placeholder="fa-solid fa-scale-balanced">
-                        </div>
-                        <div>
-                            <label class="admin-label">URL de Imagen Representativa *</label>
-                            <input type="url" id="areaNuevaImg" placeholder="https://..." required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Subir Imagen desde PC (Opcional)</label>
-                            <input type="file" id="areaArchivoImg" accept="image/*">
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Resumen breve para tarjeta *</label>
-                            <input type="text" id="areaNuevoResumen" placeholder="Resumen corto para el catálogo de especialidades *" required>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Descripción completa del servicio *</label>
-                            <textarea id="areaNuevaDesc" rows="3" placeholder="Explicación detallada de la especialidad..." required></textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">Principales servicios ofrecidos (Uno por línea) *</label>
-                            <textarea id="areaNuevosServicios" rows="4" placeholder="Constitución de sociedades
-Gobierno corporativo
-Contratos mercantiles" required></textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">Situaciones en que brindamos asesoría (Una por línea) *</label>
-                            <textarea id="areaNuevasSituaciones" rows="4" placeholder="Creación de nuevas empresas
-Acuerdos entre socios" required></textarea>
-                        </div>
-                        <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                            <button type="submit" class="btn btn-gold" id="btnGuardarArea">
-                                <i class="fa-solid fa-floppy-disk"></i> Guardar Especialidad
-                            </button>
-                            <button type="button" class="btn btn-primary-dark" id="btnCancelarArea" style="display:none;">
-                                Cancelar Edición
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="admin-panel-box">
-                    <h3>Especialidades Registradas (Editar / Activar / Ocultar / Eliminar)</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Especialidad</th>
-                                    <th>Resumen</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminAreas"></tbody>
-                        </table>
+                <!-- =====================================
+                     PANEL 3: NUESTRO STAFF
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabStaff">
+                    <div class="admin-card">
+                        <h3 id="tituloFormStaff">Registrar / Editar Abogado del Staff</h3>
+                        <form id="formNuevoAbogado">
+                            <input type="hidden" id="abIdEdit">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Nombre completo *</label>
+                                    <input type="text" id="abNombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cargo en el Estudio *</label>
+                                    <input type="text" id="abCargo" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Colegiatura (Ej. CAA N.° ...)</label>
+                                    <input type="text" id="abColegiatura">
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo profesional</label>
+                                    <input type="email" id="abCorreo" value="contacto@estudio-ureta.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Fotografía del Abogado (URL o subir desde tu PC) *</label>
+                                <input type="text" id="abFoto" placeholder="https://..." required>
+                                <input type="file" id="abArchivoFoto" accept="image/*" style="display:none;">
+                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                        <input type="file" class="input-subir-foto-pc" data-target="abFoto" data-carpeta="staff" accept="image/*" style="display:none;">
+                                    </label>
+                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Especialidades (Separadas por coma) *</label>
+                                <input type="text" id="abEspecialidades" placeholder="Ej. Derecho Civil, Arbitraje, Derecho Empresarial" required>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Formación Académica *</label>
+                                    <textarea id="abFormacion" rows="3" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cursos y Especializaciones</label>
+                                    <textarea id="abCursos" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" id="abExperiencia" value="">
+                            <div class="form-group">
+                                <label>Biografía / Perfil Profesional *</label>
+                                <textarea id="abBiografia" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Abogado</button>
+                            <button type="button" id="btnCancelarAbogado" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                        </form>
                     </div>
-                </div>
-            </section>
 
-            <!-- ==========================================
-                 MÓDULO 3: GESTIÓN DE ABOGADOS (STAFF)
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-staff">
-                <div class="admin-panel-box">
-                    <h3 id="tituloFormStaff">Registrar / Editar Abogado del Staff</h3>
-                    <form id="formNuevoAbogado" class="admin-form-grid">
-                        <input type="hidden" id="abIdEdit">
-                        <div>
-                            <label class="admin-label">Nombre completo del Abogado(a) *</label>
-                            <input type="text" id="abNombre" placeholder="Ej. Peter Hans Ureta Escobedo" required>
+                    <div class="admin-card">
+                        <h3>Directorio de Abogados</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Abogado</th>
+                                        <th>Cargo / Colegiatura</th>
+                                        <th>Especialidades</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminStaff"></tbody>
+                            </table>
                         </div>
-                        <div>
-                            <label class="admin-label">Cargo en el Estudio *</label>
-                            <input type="text" id="abCargo" placeholder="Ej. Socio Fundador / Abogado Asociado" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">N.° de Colegiatura *</label>
-                            <input type="text" id="abColegiatura" placeholder="Ej. CAA Oficial" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Correo profesional</label>
-                            <input type="email" id="abCorreo" value="contacto@estudio-ureta.com">
-                        </div>
-                        <div>
-                            <label class="admin-label">URL de Fotografía Profesional *</label>
-                            <input type="url" id="abFoto" placeholder="https://..." required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Subir Fotografía desde PC (Opcional)</label>
-                            <input type="file" id="abArchivoFoto" accept="image/*">
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Especialidades asignadas (Separadas por coma) *</label>
-                            <input type="text" id="abEspecialidades" placeholder="Ej. Derecho Corporativo, Derecho Civil, Área Arbitral" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Formación Académica *</label>
-                            <textarea id="abFormacion" rows="2" placeholder="Universidad, grados y maestrías..." required></textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">Experiencia Profesional *</label>
-                            <textarea id="abExperiencia" rows="2" placeholder="Trayectoria y patrocinio legal..." required></textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">Cursos y Especializaciones</label>
-                            <textarea id="abCursos" rows="2" placeholder="Diplomados y cursos de especialización..."></textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">Biografía / Reseña</label>
-                            <textarea id="abBiografia" rows="2" placeholder="Perfil institucional del abogado..."></textarea>
-                        </div>
-                        <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                            <button type="submit" class="btn btn-gold" id="btnGuardarAbogado">
-                                <i class="fa-solid fa-user-check"></i> Guardar Perfil de Abogado
-                            </button>
-                            <button type="button" class="btn btn-primary-dark" id="btnCancelarAbogado" style="display:none;">
-                                Cancelar Edición
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="admin-panel-box">
-                    <h3>Directorio Actual de Abogados (Editar / Ocultar / Eliminar)</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Nombre Completo</th>
-                                    <th>Cargo y Colegiatura</th>
-                                    <th>Especialidades</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminStaff"></tbody>
-                        </table>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ==========================================
-                 MÓDULO 4: GESTIÓN DEL BLOG / ACTUALIDAD JURÍDICA
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-blog">
-                <div class="admin-panel-box">
-                    <h3 id="tituloFormBlog">Crear / Editar Publicación del Blog</h3>
-                    <form id="formNuevoBlog" class="admin-form-grid">
-                        <input type="hidden" id="blogIdEdit">
-                        <div>
-                            <label class="admin-label">Título de la publicación *</label>
-                            <input type="text" id="blogTitulo" placeholder="Título del artículo, análisis o noticia" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Autor *</label>
-                            <input type="text" id="blogAutor" placeholder="Ej. Peter Hans Ureta Escobedo" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Categoría Jurídica *</label>
-                            <select id="blogCategoria" required>
-                                <option value="Opinión jurídica">Opinión jurídica</option>
-                                <option value="Actualidad jurídica">Actualidad jurídica</option>
-                                <option value="Derecho Corporativo">Derecho Corporativo</option>
-                                <option value="Derecho Civil">Derecho Civil</option>
-                                <option value="Derecho Penal">Derecho Penal</option>
-                                <option value="Derecho Laboral">Derecho Laboral</option>
-                                <option value="Derecho Administrativo">Derecho Administrativo</option>
-                                <option value="Noticias institucionales">Noticias institucionales</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="admin-label">Tipo de Publicación *</label>
-                            <select id="blogTipo" required>
-                                <option value="ArticuloPropio">1. Artículo propio del Estudio</option>
-                                <option value="AnalisisJuridico">2. Análisis jurídico / Sentencia</option>
-                                <option value="NoticiaExterna">3. Noticia jurídica externa</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="admin-label">URL de Imagen Principal *</label>
-                            <input type="url" id="blogImagen" placeholder="https://..." required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Subir Imagen desde PC (Opcional)</label>
-                            <input type="file" id="blogArchivoImg" accept="image/*">
-                        </div>
-                        <div>
-                            <label class="admin-label">Nombre del Medio / Fuente Externa (Opcional)</label>
-                            <input type="text" id="blogFuenteNombre" placeholder="Ej. Diario Oficial El Peruano">
-                        </div>
-                        <div>
-                            <label class="admin-label">URL Original de Noticia Externa (Opcional)</label>
-                            <input type="url" id="blogFuenteUrl" placeholder="https://...">
-                        </div>
-                        <div>
-                            <label class="admin-label">Estado de Publicación</label>
-                            <select id="blogEstado">
-                                <option value="Publicado">Publicado</option>
-                                <option value="Borrador">Borrador</option>
-                                <option value="Archivado">Archivado</option>
-                            </select>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:8px; padding-top:24px;">
-                            <input type="checkbox" id="blogDestacado" style="width:auto;">
-                            <label for="blogDestacado" style="font-size:0.86rem; font-weight:600;">Destacar en la portada del Blog</label>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Subtítulo o Resumen Ejecutivo *</label>
-                            <input type="text" id="blogSubtitulo" placeholder="Breve introducción del artículo *" required>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Contenido completo del artículo (admite párrafos y subtítulos) *</label>
-                            <textarea id="blogContenido" rows="5" placeholder="Redacte aquí el contenido completo de la publicación..." required></textarea>
-                        </div>
-                        <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                            <button type="submit" class="btn btn-gold" id="btnGuardarBlog">
-                                <i class="fa-solid fa-feather"></i> Guardar Publicación
-                            </button>
-                            <button type="button" class="btn btn-primary-dark" id="btnCancelarBlog" style="display:none;">
-                                Cancelar Edición
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="admin-panel-box">
-                    <h3>Publicaciones del Blog (Editar / Publicar / Archivar / Eliminar)</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Categoría / Tipo</th>
-                                    <th>Autor</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminBlog"></tbody>
-                        </table>
+                <!-- =====================================
+                     PANEL 4: ARTÍCULOS JURÍDICOS (ANTES BLOG)
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabBlog">
+                    <div class="admin-card">
+                        <h3 id="tituloFormBlog">Crear / Editar Artículo Jurídico</h3>
+                        <form id="formNuevoBlog">
+                            <input type="hidden" id="blogIdEdit">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Título del Artículo *</label>
+                                    <input type="text" id="blogTitulo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Autor *</label>
+                                    <input type="text" id="blogAutor" value="Peter Hans Ureta Escobedo" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Categoría</label>
+                                    <select id="blogCategoria">
+                                        <option value="Opinión jurídica">Opinión jurídica</option>
+                                        <option value="Actualidad jurídica">Actualidad jurídica</option>
+                                        <option value="Derecho Civil">Derecho Civil</option>
+                                        <option value="Derecho Laboral">Derecho Laboral</option>
+                                        <option value="Derecho de Familia">Derecho de Familia</option>
+                                        <option value="Derecho Penal">Derecho Penal</option>
+                                        <option value="Saneamientos">Saneamientos</option>
+                                        <option value="Arbitraje">Arbitraje</option>
+                                        <option value="Derecho Empresarial">Derecho Empresarial</option>
+                                        <option value="Derecho Administrativo">Derecho Administrativo</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo de Contenido</label>
+                                    <select id="blogTipo">
+                                        <option value="ArticuloPropio">Artículo propio del Estudio</option>
+                                        <option value="AnalisisJuridico">Análisis jurídico / Jurisprudencia</option>
+                                        <option value="NoticiaExterna">Noticia jurídica externa</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Imagen de Portada del Artículo (URL o subir desde tu PC) *</label>
+                                <input type="text" id="blogImagen" placeholder="https://..." required>
+                                <input type="file" id="blogArchivoImg" accept="image/*" style="display:none;">
+                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                        <input type="file" class="input-subir-foto-pc" data-target="blogImagen" data-carpeta="articulos" accept="image/*" style="display:none;">
+                                    </label>
+                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Nombre de Fuente Externa (Opcional)</label>
+                                    <input type="text" id="blogFuenteNombre" placeholder="Ej. Diario Oficial El Peruano">
+                                </div>
+                                <div class="form-group">
+                                    <label>URL de Fuente Externa (Opcional)</label>
+                                    <input type="url" id="blogFuenteUrl" placeholder="https://...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Resumen / Bajada *</label>
+                                <textarea id="blogSubtitulo" rows="2" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Contenido Completo del Artículo *</label>
+                                <textarea id="blogContenido" rows="5" required></textarea>
+                            </div>
+                            <div style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+                                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                                    <input type="checkbox" id="blogDestacado"> Destacar en la parte superior
+                                </label>
+                                <select id="blogEstado" style="width:auto;">
+                                    <option value="Publicado">Publicado</option>
+                                    <option value="Archivado">Archivado</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Publicar / Guardar Artículo</button>
+                            <button type="button" id="btnCancelarBlog" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                        </form>
                     </div>
-                </div>
-            </section>
 
-            <!-- ==========================================
-                 MÓDULO 5: TESTIMONIOS DE CLIENTES Y COMENTARIOS DEL BLOG
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-testimonios">
-                <div class="admin-panel-box">
-                    <h3 id="tituloFormTestimonio">Registrar / Editar Testimonio de Cliente</h3>
-                    <form id="formTestimonio" class="admin-form-grid">
-                        <input type="hidden" id="testimonioIdEdit">
-                        <div>
-                            <label class="admin-label">Nombre o Iniciales Autorizadas del Cliente *</label>
-                            <input type="text" id="testCliente" placeholder="Ej. J. R. M." required>
+                    <div class="admin-card">
+                        <h3>Artículos Registrados</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Título</th>
+                                        <th>Categoría</th>
+                                        <th>Autor</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminBlog"></tbody>
+                            </table>
                         </div>
-                        <div>
-                            <label class="admin-label">Tipo de Cliente o Cargo *</label>
-                            <input type="text" id="testCargo" value="Cliente Corporativo" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Estado de Aprobación</label>
-                            <select id="testEstado">
-                                <option value="Aprobado">Aprobado (Visible)</option>
-                                <option value="Pendiente">Pendiente de revisión</option>
-                                <option value="Rechazado">Rechazado</option>
-                            </select>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:8px; padding-top:24px;">
-                            <input type="checkbox" id="testDestacado" checked style="width:auto;">
-                            <label for="testDestacado" style="font-size:0.86rem; font-weight:600;">Destacar en Página de Inicio</label>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Comentario / Testimonio *</label>
-                            <textarea id="testComentario" rows="2" placeholder="Testimonio sobre la atención recibida..." required></textarea>
-                        </div>
-                        <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                            <button type="submit" class="btn btn-gold" id="btnGuardarTestimonio">
-                                <i class="fa-solid fa-comment-medical"></i> Guardar Testimonio
-                            </button>
-                            <button type="button" class="btn btn-primary-dark" id="btnCancelarTestimonio" style="display:none;">
-                                Cancelar Edición
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="admin-panel-box">
-                    <h3>Testimonios de Clientes (Editar / Aprobar / Rechazar / Eliminar)</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Cliente</th>
-                                    <th>Comentario</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminTestimonios"></tbody>
-                        </table>
                     </div>
-                </div>
+                </section>
 
-                <div class="admin-panel-box">
-                    <h3>Moderación de Comentarios dejados en Artículos del Blog</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Artículo</th>
-                                    <th>Visitante</th>
-                                    <th>Comentario</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminComentariosBlog"></tbody>
-                        </table>
+                <!-- =====================================
+                     PANEL 5: EVENTOS ACADÉMICOS (CON LINK FORMS)
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabEventos">
+                    <div class="admin-card">
+                        <h3 id="tituloFormEvento">Crear / Editar Evento Académico</h3>
+                        <form id="formAdminEvento">
+                            <input type="hidden" id="evId">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Título del Evento *</label>
+                                    <input type="text" id="evTitulo" placeholder="Ej. Seminario de Derecho Penal Económico" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Categoría *</label>
+                                    <input type="text" id="evCategoria" value="Jornada Académica" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Fecha del Evento *</label>
+                                    <input type="date" id="evFecha" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Modalidad *</label>
+                                    <select id="evModalidad">
+                                        <option value="Presencial / Virtual">Presencial / Virtual</option>
+                                        <option value="Presencial">Presencial</option>
+                                        <option value="Virtual">Virtual</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Hora y Lugar *</label>
+                                    <input type="text" id="evHoraLugar" placeholder="Ej. 6:00 p.m. • Sede Vallecito / Zoom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ponente(s) *</label>
+                                    <input type="text" id="evPonente" placeholder="Ej. Dr. Peter Hans Ureta Escobedo" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa-brands fa-google" style="color:#238d41;"></i> Enlace de Inscripción (Google Forms editable por evento) *</label>
+                                <input type="url" id="evLinkForms" placeholder="https://forms.gle/tu-formulario-aqui" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Afiche o Imagen del Evento (URL o subir desde tu PC)</label>
+                                <input type="text" id="evImagen" placeholder="https://...">
+                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                        <i class="fa-solid fa-upload"></i> Subir afiche desde mi PC
+                                        <input type="file" class="input-subir-foto-pc" data-target="evImagen" data-carpeta="eventos" accept="image/*" style="display:none;">
+                                    </label>
+                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Resumen breve (Subtítulo) *</label>
+                                <textarea id="evSubtitulo" rows="2" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Información detallada del evento (Temario, certificación, etc.) *</label>
+                                <textarea id="evDescripcion" rows="4" required></textarea>
+                            </div>
+                            <div style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+                                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                                    <input type="checkbox" id="evDestacado"> Marcar como Evento Destacado
+                                </label>
+                                <select id="evEstado" style="width:auto;">
+                                    <option value="Publicado">Publicado</option>
+                                    <option value="Oculto">Oculto</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Evento</button>
+                            <button type="button" id="btnCancelarEvento" class="btn btn-primary-dark">Limpiar / Nuevo</button>
+                        </form>
                     </div>
-                </div>
-            </section>
 
-            <!-- ==========================================
-                 MÓDULO 6: GESTIÓN DE CONSULTAS DE CONTACTO
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-contactos">
-                <div class="admin-panel-box">
-                    <h3>Solicitudes de Asesoría Recibidas (Bandeja Confidencial)</h3>
-                    <p style="font-size: 0.85rem; color: var(--gris-texto); margin-bottom: 16px;">
-                        Gestione el estado de cada consulta recibida y registre observaciones internas de seguimiento.
-                    </p>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Remitente / Empresa</th>
-                                    <th>Área / Asunto</th>
-                                    <th>Consulta y Notas Internas</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminContactos"></tbody>
-                        </table>
+                    <div class="admin-card">
+                        <h3>Eventos Académicos Registrados</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Evento</th>
+                                        <th>Fecha / Modalidad</th>
+                                        <th>Enlace Forms</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminEventos"></tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ==========================================
-                 MÓDULO 7: GESTIÓN DE POSTULACIONES Y CVs
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-postulaciones">
-                <div class="admin-panel-box">
-                    <h3>Postulaciones y Currículums Recibidos (PDF en Supabase Storage)</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Fecha</th>
-                                    <th>Postulante / DNI</th>
-                                    <th>Puesto / Modalidad</th>
-                                    <th>Profesión y Experiencia</th>
-                                    <th>Archivo CV (PDF)</th>
-                                    <th>Estado de Selección</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminPostulaciones"></tbody>
-                        </table>
+                <!-- =====================================
+                     PANEL 6: DE PRACTICANTE A ABOGADO
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabHistorias">
+                    <div class="admin-card">
+                        <h3 id="tituloFormHistoria">Agregar / Editar Historia "De Practicante a Abogado"</h3>
+                        <form id="formAdminHistoria">
+                            <input type="hidden" id="histId">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Nombre completo del integrante *</label>
+                                    <input type="text" id="histNombre" placeholder="Ej. Dra. María Fernanda López" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cargo actual en el estudio *</label>
+                                    <input type="text" id="histCargo" placeholder="Ej. Abogada Asociada — Área Civil" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Etapa de inicio (Insignia sobre la foto) *</label>
+                                    <input type="text" id="histInicio" placeholder="Ej. Ingresó como Practicante en 2021" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Orden de aparición (1, 2, 3, 4...)</label>
+                                    <input type="number" id="histOrden" value="1" min="1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Fotografía del integrante (URL o subir desde tu PC) *</label>
+                                <input type="text" id="histFoto" placeholder="https://..." required>
+                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                        <input type="file" class="input-subir-foto-pc" data-target="histFoto" data-carpeta="historias" accept="image/*" style="display:none;">
+                                    </label>
+                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Historia y trayectoria dentro del estudio *</label>
+                                <textarea id="histRelato" rows="3" placeholder="Relato de su crecimiento desde practicante hasta abogado..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Historia</button>
+                            <button type="button" id="btnCancelarHistoria" class="btn btn-primary-dark">Limpiar / Nuevo</button>
+                        </form>
                     </div>
-                </div>
-            </section>
 
-            <!-- ==========================================
-                 MÓDULO 8: GESTIÓN DE VACANTES LABORALES
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-vacantes">
-                <div class="admin-panel-box">
-                    <h3 id="tituloFormVacante">Publicar / Editar Oportunidad Laboral</h3>
-                    <form id="formNuevaVacante" class="admin-form-grid">
-                        <input type="hidden" id="vacIdEdit">
-                        <div>
-                            <label class="admin-label">Nombre del Puesto *</label>
-                            <input type="text" id="vacPuesto" placeholder="Ej. Abogado(a) Asociado(a) en Derecho Civil" required>
+                    <div class="admin-card">
+                        <h3>Integrantes publicados en "De Practicante a Abogado"</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Foto</th>
+                                        <th>Nombre y Cargo Actual</th>
+                                        <th>Inicio</th>
+                                        <th>Orden</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminHistorias"></tbody>
+                            </table>
                         </div>
-                        <div>
-                            <label class="admin-label">Área Legal *</label>
-                            <input type="text" id="vacArea" placeholder="Ej. Derecho Civil" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Modalidad *</label>
-                            <input type="text" id="vacModalidad" value="Presencial (Yanahuara - Arequipa)" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Fecha Límite de Postulación *</label>
-                            <input type="date" id="vacFechaLimite" required>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Descripción de la Convocatoria *</label>
-                            <textarea id="vacDescripcion" rows="2" placeholder="Perfil y funciones del puesto..." required></textarea>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Requisitos del Puesto (Uno por línea) *</label>
-                            <textarea id="vacRequisitos" rows="3" placeholder="Título profesional de Abogado y colegiatura habilitada
-Experiencia mínima de 2 años en litigios" required></textarea>
-                        </div>
-                        <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                            <button type="submit" class="btn btn-gold" id="btnGuardarVacante">
-                                <i class="fa-solid fa-floppy-disk"></i> Guardar Convocatoria
-                            </button>
-                            <button type="button" class="btn btn-primary-dark" id="btnCancelarVacante" style="display:none;">
-                                Cancelar Edición
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="admin-panel-box">
-                    <h3>Convocatorias Laborales (Editar / Cerrar / Eliminar)</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Puesto</th>
-                                    <th>Área</th>
-                                    <th>Modalidad</th>
-                                    <th>Cierre</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminVacantes"></tbody>
-                        </table>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ==========================================
-                 MÓDULO 9: CONFIGURACIÓN GENERAL Y NOSOTROS
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-config">
-                <div class="admin-panel-box">
-                    <h3>Configuración General del Sitio e Información Institucional (Nosotros)</h3>
-                    <form id="formConfigGeneral" class="admin-form-grid">
-                        <div>
-                            <label class="admin-label">Nombre Oficial del Estudio *</label>
-                            <input type="text" id="cfgNombreEstudio" value="Estudio Jurídico Ureta & Asociados" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Frase Institucional *</label>
-                            <input type="text" id="cfgFrase" value="Solidez jurídica, prestigio y excelencia profesional" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Dirección Física del Estudio *</label>
-                            <input type="text" id="cfgDireccion" value="Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Teléfonos Oficiales *</label>
-                            <input type="text" id="cfgTelefono" value="(054) 419349 / 999 322 490" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Número de WhatsApp (con código 51) *</label>
-                            <input type="text" id="cfgWhatsapp" value="51999322490" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Correo Institucional *</label>
-                            <input type="email" id="cfgCorreo" value="contacto@estudio-ureta.com" required>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Horario de Atención *</label>
-                            <input type="text" id="cfgHorario" value="Lunes a Viernes: 8:30 a.m. - 6:00 p.m." required>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label class="admin-label">Historia y Presentación Institucional (Página Nosotros)</label>
-                            <textarea id="cfgHistoria" rows="3">Somos una de las prestigiosas firmas de abogados del Sur del Perú, que ofrece una amplia gama de profesionales de primer nivel, especializados en distintas áreas del Derecho.</textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">Nuestra Misión</label>
-                            <textarea id="cfgMision" rows="3">Brindar asesoría jurídica integral, preventiva y patrocinio estratégico con los más altos estándares éticos y técnicos.</textarea>
-                        </div>
-                        <div>
-                            <label class="admin-label">Nuestra Visión</label>
-                            <textarea id="cfgVision" rows="3">Mantener nuestro liderazgo como estudio jurídico referente en la Región Sur y a nivel nacional por su excelencia académica.</textarea>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <button type="submit" class="btn btn-gold">
-                                <i class="fa-solid fa-floppy-disk"></i> Guardar Configuración y Textos Institucionales en Supabase
-                            </button>
-                        </div>
-                    </form>
-                    <p id="msgConfigGuardada" style="display:none; color:#10b981; font-weight:600; margin-top:12px;">
-                        ✓ Configuración y textos institucionales actualizados en la base de datos de Supabase.
-                    </p>
-                </div>
-            </section>
-
-            <!-- ==========================================
-                 MÓDULO 10: GESTIÓN DE USUARIOS ADMINISTRADORES
-                 ========================================== -->
-            <section class="admin-tab-panel" id="tab-usuarios">
-                <div class="admin-panel-box">
-                    <h3 id="tituloFormUsuario">Registrar / Editar Usuario Administrador</h3>
-                    <form id="formUsuarioAdmin" class="admin-form-grid">
-                        <input type="hidden" id="userIdEdit">
-                        <div>
-                            <label class="admin-label">Nombre Completo *</label>
-                            <input type="text" id="userNombre" placeholder="Nombre del administrador o editor" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Correo de Acceso *</label>
-                            <input type="email" id="userEmail" placeholder="correo@estudio-ureta.com" required>
-                        </div>
-                        <div>
-                            <label class="admin-label">Contraseña (Se encripta con bcrypt en Supabase) *</label>
-                            <input type="password" id="userPassword" placeholder="Dejar en blanco si solo edita el nombre">
-                        </div>
-                        <div>
-                            <label class="admin-label">Rol de Acceso</label>
-                            <select id="userRolId">
-                                <option value="1">1 - Administrador General (Control Total)</option>
-                                <option value="2">2 - Editor Jurídico (Blog y Comentarios)</option>
-                            </select>
-                        </div>
-                        <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                            <button type="submit" class="btn btn-gold" id="btnGuardarUsuario">
-                                <i class="fa-solid fa-user-shield"></i> Guardar Usuario Administrador
-                            </button>
-                            <button type="button" class="btn btn-primary-dark" id="btnCancelarUsuario" style="display:none;">
-                                Cancelar Edición
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="admin-panel-box">
-                    <h3>Usuarios con Acceso al Panel Administrativo</h3>
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre Completo</th>
-                                    <th>Correo</th>
-                                    <th>Rol</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAdminUsuarios"></tbody>
-                        </table>
+                <!-- =====================================
+                     PANEL 7: TESTIMONIOS Y COMENTARIOS
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabTestimonios">
+                    <div class="admin-card">
+                        <h3 id="tituloFormTestimonio">Registrar / Editar Testimonio de Cliente</h3>
+                        <form id="formTestimonio">
+                            <input type="hidden" id="testimonioIdEdit">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Identificación / Iniciales del Cliente *</label>
+                                    <input type="text" id="testCliente" placeholder="Ej. J. R. M." required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo de Cliente / Empresa</label>
+                                    <input type="text" id="testCargo" placeholder="Ej. Cliente Corporativo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Comentario del Cliente *</label>
+                                <textarea id="testComentario" rows="3" required></textarea>
+                            </div>
+                            <div style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
+                                <select id="testEstado" style="width:auto;">
+                                    <option value="Aprobado">Aprobado</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Rechazado">Rechazado</option>
+                                </select>
+                                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                                    <input type="checkbox" id="testDestacado"> Mostrar en Inicio
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Testimonio</button>
+                            <button type="button" id="btnCancelarTestimonio" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                        </form>
                     </div>
-                </div>
-            </section>
 
+                    <div class="admin-card">
+                        <h3>Testimonios Registrados</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Comentario</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminTestimonios"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Comentarios en Artículos Jurídicos</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Artículo</th>
+                                        <th>Visitante</th>
+                                        <th>Comentario</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminComentariosBlog"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================
+                     PANEL 8: CONSULTAS RECIBIDAS
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabContactos">
+                    <div class="admin-card">
+                        <h3>Bandeja Confidencial de Consultas Legales</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Solicitante</th>
+                                        <th>Área / Asunto</th>
+                                        <th>Descripción y Notas Internas</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminContactos"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================
+                     PANEL 9: POSTULACIONES Y CVS
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabPostulaciones">
+                    <div class="admin-card">
+                        <h3>Postulaciones Recibidas y Descarga de CVs (PDF)</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Postulante</th>
+                                        <th>Convocatoria</th>
+                                        <th>Grado / Experiencia</th>
+                                        <th>Currículum PDF</th>
+                                        <th>Etapa</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminPostulaciones"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================
+                     PANEL 10: CONVOCATORIAS PARA PRACTICANTES
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabVacantes">
+                    <div class="admin-card">
+                        <h3 id="tituloFormVacante">Publicar / Editar Convocatoria para Practicantes</h3>
+                        <form id="formNuevaVacante">
+                            <input type="hidden" id="vacIdEdit">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Título de la Convocatoria *</label>
+                                    <input type="text" id="vacPuesto" placeholder="Ej. Practicante Preprofesional de Derecho Civil" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Área Jurídica *</label>
+                                    <input type="text" id="vacArea" placeholder="Ej. Derecho Civil / Saneamientos" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Modalidad *</label>
+                                    <input type="text" id="vacModalidad" value="Presencial - Arequipa" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fecha Límite *</label>
+                                    <input type="date" id="vacFechaLimite" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción del Puesto / Prácticas *</label>
+                                <textarea id="vacDescripcion" rows="2" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Requisitos (Uno por línea) *</label>
+                                <textarea id="vacRequisitos" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Convocatoria</button>
+                            <button type="button" id="btnCancelarVacante" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Convocatorias Publicadas</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Convocatoria</th>
+                                        <th>Área</th>
+                                        <th>Modalidad</th>
+                                        <th>Cierre</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminVacantes"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================
+                     PANEL 11: CONFIGURACIÓN GENERAL Y NOSOTROS
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabConfig">
+                    <div class="admin-card">
+                        <h3>Datos Institucionales, Contacto y Página "Nosotros"</h3>
+                        <form id="formConfigGeneral">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Nombre del Estudio *</label>
+                                    <input type="text" id="cfgNombreEstudio" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Lema / Frase Institucional *</label>
+                                    <input type="text" id="cfgFrase" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Dirección Física *</label>
+                                    <input type="text" id="cfgDireccion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Teléfonos de Central *</label>
+                                    <input type="text" id="cfgTelefono" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Número de WhatsApp (Con código 51) *</label>
+                                    <input type="text" id="cfgWhatsapp" placeholder="51980249579" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo Electrónico Oficial *</label>
+                                    <input type="email" id="cfgCorreo" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Horario de Atención *</label>
+                                <input type="text" id="cfgHorario" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Historia / Presentación Institucional</label>
+                                <textarea id="cfgHistoria" rows="3"></textarea>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Misión</label>
+                                    <textarea id="cfgMision" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Visión</label>
+                                    <textarea id="cfgVision" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Configuración General</button>
+                            <p id="msgConfigGuardada" style="display:none; color:#238d41; font-weight:700; margin-top:12px;">
+                                ✓ Configuración actualizada correctamente en Supabase.
+                            </p>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- =====================================
+                     PANEL 12: USUARIOS ADMINISTRADORES
+                     ===================================== -->
+                <section class="admin-tab-panel" id="tabUsuarios">
+                    <div class="admin-card">
+                        <h3 id="tituloFormUsuario">Registrar / Editar Usuario Administrador</h3>
+                        <form id="formUsuarioAdmin">
+                            <input type="hidden" id="userIdEdit">
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Nombre Completo *</label>
+                                    <input type="text" id="userNombre" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo de Acceso *</label>
+                                    <input type="email" id="userEmail" required>
+                                </div>
+                            </div>
+                            <div class="form-row-2">
+                                <div class="form-group">
+                                    <label>Rol</label>
+                                    <select id="userRolId">
+                                        <option value="1">Administrador General</option>
+                                        <option value="2">Editor de Contenidos</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contraseña (Dejar vacío si no desea cambiarla)</label>
+                                    <input type="password" id="userPassword">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Usuario</button>
+                            <button type="button" id="btnCancelarUsuario" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <h3>Usuarios con Acceso al Panel</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Correo</th>
+                                        <th>Rol</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminUsuarios"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
         </main>
     </div>
 
