@@ -92,6 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const vacantes = obtenerVacantes();
         const contactos = JSON.parse(localStorage.getItem('ureta_contactos_db') || '[]');
         const postulaciones = JSON.parse(localStorage.getItem('ureta_postulaciones_db') || '[]');
+        const inputOrdenPortada = document.getElementById('portadaOrden');
+        if (inputOrdenPortada && !document.getElementById('portadaIdEdit').value) {
+            inputOrdenPortada.value = cachePortadas.length + 1;
+        }
 
         if (typeof consultarVistaSupabase === 'function' && supabaseEstaConfigurado()) {
             cachePortadas = (await consultarVistaSupabase('vw_portadas_activas')) || [];
@@ -344,6 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnCancelarPortada').addEventListener('click', () => {
         document.getElementById('formPortada').reset();
         document.getElementById('portadaIdEdit').value = '';
+        document.getElementById('portadaOrden').value = cachePortadas.length + 1;
         document.getElementById('tituloFormPortada').textContent = 'Registrar / Editar Portada Principal (Hero)';
         document.getElementById('btnCancelarPortada').style.display = 'none';
     });
@@ -1077,5 +1082,146 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         cargarHistoriasAdmin();
+    }
+    // =========================================================================
+    // 14. NAVEGACIÓN DE SUB-PESTAÑAS Y EDITOR COMPLETO DE "PÁGINA: INICIO"
+    // =========================================================================
+    document.querySelectorAll('.subtab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const seccion = btn.closest('.admin-tab-panel');
+            seccion.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+            seccion.querySelectorAll('.subtab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.subtab)?.classList.add('active');
+        });
+    });
+
+    const formInicio = document.getElementById('formContenidoInicio');
+    let datosInicioCache = {};
+
+    async function cargarEditorPaginaInicio() {
+        if (!formInicio) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.inicio&select=datos');
+        datosInicioCache = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+        setVal('iniPresTag', datosInicioCache.pres_tag);
+        setVal('iniPresTitulo', datosInicioCache.pres_titulo);
+        setVal('iniPresTexto', datosInicioCache.pres_texto);
+        setVal('iniPresImagen', datosInicioCache.pres_imagen);
+        setVal('iniBadgeTitulo', datosInicioCache.pres_badge_titulo);
+        setVal('iniBadgeSub', datosInicioCache.pres_badge_sub);
+
+        setVal('iniAreasTag', datosInicioCache.areas_tag);
+        setVal('iniAreasTitulo', datosInicioCache.areas_titulo);
+        setVal('iniAreasSub', datosInicioCache.areas_sub);
+
+        setVal('iniStaffTag', datosInicioCache.staff_tag);
+        setVal('iniStaffTitulo', datosInicioCache.staff_titulo);
+        setVal('iniStaffSub', datosInicioCache.staff_sub);
+
+        setVal('iniPorqueTag', datosInicioCache.porque_tag);
+        setVal('iniPorqueTitulo', datosInicioCache.porque_titulo);
+        setVal('iniPorqueSub', datosInicioCache.porque_sub);
+
+        setVal('iniTestTag', datosInicioCache.test_tag);
+        setVal('iniTestTitulo', datosInicioCache.test_titulo);
+        setVal('iniTestSub', datosInicioCache.test_sub);
+
+        setVal('iniArtTag', datosInicioCache.art_tag);
+        setVal('iniArtTitulo', datosInicioCache.art_titulo);
+        setVal('iniArtSub', datosInicioCache.art_sub);
+
+        setVal('iniCtaTitulo', datosInicioCache.cta_titulo);
+        setVal('iniCtaSub', datosInicioCache.cta_sub);
+
+        // Renderizar inputs editables de los 4 pilares
+        const contPilares = document.getElementById('contenedorEditorPilares');
+        const pilares = Array.isArray(datosInicioCache.pilares) ? datosInicioCache.pilares : [
+            { icono: 'fa-solid fa-award', titulo: '', texto: '' },
+            { icono: 'fa-solid fa-handshake', titulo: '', texto: '' },
+            { icono: 'fa-solid fa-briefcase', titulo: '', texto: '' },
+            { icono: 'fa-solid fa-user-check', titulo: '', texto: '' }
+        ];
+        contPilares.innerHTML = pilares.map((p, i) => `
+            <div style="background:#f8fafc; padding:14px; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:12px;">
+                <strong style="color:#123c2a; font-size:0.85rem;">Pilar #${i + 1}</strong>
+                <div class="form-row-2" style="margin-top:8px;">
+                    <div class="form-group"><label>Título</label><input type="text" class="pilar-tit" data-idx="${i}" value="${p.titulo || ''}"></div>
+                    <div class="form-group"><label>Ícono FontAwesome</label><input type="text" class="pilar-ico" data-idx="${i}" value="${p.icono || 'fa-solid fa-check'}"></div>
+                </div>
+                <div class="form-group" style="margin-bottom:0;"><label>Descripción</label><input type="text" class="pilar-txt" data-idx="${i}" value="${p.texto || ''}"></div>
+            </div>
+        `).join('');
+
+        // Renderizar inputs editables de las 5 tarjetas de "¿Por qué elegirnos?"
+        const contPorque = document.getElementById('contenedorEditorPorque');
+        const cards = Array.isArray(datosInicioCache.porque_cards) ? datosInicioCache.porque_cards : [
+            { icono: 'fa-solid fa-scale-unbalanced-flip', titulo: '', texto: '' },
+            { icono: 'fa-solid fa-handshake-angle', titulo: '', texto: '' },
+            { icono: 'fa-solid fa-comments', titulo: '', texto: '' },
+            { icono: 'fa-solid fa-chess-knight', titulo: '', texto: '' },
+            { icono: 'fa-solid fa-user-shield', titulo: '', texto: '' }
+        ];
+        contPorque.innerHTML = cards.map((c, i) => `
+            <div style="background:#f8fafc; padding:14px; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:12px;">
+                <strong style="color:#123c2a; font-size:0.85rem;">Valor Diferencial #${i + 1}</strong>
+                <div class="form-row-2" style="margin-top:8px;">
+                    <div class="form-group"><label>Título</label><input type="text" class="porque-tit" data-idx="${i}" value="${c.titulo || ''}"></div>
+                    <div class="form-group"><label>Ícono FontAwesome</label><input type="text" class="porque-ico" data-idx="${i}" value="${c.icono || 'fa-solid fa-star'}"></div>
+                </div>
+                <div class="form-group" style="margin-bottom:0;"><label>Descripción</label><input type="text" class="porque-txt" data-idx="${i}" value="${c.texto || ''}"></div>
+            </div>
+        `).join('');
+    }
+
+    if (formInicio) {
+        formInicio.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getVal = id => (document.getElementById(id)?.value || '').trim();
+
+            const pilares = Array.from(document.querySelectorAll('.pilar-tit')).map((el, i) => ({
+                titulo: el.value.trim(),
+                icono: document.querySelector(`.pilar-ico[data-idx="${i}"]`)?.value.trim() || 'fa-solid fa-check',
+                texto: document.querySelector(`.pilar-txt[data-idx="${i}"]`)?.value.trim() || ''
+            }));
+
+            const porqueCards = Array.from(document.querySelectorAll('.porque-tit')).map((el, i) => ({
+                titulo: el.value.trim(),
+                icono: document.querySelector(`.porque-ico[data-idx="${i}"]`)?.value.trim() || 'fa-solid fa-star',
+                texto: document.querySelector(`.porque-txt[data-idx="${i}"]`)?.value.trim() || ''
+            }));
+
+            const nuevosDatos = {
+                pres_tag: getVal('iniPresTag'),
+                pres_titulo: getVal('iniPresTitulo'),
+                pres_texto: getVal('iniPresTexto'),
+                pres_imagen: getVal('iniPresImagen'),
+                pres_badge_titulo: getVal('iniBadgeTitulo'),
+                pres_badge_sub: getVal('iniBadgeSub'),
+                pilares,
+                areas_tag: getVal('iniAreasTag'), areas_titulo: getVal('iniAreasTitulo'), areas_sub: getVal('iniAreasSub'),
+                staff_tag: getVal('iniStaffTag'), staff_titulo: getVal('iniStaffTitulo'), staff_sub: getVal('iniStaffSub'),
+                porque_tag: getVal('iniPorqueTag'), porque_titulo: getVal('iniPorqueTitulo'), porque_sub: getVal('iniPorqueSub'),
+                porque_cards: porqueCards,
+                test_tag: getVal('iniTestTag'), test_titulo: getVal('iniTestTitulo'), test_sub: getVal('iniTestSub'),
+                art_tag: getVal('iniArtTag'), art_titulo: getVal('iniArtTitulo'), art_sub: getVal('iniArtSub'),
+                cta_titulo: getVal('iniCtaTitulo'), cta_sub: getVal('iniCtaSub')
+            };
+
+            const actualizado = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.inicio', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!actualizado || actualizado.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'inicio', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_inicio_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Toda la página de Inicio (Index) se guardó en Supabase.');
+        });
+
+        cargarEditorPaginaInicio();
     }
 });

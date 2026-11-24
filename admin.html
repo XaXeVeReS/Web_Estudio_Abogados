@@ -345,6 +345,40 @@
                 flex-wrap: wrap;
             }
         }
+        .admin-nav-group {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: #b59a62;
+            font-weight: 700;
+            padding: 12px 10px 4px;
+            opacity: 0.85;
+        }
+        .subtab-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 12px;
+        }
+        .subtab-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #123c2a;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.84rem;
+            cursor: pointer;
+        }
+        .subtab-btn.active {
+            background: #123c2a;
+            color: #ffffff;
+            border-color: #123c2a;
+        }
+        .subtab-panel { display: none; }
+        .subtab-panel.active { display: block; }
     </style>
 </head>
 <body>
@@ -399,18 +433,22 @@
 
             <nav class="admin-nav-list">
                 <button class="admin-tab-btn active" data-tab="tabDashboard"><i class="fa-solid fa-chart-line"></i> Resumen (KPIs)</button>
-                <button class="admin-tab-btn" data-tab="tabPortadas"><i class="fa-solid fa-images"></i> 1. Portadas (Hero)</button>
-                <button class="admin-tab-btn" data-tab="tabAreas"><i class="fa-solid fa-scale-balanced"></i> 2. Áreas Legales (9)</button>
-                <button class="admin-tab-btn" data-tab="tabStaff"><i class="fa-solid fa-user-tie"></i> 3. Nuestro Staff</button>
-                <button class="admin-tab-btn" data-tab="tabBlog"><i class="fa-solid fa-newspaper"></i> 4. Artículos Jurídicos</button>
-                <button class="admin-tab-btn" data-tab="tabEventos"><i class="fa-solid fa-calendar-days"></i> 5. Eventos Académicos</button>
-                <button class="admin-tab-btn" data-tab="tabHistorias"><i class="fa-solid fa-user-graduate"></i> 6. De Practicante a Abogado</button>
-                <button class="admin-tab-btn" data-tab="tabTestimonios"><i class="fa-solid fa-comments"></i> 7. Testimonios y Comentarios</button>
-                <button class="admin-tab-btn" data-tab="tabContactos"><i class="fa-solid fa-envelope-open-text"></i> 8. Consultas Recibidas</button>
-                <button class="admin-tab-btn" data-tab="tabPostulaciones"><i class="fa-solid fa-file-pdf"></i> 9. Postulaciones y CVs</button>
-                <button class="admin-tab-btn" data-tab="tabVacantes"><i class="fa-solid fa-briefcase"></i> 10. Convocatorias Prácticas</button>
-                <button class="admin-tab-btn" data-tab="tabConfig"><i class="fa-solid fa-gear"></i> 11. Configuración y Nosotros</button>
-                <button class="admin-tab-btn" data-tab="tabUsuarios"><i class="fa-solid fa-users-gear"></i> 12. Usuarios Admin</button>
+
+                <span class="admin-nav-group">Páginas del Sitio Web</span>
+                <button class="admin-tab-btn" data-tab="tabPaginaInicio"><i class="fa-solid fa-house"></i> Página: Inicio (Index)</button>
+                <button class="admin-tab-btn" data-tab="tabConfig"><i class="fa-solid fa-building-columns"></i> Página: Nosotros y Datos</button>
+                <button class="admin-tab-btn" data-tab="tabAreas"><i class="fa-solid fa-scale-balanced"></i> Página: Nuestras Áreas (9)</button>
+                <button class="admin-tab-btn" data-tab="tabStaff"><i class="fa-solid fa-user-tie"></i> Página: Nuestro Staff</button>
+                <button class="admin-tab-btn" data-tab="tabBlog"><i class="fa-solid fa-newspaper"></i> Página: Artículos</button>
+                <button class="admin-tab-btn" data-tab="tabEventos"><i class="fa-solid fa-calendar-days"></i> Página: Eventos</button>
+                <button class="admin-tab-btn" data-tab="tabHistorias"><i class="fa-solid fa-user-graduate"></i> Trabaja: De Practicante a Abogado</button>
+                <button class="admin-tab-btn" data-tab="tabVacantes"><i class="fa-solid fa-briefcase"></i> Trabaja: Convocatorias</button>
+
+                <span class="admin-nav-group">Bandejas y Gestión</span>
+                <button class="admin-tab-btn" data-tab="tabContactos"><i class="fa-solid fa-envelope-open-text"></i> Contacto: Consultas Recibidas</button>
+                <button class="admin-tab-btn" data-tab="tabPostulaciones"><i class="fa-solid fa-file-pdf"></i> Trabaja: Postulaciones (CVs)</button>
+                <button class="admin-tab-btn" data-tab="tabTestimonios"><i class="fa-solid fa-comments"></i> Testimonios y Comentarios</button>
+                <button class="admin-tab-btn" data-tab="tabUsuarios"><i class="fa-solid fa-users-gear"></i> Usuarios Admin</button>
             </nav>
 
             <div class="admin-sidebar-footer">
@@ -483,79 +521,159 @@
                 <!-- =====================================
                      PANEL 1: PORTADAS (HERO)
                      ===================================== -->
-                <section class="admin-tab-panel" id="tabPortadas">
-                    <div class="admin-card">
-                        <h3 id="tituloFormPortada">Registrar / Editar Portada Principal (Hero)</h3>
-                        <form id="formPortada">
-                            <input type="hidden" id="portadaIdEdit">
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Título Principal *</label>
-                                    <input type="text" id="portadaTitulo" placeholder="Ej. Lealtad, trascendencia y excelencia" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Etiqueta Superior (Subtítulo)</label>
-                                    <input type="text" id="portadaSubtitulo" placeholder="ESTUDIO JURÍDICO URETA & ASOCIADOS">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Descripción breve *</label>
-                                <textarea id="portadaDescripcion" rows="2" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Imagen de Fondo (URL o subir desde tu PC) *</label>
-                                <input type="text" id="portadaImagenUrl" placeholder="https://..." required>
-                                <input type="file" id="portadaArchivoImg" accept="image/*" style="display:none;">
-                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
-                                        <input type="file" class="input-subir-foto-pc" data-target="portadaImagenUrl" data-carpeta="portadas" accept="image/*" style="display:none;">
-                                    </label>
-                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Texto Botón 1</label>
-                                    <input type="text" id="portadaBtn1Texto" value="Conoce nuestros servicios">
-                                </div>
-                                <div class="form-group">
-                                    <label>Enlace Botón 1</label>
-                                    <input type="text" id="portadaBtn1Url" value="areas.html">
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Texto Botón 2</label>
-                                    <input type="text" id="portadaBtn2Texto" value="Solicita una asesoría">
-                                </div>
-                                <div class="form-group">
-                                    <label>Orden de aparición</label>
-                                    <input type="number" id="portadaOrden" value="1" min="1">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Portada</button>
-                            <button type="button" id="btnCancelarPortada" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
-                        </form>
+                <!-- =====================================
+     PÁGINA: INICIO (INDEX) - 100% EDITABLE
+     ===================================== -->
+                <section class="admin-tab-panel" id="tabPaginaInicio">
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subIniHero"><i class="fa-solid fa-images"></i> 1. Portadas (Hero)</button>
+                        <button type="button" class="subtab-btn" data-subtab="subIniPres"><i class="fa-solid fa-building"></i> 2. Presentación y 4 Pilares</button>
+                        <button type="button" class="subtab-btn" data-subtab="subIniPorque"><i class="fa-solid fa-star"></i> 3. ¿Por qué elegirnos? y CTA</button>
+                        <button type="button" class="subtab-btn" data-subtab="subIniTitulos"><i class="fa-solid fa-heading"></i> 4. Títulos de Carruseles</button>
                     </div>
 
-                    <div class="admin-card">
-                        <h3>Portadas Registradas</h3>
-                        <div class="table-responsive">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Orden</th>
-                                        <th>Vista Previa</th>
-                                        <th>Título</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaAdminPortadas"></tbody>
-                            </table>
+                    <!-- SUB-PESTAÑA 1: PORTADAS HERO (Mantiene compatibilidad 100% con tus formularios actuales) -->
+                    <div class="subtab-panel active" id="subIniHero">
+                        <div class="admin-card">
+                            <h3 id="tituloFormPortada">Registrar / Editar Portada Principal (Hero)</h3>
+                            <form id="formPortada">
+                                <input type="hidden" id="portadaIdEdit">
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Título Principal *</label>
+                                        <input type="text" id="portadaTitulo" placeholder="Ej. Lealtad, trascendencia y excelencia" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Etiqueta Superior (Subtítulo)</label>
+                                        <input type="text" id="portadaSubtitulo" placeholder="ESTUDIO JURÍDICO URETA & ASOCIADOS">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descripción breve *</label>
+                                    <textarea id="portadaDescripcion" rows="2" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagen de Fondo (URL o subir desde tu PC) *</label>
+                                    <input type="text" id="portadaImagenUrl" placeholder="https://..." required>
+                                    <input type="file" id="portadaArchivoImg" accept="image/*" style="display:none;">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="portadaImagenUrl" data-carpeta="portadas" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Texto Botón 1</label><input type="text" id="portadaBtn1Texto" value="Conoce nuestros servicios"></div>
+                                    <div class="form-group"><label>Enlace Botón 1</label><input type="text" id="portadaBtn1Url" value="areas.html"></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Texto Botón 2</label><input type="text" id="portadaBtn2Texto" value="Solicita una asesoría"></div>
+                                    <div class="form-group"><label>Orden de aparición</label><input type="number" id="portadaOrden" value="1" min="1"></div>
+                                </div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Portada</button>
+                                <button type="button" id="btnCancelarPortada" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                            </form>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>Portadas Registradas</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead><tr><th>Orden</th><th>Vista Previa</th><th>Título</th><th>Estado</th><th>Acciones</th></tr></thead>
+                                    <tbody id="tablaAdminPortadas"></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- FORMULARIO ÚNICO PARA SUB-PESTAÑAS 2, 3 Y 4 DEL INDEX -->
+                    <form id="formContenidoInicio">
+                        <!-- SUB-PESTAÑA 2: PRESENTACIÓN Y 4 PILARES -->
+                        <div class="subtab-panel" id="subIniPres">
+                            <div class="admin-card">
+                                <h3>Sección Presentación Institucional (Inicio)</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="iniPresTag"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="iniPresTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Texto destacado de presentación</label><textarea id="iniPresTexto" rows="3"></textarea></div>
+                                <div class="form-group">
+                                    <label>Fotografía de la oficina (URL o subir desde PC)</label>
+                                    <input type="text" id="iniPresImagen">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="iniPresImagen" data-carpeta="inicio" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Insignia flotante (Título)</label><input type="text" id="iniBadgeTitulo"></div>
+                                    <div class="form-group"><label>Insignia flotante (Frase)</label><input type="text" id="iniBadgeSub"></div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Los 4 Pilares Institucionales</h3>
+                                <div id="contenedorEditorPilares"></div>
+                                <button type="submit" class="btn btn-gold" style="margin-top:14px;"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios de Inicio</button>
+                            </div>
+                        </div>
+
+                        <!-- SUB-PESTAÑA 3: ¿POR QUÉ ELEGIRNOS? Y CTA -->
+                        <div class="subtab-panel" id="subIniPorque">
+                            <div class="admin-card">
+                                <h3>Encabezado y 5 Tarjetas de "¿Por qué elegirnos?"</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="iniPorqueTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="iniPorqueTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Subtítulo</label><input type="text" id="iniPorqueSub"></div>
+                                <div id="contenedorEditorPorque"></div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Banner Inferior de Llamada a la Acción (CTA)</h3>
+                                <div class="form-group"><label>Título del Banner CTA</label><input type="text" id="iniCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción del Banner CTA</label><input type="text" id="iniCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios de Inicio</button>
+                            </div>
+                        </div>
+
+                        <!-- SUB-PESTAÑA 4: TÍTULOS DE CARRUSELES -->
+                        <div class="subtab-panel" id="subIniTitulos">
+                            <div class="admin-card">
+                                <h3>Títulos y Subtítulos de los 4 Carruseles de Inicio</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Carrusel Áreas — Etiqueta</label><input type="text" id="iniAreasTag"></div>
+                                    <div class="form-group"><label>Carrusel Áreas — Título</label><input type="text" id="iniAreasTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Carrusel Áreas — Subtítulo</label><input type="text" id="iniAreasSub"></div>
+                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Carrusel Equipo — Etiqueta</label><input type="text" id="iniStaffTag"></div>
+                                    <div class="form-group"><label>Carrusel Equipo — Título</label><input type="text" id="iniStaffTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Carrusel Equipo — Subtítulo</label><input type="text" id="iniStaffSub"></div>
+                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Carrusel Testimonios — Etiqueta</label><input type="text" id="iniTestTag"></div>
+                                    <div class="form-group"><label>Carrusel Testimonios — Título</label><input type="text" id="iniTestTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Carrusel Testimonios — Subtítulo</label><input type="text" id="iniTestSub"></div>
+                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Carrusel Artículos — Etiqueta</label><input type="text" id="iniArtTag"></div>
+                                    <div class="form-group"><label>Carrusel Artículos — Título</label><input type="text" id="iniArtTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Carrusel Artículos — Subtítulo</label><input type="text" id="iniArtSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios de Inicio</button>
+                            </div>
+                        </div>
+                    </form>
                 </section>
 
                 <!-- =====================================

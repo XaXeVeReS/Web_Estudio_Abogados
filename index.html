@@ -3,85 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Estudio Jurídico Ureta & Asociados en Arequipa. Lealtad, trascendencia y excelencia. Asesoría legal integral y patrocinio estratégico en 9 especialidades del Derecho.">
+    <meta name="description" content="Estudio Jurídico Ureta & Asociados en Arequipa. Lealtad, trascendencia y excelencia.">
     <title>Estudio Jurídico Ureta & Asociados | Sitio Oficial</title>
-    
-    <!-- 1. Tipografías oficiales: Playfair Display (Títulos) y Montserrat (Textos) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    
-    <!-- 2. Librería de Iconos Profesionales (Font Awesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- 3. Archivo de estilos CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-    <!-- ==========================================
-         BARRA SUPERIOR INSTITUCIONAL (CONECTADA A SUPABASE)
-         ========================================== -->
+    <!-- HEADER MAESTRO -->
     <div id="master-header"></div>
 
-    <!-- ==========================================
-         SECCIÓN 1: PORTADA PRINCIPAL (ADMINISTRABLE DESDE SUPABASE)
-         ========================================== -->
+    <!-- SECCIÓN 1: PORTADA PRINCIPAL (HERO SLIDER) -->
     <section class="hero" id="homeHeroSlider">
-        <!-- Diapositiva 1 -->
         <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');">
             <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <span class="hero-badge">ESTUDIO JURÍDICO URETA & ASOCIADOS</span>
                 <h1 class="hero-title">Lealtad, trascendencia y excelencia</h1>
-                <p class="hero-description">
-                    Brindamos asesoría legal integral y patrocinio estratégico en diversas ramas del Derecho, enfocados en encontrar soluciones sólidas e impulsar el desarrollo de nuestros clientes.
-                </p>
+                <p class="hero-description">Brindamos asesoría legal integral y patrocinio estratégico en diversas ramas del Derecho, enfocados en encontrar soluciones sólidas.</p>
                 <div class="hero-buttons">
                     <a href="areas.html" class="btn btn-gold">Conoce nuestros servicios</a>
                     <a href="contacto.html" class="btn btn-outline-light">Solicita una asesoría</a>
                 </div>
             </div>
         </div>
-
-        <!-- Diapositiva 2 -->
         <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80');">
             <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <span class="hero-badge">ESPECIALIZACIÓN MULTIDISCIPLINARIA</span>
                 <h1 class="hero-title">Estrategia legal preventiva y defensa corporativa</h1>
-                <p class="hero-description">
-                    Acompañamos cada decisión importante con rigor técnico, atención personalizada y absoluta confidencialidad en todas nuestras áreas de práctica.
-                </p>
+                <p class="hero-description">Acompañamos cada decisión importante con rigor técnico, atención personalizada y absoluta confidencialidad.</p>
                 <div class="hero-buttons">
                     <a href="areas.html" class="btn btn-gold">Conoce nuestros servicios</a>
                     <a href="contacto.html" class="btn btn-outline-light">Solicita una asesoría</a>
                 </div>
             </div>
         </div>
-
-        <!-- Controles inferiores de la portada -->
         <div class="hero-controls" id="homeHeroDots">
             <button class="hero-dot active" data-slide="0" aria-label="Portada 1"></button>
             <button class="hero-dot" data-slide="1" aria-label="Portada 2"></button>
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 2: PRESENTACIÓN DEL ESTUDIO (DISEÑO EJECUTIVO)
-         ========================================== -->
+    <!-- SECCIÓN 2: PRESENTACIÓN DEL ESTUDIO (100% EDITABLE) -->
     <section class="section about-home">
         <div class="container about-grid-executive">
-            
-            <!-- Columna Izquierda: Composición visual de Firma Jurídica -->
             <div class="about-visual-wrapper">
                 <div class="about-main-photo">
-                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85" alt="Sede Institucional Estudio Jurídico Ureta & Asociados">
+                    <img id="homePresImagen" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85" alt="Sede Estudio Jurídico Ureta & Asociados">
                 </div>
                 <div class="about-floating-badge">
-                    <div class="badge-icon-box">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                    </div>
+                    <div class="badge-icon-box"><i class="fa-solid fa-scale-balanced"></i></div>
                     <div class="badge-text-box">
                         <strong id="homeCantidadAreas">9 Áreas de Práctica</strong>
                         <span id="homeFraseInstitucional">Lealtad, trascendencia y excelencia</span>
@@ -89,86 +64,36 @@
                 </div>
             </div>
 
-            <!-- Columna Derecha: Contenido Institucional y Tarjetas de Pilares -->
             <div class="about-text-executive">
-                <span class="section-tag">PRESENTACIÓN INSTITUCIONAL</span>
+                <span class="section-tag" id="homePresTag">PRESENTACIÓN INSTITUCIONAL</span>
                 <h2 class="section-title-left" id="homeTituloEstudio">Estudio Jurídico Ureta & Asociados</h2>
-                
-                <p class="about-lead-highlight" id="nosotrosHistoriaTexto">
+                <p class="about-lead-highlight" id="homePresTexto">
                     Somos una de las prestigiosas firmas de abogados del Sur del Perú, que ofrece una amplia gama de profesionales de primer nivel, especializados en distintas áreas del Derecho, enfocados en encontrar soluciones sólidas e impulsar el crecimiento y desarrollo de nuestros clientes.
                 </p>
 
-                <!-- Los 4 pilares en tarjetas estructuradas -->
-                <div class="pillars-cards-grid">
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-award"></i></div>
-                        <div>
-                            <h4>Experiencia</h4>
-                            <p>Sólida trayectoria jurídica y rigor académico en cada caso.</p>
-                        </div>
-                    </div>
-
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-handshake"></i></div>
-                        <div>
-                            <h4>Compromiso</h4>
-                            <p>Acompañamiento constante y defensa leal de sus intereses.</p>
-                        </div>
-                    </div>
-
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-briefcase"></i></div>
-                        <div>
-                            <h4>Calidad y Eficiencia</h4>
-                            <p>Servicios legales óptimos mediante procesos eficientes.</p>
-                        </div>
-                    </div>
-
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-user-check"></i></div>
-                        <div>
-                            <h4>Atención personalizada</h4>
-                            <p>Estrategias a medida según la realidad de cada cliente.</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="pillars-cards-grid" id="homePilaresGrid"></div>
 
                 <div class="about-actions-bar">
-                    <a href="nosotros.html" class="btn btn-primary-dark">
-                        Conócenos más <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i>
-                    </a>
-                    <a href="contacto.html" class="btn btn-gold">
-                        Agendar Consulta
-                    </a>
+                    <a href="nosotros.html" class="btn btn-primary-dark">Conócenos más <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i></a>
+                    <a href="contacto.html" class="btn btn-gold">Agendar Consulta</a>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 3: NUESTRAS ESPECIALIDADES (SINCRONIZADO CON ADMIN)
-         ========================================== -->
+    <!-- SECCIÓN 3: CARRUSEL AUTOMÁTICO DE ESPECIALIDADES -->
     <section class="section bg-light">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">ÁREAS DE PRÁCTICA</span>
-                <h2 class="section-title">Nuestras Especialidades</h2>
-                <p class="section-subtitle">Brindamos patrocinio y consultoría especializada en las principales ramas del Derecho.</p>
+                <span class="section-tag" id="homeAreasTag">ÁREAS DE PRÁCTICA</span>
+                <h2 class="section-title" id="homeAreasTitulo">Nuestras Especialidades</h2>
+                <p class="section-subtitle" id="homeAreasSub">Brindamos patrocinio y consultoría especializada en las principales ramas del Derecho.</p>
             </div>
 
-            <!-- Se llena automáticamente desde Supabase / datos-estudio.js -->
-            <div class="cards-grid-3" id="homeAreasGrid">
-                <article class="area-card">
-                    <div class="area-card-img">
-                        <img src="https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80" alt="Derecho Civil">
-                    </div>
-                    <div class="area-card-body">
-                        <h3><i class="fa-solid fa-scale-balanced" style="color:var(--dorado); margin-right:6px;"></i> Derecho Civil</h3>
-                        <p>Obligaciones, contratos civiles, responsabilidad civil y patrocinio procesal en litigios complejos.</p>
-                        <a href="area-detalle.html?area=derecho-civil" class="card-link">Conocer más <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </article>
+            <div class="ureta-carousel-shell">
+                <button class="carousel-nav-btn prev" data-carousel="homeAreasGrid" data-dir="-1" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="ureta-carousel-track" id="homeAreasGrid"></div>
+                <button class="carousel-nav-btn next" data-carousel="homeAreasGrid" data-dir="1" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
 
             <div class="section-center-btn">
@@ -177,53 +102,19 @@
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 4: NUESTRO EQUIPO / STAFF (SINCRONIZADO CON ADMIN)
-         ========================================== -->
+    <!-- SECCIÓN 4: CARRUSEL AUTOMÁTICO DE NUESTRO EQUIPO (STAFF) -->
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">DIRECTORIO JURÍDICO</span>
-                <h2 class="section-title">Nuestro Equipo</h2>
-                <p class="section-subtitle">Profesionales con alta formación académica dedicados a la defensa de sus intereses.</p>
+                <span class="section-tag" id="homeStaffTag">DIRECTORIO JURÍDICO</span>
+                <h2 class="section-title" id="homeStaffTitulo">Nuestro Equipo</h2>
+                <p class="section-subtitle" id="homeStaffSub">Profesionales con alta formación académica dedicados a la defensa de sus intereses.</p>
             </div>
 
-            <div class="cards-grid-3" id="homeStaffGrid">
-                <div class="staff-card">
-                    <div class="staff-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="Peter Hans Ureta Escobedo">
-                    </div>
-                    <div class="staff-info">
-                        <span class="staff-role">Socio Fundador / Director General</span>
-                        <h3>Peter Hans Ureta Escobedo</h3>
-                        <p class="staff-specialty">Derecho Empresarial • Derecho Civil • Arbitraje</p>
-                        <a href="staff.html" class="btn-staff-profile">Ver perfil completo</a>
-                    </div>
-                </div>
-
-                <div class="staff-card">
-                    <div class="staff-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Dra. Geraldine Valencia Sotomayor">
-                    </div>
-                    <div class="staff-info">
-                        <span class="staff-role">Abogada Asociada / Especialista Penal</span>
-                        <h3>Dra. Geraldine Valencia Sotomayor</h3>
-                        <p class="staff-specialty">Derecho Penal • Derecho Administrativo</p>
-                        <a href="staff.html" class="btn-staff-profile">Ver perfil completo</a>
-                    </div>
-                </div>
-
-                <div class="staff-card">
-                    <div class="staff-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" alt="Abogado Especialista Asociado">
-                    </div>
-                    <div class="staff-info">
-                        <span class="staff-role">Jefe del Área Civil e Inmobiliaria</span>
-                        <h3>Abogado Especialista Asociado</h3>
-                        <p class="staff-specialty">Saneamientos • Derecho Civil</p>
-                        <a href="staff.html" class="btn-staff-profile">Ver perfil completo</a>
-                    </div>
-                </div>
+            <div class="ureta-carousel-shell">
+                <button class="carousel-nav-btn prev" data-carousel="homeStaffGrid" data-dir="-1" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="ureta-carousel-track" id="homeStaffGrid"></div>
+                <button class="carousel-nav-btn next" data-carousel="homeStaffGrid" data-dir="1" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
 
             <div class="section-center-btn">
@@ -232,111 +123,48 @@
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 5: ¿POR QUÉ ELEGIRNOS?
-         ========================================== -->
+    <!-- SECCIÓN 5: ¿POR QUÉ ELEGIRNOS? (100% EDITABLE) -->
     <section class="section why-us-section">
         <div class="container">
             <div class="section-header light-header">
-                <span class="section-tag">VALORES DIFERENCIALES</span>
-                <h2 class="section-title">¿Por qué elegirnos?</h2>
-                <p class="section-subtitle">Nuestra práctica jurídica se sustenta en la lealtad, la trascendencia, el rigor técnico y el trato directo con cada patrocinado.</p>
+                <span class="section-tag" id="homePorqueTag">VALORES DIFERENCIALES</span>
+                <h2 class="section-title" id="homePorqueTitulo">¿Por qué elegirnos?</h2>
+                <p class="section-subtitle" id="homePorqueSub">Nuestra práctica jurídica se sustenta en la lealtad, la trascendencia, el rigor técnico y el trato directo con cada patrocinado.</p>
             </div>
-
-            <div class="why-grid">
-                <div class="why-card">
-                    <div class="why-icon"><i class="fa-solid fa-scale-unbalanced-flip"></i></div>
-                    <h3>Experiencia profesional</h3>
-                    <p>Equipo multidisciplinario con profundo dominio de la normativa vigente y los criterios jurisprudenciales.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fa-solid fa-handshake-angle"></i></div>
-                    <h3>Compromiso con el cliente</h3>
-                    <p>Involucramiento directo desde la primera consulta hasta la conclusión del procedimiento o litigio.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fa-solid fa-comments"></i></div>
-                    <h3>Atención personalizada</h3>
-                    <p>Comunicación clara, oportuna y transparente sobre el estado y las alternativas de su caso legal.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fa-solid fa-chess-knight"></i></div>
-                    <h3>Estrategia jurídica</h3>
-                    <p>Enfoque preventivo y correctivo diseñado para mitigar riesgos y optimizar recursos legales.</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fa-solid fa-user-shield"></i></div>
-                    <h3>Confidencialidad y responsabilidad</h3>
-                    <p>Absoluta reserva profesional y manejo ético de la información sensible de personas y empresas.</p>
-                </div>
-            </div>
+            <div class="why-grid" id="homeWhyGrid"></div>
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 6: TESTIMONIOS (CONECTADO A SUPABASE)
-         ========================================== -->
+    <!-- SECCIÓN 6: CARRUSEL AUTOMÁTICO DE TESTIMONIOS DE CLIENTES -->
     <section class="section bg-light">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">CONFIANZA Y RESPALDO</span>
-                <h2 class="section-title">Lo que opinan nuestros clientes</h2>
-                <p class="section-subtitle">Comentarios verificados y aprobados sobre nuestra atención jurídica.</p>
+                <span class="section-tag" id="homeTestTag">CONFIANZA Y RESPALDO</span>
+                <h2 class="section-title" id="homeTestTitulo">Lo que opinan nuestros clientes</h2>
+                <p class="section-subtitle" id="homeTestSub">Comentarios verificados y aprobados sobre nuestra atención jurídica.</p>
             </div>
 
-            <div class="testimonials-carousel" id="homeTestimonialsCarousel">
-                <!-- Testimonio 1 -->
-                <div class="testimonial-slide active">
-                    <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="testimonial-text">
-                        "Destaco la claridad y el profesionalismo con el que absolvieron cada una de nuestras consultas societarias. El acompañamiento legal nos brindó plena seguridad jurídica en nuestras operaciones."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">JR</div>
-                        <div>
-                            <h4>J. R. M.</h4>
-                            <span>Cliente Corporativo</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonio 2 -->
-                <div class="testimonial-slide">
-                    <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                    <p class="testimonial-text">
-                        "Recibimos una orientación oportuna, transparente y sumamente responsable durante todo el procedimiento de saneamiento registral. Siempre estuvimos informados de cada avance."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MC</div>
-                        <div>
-                            <h4>M. C. V.</h4>
-                            <span>Cliente Particular</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Botones del carrusel de testimonios -->
-                <div class="testimonial-controls">
-                    <button class="test-btn" id="prevTestimonio" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button class="test-btn" id="nextTestimonio" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
-                </div>
+            <div class="ureta-carousel-shell">
+                <button class="carousel-nav-btn prev" data-carousel="homeTestGrid" data-dir="-1" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="ureta-carousel-track" id="homeTestGrid"></div>
+                <button class="carousel-nav-btn next" data-carousel="homeTestGrid" data-dir="1" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 7: ÚLTIMOS ARTÍCULOS JURÍDICOS (SINCRONIZADO CON ADMIN)
-         ========================================== -->
+    <!-- SECCIÓN 7: CARRUSEL AUTOMÁTICO DE ÚLTIMOS ARTÍCULOS -->
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">ACTUALIDAD JURÍDICA</span>
-                <h2 class="section-title">Últimos Artículos</h2>
-                <p class="section-subtitle">Artículos de análisis jurídico, opinión legal y novedades normativas elaborados por nuestro equipo.</p>
+                <span class="section-tag" id="homeArtTag">ACTUALIDAD JURÍDICA</span>
+                <h2 class="section-title" id="homeArtTitulo">Últimos Artículos</h2>
+                <p class="section-subtitle" id="homeArtSub">Artículos de análisis jurídico, opinión legal y novedades normativas elaborados por nuestro equipo.</p>
             </div>
 
-            <div class="cards-grid-3" id="homeBlogGrid">
-                <!-- Se carga automáticamente con los 3 últimos artículos publicados -->
+            <div class="ureta-carousel-shell">
+                <button class="carousel-nav-btn prev" data-carousel="homeBlogGrid" data-dir="-1" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="ureta-carousel-track" id="homeBlogGrid"></div>
+                <button class="carousel-nav-btn next" data-carousel="homeBlogGrid" data-dir="1" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
 
             <div class="section-center-btn" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
@@ -346,14 +174,12 @@
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 8: CONTACTO RÁPIDO (CTA)
-         ========================================== -->
+    <!-- SECCIÓN 8: BANNER CTA (100% EDITABLE) -->
     <section class="cta-banner">
         <div class="container cta-content">
             <div class="cta-text">
-                <h2>¿Necesitas asesoría legal? Estamos preparados para ayudarte</h2>
-                <p>Agenda una consulta con nuestros especialistas para evaluar tu caso de forma reservada y oportuna.</p>
+                <h2 id="homeCtaTitulo">¿Necesitas asesoría legal? Estamos preparados para ayudarte</h2>
+                <p id="homeCtaSub">Agenda una consulta con nuestros especialistas para evaluar tu caso de forma reservada y oportuna.</p>
             </div>
             <div class="cta-buttons">
                 <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20solicitar%20asesor%C3%ADa%20legal" target="_blank" class="btn btn-whatsapp">
@@ -364,114 +190,11 @@
         </div>
     </section>
 
-    <!-- ==========================================
-         SECCIÓN 9: FOOTER (ADMINISTRABLE DESDE SUPABASE)
-         ========================================== -->
+    <!-- FOOTER MAESTRO + REDES FLOTANTES + WHATSAPP -->
     <div id="master-footer"></div>
 
     <script src="js/datos-estudio.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/main.js"></script>
-
-    <script>
-        // Pintado instantáneo (0 ms) + actualización silenciosa desde Supabase
-        document.addEventListener('DOMContentLoaded', () => {
-            function renderizarInicio() {
-                // 1. Menú Desplegable, Footer y Tarjetas de Especialidades en Inicio
-                if (typeof obtenerAreasLegales === 'function') {
-                    const areasActivas = obtenerAreasLegales().filter(a => a.activo);
-                    const homeAreasGrid = document.getElementById('homeAreasGrid');
-                    const navDropdown = document.getElementById('navAreasDropdownMenu');
-                    const footerAreas = document.getElementById('footerAreasLinks');
-                    const btnTotal = document.getElementById('btnVerTodasAreas');
-                    const badgeCant = document.getElementById('homeCantidadAreas');
-
-                    if (navDropdown && areasActivas.length > 0) {
-                        navDropdown.innerHTML = areasActivas.map(a =>
-                            `<li><a href="area-detalle.html?area=${a.slug}">${a.nombre}</a></li>`
-                        ).join('');
-                    }
-
-                    if (footerAreas && areasActivas.length > 0) {
-                        footerAreas.innerHTML = areasActivas.slice(0, 6).map(a =>
-                            `<li><a href="area-detalle.html?area=${a.slug}">${a.nombre}</a></li>`
-                        ).join('') + `<li><a href="areas.html">Ver las ${areasActivas.length} especialidades →</a></li>`;
-                    }
-
-                    if (btnTotal && areasActivas.length > 0) {
-                        btnTotal.textContent = `Consultar todas nuestras especialidades (${areasActivas.length})`;
-                    }
-
-                    if (badgeCant && areasActivas.length > 0) {
-                        badgeCant.textContent = `${areasActivas.length} Áreas de Práctica`;
-                    }
-
-                    if (homeAreasGrid && areasActivas.length > 0) {
-                        homeAreasGrid.innerHTML = areasActivas.slice(0, 6).map(a => `
-                            <article class="area-card">
-                                <div class="area-card-img">
-                                    <img src="${a.imagen}" alt="${a.nombre}">
-                                </div>
-                                <div class="area-card-body">
-                                    <h3><i class="${a.icono || 'fa-solid fa-scale-balanced'}" style="color:var(--dorado); margin-right:6px;"></i> ${a.nombre}</h3>
-                                    <p>${a.resumen}</p>
-                                    <a href="area-detalle.html?area=${a.slug}" class="card-link">Conocer más <i class="fa-solid fa-arrow-right"></i></a>
-                                </div>
-                            </article>
-                        `).join('');
-                    }
-                }
-
-                // 2. Tarjetas de Nuestro Equipo (Staff) en Inicio
-                if (typeof obtenerStaff === 'function') {
-                    const staffActivo = obtenerStaff().filter(s => s.activo);
-                    const homeStaffGrid = document.getElementById('homeStaffGrid');
-                    if (homeStaffGrid && staffActivo.length > 0) {
-                        homeStaffGrid.innerHTML = staffActivo.slice(0, 3).map(s => `
-                            <div class="staff-card">
-                                <div class="staff-img-wrapper">
-                                    <img src="${s.foto}" alt="${s.nombre}">
-                                </div>
-                                <div class="staff-info">
-                                    <span class="staff-role">${s.cargo}</span>
-                                    <h3>${s.nombre}</h3>
-                                    <p class="staff-specialty">${(s.especialidades || []).join(' • ')}</p>
-                                    <a href="staff.html" class="btn-staff-profile">Ver perfil profesional</a>
-                                </div>
-                            </div>
-                        `).join('');
-                    }
-                }
-
-                // 3. Últimos Artículos en Inicio
-                if (typeof obtenerBlog === 'function') {
-                    const blogPublicado = obtenerBlog().filter(b => b.estado === 'Publicado');
-                    const homeBlogGrid = document.getElementById('homeBlogGrid');
-                    if (homeBlogGrid && blogPublicado.length > 0) {
-                        homeBlogGrid.innerHTML = blogPublicado.slice(0, 3).map(b => `
-                            <article class="blog-card">
-                                <div class="blog-card-img">
-                                    <span class="blog-category">${b.categoria}</span>
-                                    <img src="${b.imagen}" alt="${b.titulo}">
-                                </div>
-                                <div class="blog-card-body">
-                                    <span class="blog-date"><i class="fa-regular fa-calendar"></i> ${b.fecha} • ${b.autor}</span>
-                                    <h3>${b.titulo}</h3>
-                                    <p>${b.subtitulo}</p>
-                                    <a href="blog.html" class="card-link">Leer artículo <i class="fa-solid fa-arrow-right"></i></a>
-                                </div>
-                            </article>
-                        `).join('');
-                    }
-                }
-            }
-
-            // Pintar al instante con la caché local y refrescar silenciosamente cuando responda Supabase
-            renderizarInicio();
-            if (typeof sincronizarVistasSupabase === 'function' && supabaseEstaConfigurado()) {
-                sincronizarVistasSupabase().then(renderizarInicio);
-            }
-        });
-    </script>
 </body>
 </html>

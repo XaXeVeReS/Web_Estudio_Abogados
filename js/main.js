@@ -1,74 +1,267 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // =====================================================================
-    // 1. PINTADO INSTANTÁNEO DE DATOS GENERALES, PORTADAS Y SECCIONES DE INICIO
+    // 1. MOTOR DE CARRUSEL CONTINUO SUAVE + BOTONES < Y > CON PAUSA INTELIGENTE
     // =====================================================================
+    const carruselesEstado = {};
+
+    function iniciarCarruselSuave(trackId, velocidadPx = 0.65) {
+        const track = document.getElementById(trackId);
+        if (!track || carruselesEstado[trackId]) return;
+
+        const shell = track.closest('.ureta-carousel-shell') || track;
+        const estado = {
+            pausado: false,
+            pausaHasta: 0,
+            acumulador: 0,
+            rafId: null
+        };
+        carruselesEstado[trackId] = estado;
+
+        // Pausar al pasar el mouse sobre las tarjetas O sobre los botones < y >
+        shell.addEventListener('mouseenter', () => { estado.pausado = true; });
+        shell.addEventListener('mouseleave', () => { estado.pausado = false; });
+        track.addEventListener('touchstart', () => { estado.pausado = true; }, { passive: true });
+        track.addEventListener('touchend', () => {
+            estado.pausaHasta = Date.now() + 2500;
+            estado.pausado = false;
+        }, { passive: true });
+
+        track.style.scrollBehavior = 'auto';
+
+        function animar() {
+            const ahora = Date.now();
+            if (!estado.pausado && ahora >= estado.pausaHasta && track.scrollWidth > track.clientWidth + 5) {
+                estado.acumulador += velocidadPx;
+                if (estado.acumulador >= 1) {
+                    const paso = Math.floor(estado.acumulador);
+                    estado.acumulador -= paso;
+                    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 2) {
+                        track.scrollLeft = 0;
+                    } else {
+                        track.scrollLeft += paso;
+                    }
+                }
+            }
+            estado.rafId = requestAnimationFrame(animar);
+        }
+        estado.rafId = requestAnimationFrame(animar);
+    }
+
+    // Botones laterales < (retroceder) y > (avanzar)
+    document.querySelectorAll('.carousel-nav-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const trackId = btn.dataset.carousel;
+            const track = document.getElementById(trackId);
+            const dir = parseInt(btn.dataset.dir, 10) || 1;
+            if (!track) return;
+
+            // Congelar el auto-scroll 1.5 segundos para que no cancele el movimiento manual
+            if (carruselesEstado[trackId]) {
+                carruselesEstado[trackId].pausaHasta = Date.now() + 1500;
+            }
+
+            // Calcular ancho real de una tarjeta + espacio (24px)
+            const primeraTarjeta = track.firstElementChild;
+            const salto = primeraTarjeta ? (primeraTarjeta.getBoundingClientRect().width + 24) : 384;
+            const maxScroll = track.scrollWidth - track.clientWidth;
+
+            if (maxScroll <= 2) return;
+
+            if (dir < 0 && track.scrollLeft <= 5) {
+                // Si está al inicio y presiona <, salta al final
+                track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+            } else if (dir > 0 && track.scrollLeft >= maxScroll - 5) {
+                // Si está al final y presiona >, vuelve al inicio
+                track.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                track.scrollBy({ left: dir * salto, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // =====================================================================
+    // 1B. PINTADO DE INICIO (100% EDITABLE DESDE contenido_paginas + CARRUSELES)
+    // =====================================================================
+    const INICIO_DEFECTO = {
+        pres_tag: 'PRESENTACIÓN INSTITUCIONAL',
+        pres_titulo: 'Estudio Jurídico Ureta & Asociados',
+        pres_texto: 'Somos una de las prestigiosas firmas de abogados del Sur del Perú, que ofrece una amplia gama de profesionales de primer nivel, especializados en distintas áreas del Derecho, enfocados en encontrar soluciones sólidas e impulsar el crecimiento y desarrollo de nuestros clientes.',
+        pres_imagen: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85',
+        pres_badge_titulo: '9 Áreas de Práctica',
+        pres_badge_sub: 'Lealtad, trascendencia y excelencia',
+        pilares: [
+            { icono: 'fa-solid fa-award', titulo: 'Experiencia', texto: 'Sólida trayectoria jurídica y rigor académico en cada caso.' },
+            { icono: 'fa-solid fa-handshake', titulo: 'Compromiso', texto: 'Acompañamiento constante y defensa leal de sus intereses.' },
+            { icono: 'fa-solid fa-briefcase', titulo: 'Calidad y Eficiencia', texto: 'Servicios legales óptimos mediante procesos eficientes.' },
+            { icono: 'fa-solid fa-user-check', titulo: 'Atención personalizada', texto: 'Estrategias a medida según la realidad de cada cliente.' }
+        ],
+        areas_tag: 'ÁREAS DE PRÁCTICA', areas_titulo: 'Nuestras Especialidades', areas_sub: 'Brindamos patrocinio y consultoría especializada en las principales ramas del Derecho.',
+        staff_tag: 'DIRECTORIO JURÍDICO', staff_titulo: 'Nuestro Equipo', staff_sub: 'Profesionales con alta formación académica dedicados a la defensa de sus intereses.',
+        porque_tag: 'VALORES DIFERENCIALES', porque_titulo: '¿Por qué elegirnos?', porque_sub: 'Nuestra práctica jurídica se sustenta en la lealtad, la trascendencia, el rigor técnico y el trato directo con cada patrocinado.',
+        porque_cards: [
+            { icono: 'fa-solid fa-scale-unbalanced-flip', titulo: 'Experiencia profesional', texto: 'Equipo multidisciplinario con profundo dominio de la normativa vigente y los criterios jurisprudenciales.' },
+            { icono: 'fa-solid fa-handshake-angle', titulo: 'Compromiso con el cliente', texto: 'Involucramiento directo desde la primera consulta hasta la conclusión del procedimiento o litigio.' },
+            { icono: 'fa-solid fa-comments', titulo: 'Atención personalizada', texto: 'Comunicación clara, oportuna y transparente sobre el estado y las alternativas de su caso legal.' },
+            { icono: 'fa-solid fa-chess-knight', titulo: 'Estrategia jurídica', texto: 'Enfoque preventivo y correctivo diseñado para mitigar riesgos y optimizar recursos legales.' },
+            { icono: 'fa-solid fa-user-shield', titulo: 'Confidencialidad y responsabilidad', texto: 'Absoluta reserva profesional y manejo ético de la información sensible de personas y empresas.' }
+        ],
+        test_tag: 'CONFIANZA Y RESPALDO', test_titulo: 'Lo que opinan nuestros clientes', test_sub: 'Comentarios verificados y aprobados sobre nuestra atención jurídica.',
+        art_tag: 'ACTUALIDAD JURÍDICA', art_titulo: 'Últimos Artículos', art_sub: 'Artículos de análisis jurídico, opinión legal y novedades normativas elaborados por nuestro equipo.',
+        cta_titulo: '¿Necesitas asesoría legal? Estamos preparados para ayudarte',
+        cta_sub: 'Agenda una consulta con nuestros especialistas para evaluar tu caso de forma reservada y oportuna.'
+    };
+    // =====================================================================
+    // RENDERIZADO DINÁMICO E ILIMITADO DE PORTADAS (HERO SLIDER)
+    // =====================================================================
+    let heroSliderTimer = null;
+    let ultimoHashPortadas = '';
+
+    function renderizarHeroPortadas(portadas) {
+        const heroSection = document.getElementById('homeHeroSlider');
+        if (!heroSection || !Array.isArray(portadas) || portadas.length === 0) return;
+
+        // Filtrar publicadas y ordenar por orden ascendente
+        const activas = [...portadas]
+            .filter(p => p.publicado !== false)
+            .sort((a, b) => (a.orden - b.orden) || (a.portada_id - b.portada_id));
+
+        if (activas.length === 0) return;
+
+        // Evitar parpadeo si Supabase devolvió exactamente lo mismo que ya estaba en caché
+        const hashActual = JSON.stringify(activas);
+        if (hashActual === ultimoHashPortadas) return;
+        ultimoHashPortadas = hashActual;
+
+        // Generar dinámicamente TODAS las diapositivas (2, 3, 4, 5 o más) y sus puntos
+        const slidesHtml = activas.map((p, idx) => `
+            <div class="hero-slide ${idx === 0 ? 'active' : ''}" style="background-image: url('${p.imagen_url || 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80'}');">
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <span class="hero-badge">${p.subtitulo || 'ESTUDIO JURÍDICO URETA & ASOCIADOS'}</span>
+                    <h1 class="hero-title">${p.titulo || ''}</h1>
+                    <p class="hero-description">${p.descripcion_breve || ''}</p>
+                    <div class="hero-buttons">
+                        <a href="${p.url_boton_1 || 'areas.html'}" class="btn btn-gold">${p.texto_boton_1 || 'Conoce nuestros servicios'}</a>
+                        <a href="${p.url_boton_2 || 'contacto.html'}" class="btn btn-outline-light">${p.texto_boton_2 || 'Solicita una asesoría'}</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        const dotsHtml = activas.length > 1
+            ? `<div class="hero-controls" id="homeHeroDots">
+                ${activas.map((_, idx) => `<button class="hero-dot ${idx === 0 ? 'active' : ''}" data-slide="${idx}" aria-label="Portada ${idx + 1}"></button>`).join('')}
+               </div>`
+            : '';
+
+        heroSection.innerHTML = slidesHtml + dotsHtml;
+
+        // Reiniciar el temporizador y enlazar los clics de todos los puntos nuevos
+        if (heroSliderTimer) clearInterval(heroSliderTimer);
+
+        const slides = heroSection.querySelectorAll('.hero-slide');
+        const dots = heroSection.querySelectorAll('.hero-dot');
+        let currentSlide = 0;
+
+        function cambiarSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                cambiarSlide(parseInt(dot.dataset.slide, 10));
+                if (heroSliderTimer) {
+                    clearInterval(heroSliderTimer);
+                    heroSliderTimer = setInterval(() => cambiarSlide((currentSlide + 1) % slides.length), 6000);
+                }
+            });
+        });
+
+        if (slides.length > 1) {
+            heroSliderTimer = setInterval(() => {
+                cambiarSlide((currentSlide + 1) % slides.length);
+            }, 6000);
+        }
+    }
+
     function renderizarContenidoGlobalYHome() {
-        if (typeof window.actualizarLayoutMaestro === 'function') {
-            window.actualizarLayoutMaestro();
-        }
+        if (typeof window.actualizarLayoutMaestro === 'function') window.actualizarLayoutMaestro();
 
-        // A. Portadas y Testimonios (Inicio)
+        // A. Pintar TODAS las Portadas del Hero dinámicamente
         const portadas = JSON.parse(localStorage.getItem('ureta_portadas_cache') || 'null');
-        if (portadas && portadas.length > 0) {
-            document.querySelectorAll('.hero-slide').forEach((slideEl, idx) => {
-                const p = portadas[idx] || portadas[0];
-                if (!p) return;
-                if (p.imagen_url) slideEl.style.backgroundImage = `url('${p.imagen_url}')`;
-                const subEl = slideEl.querySelector('.hero-badge');
-                const titEl = slideEl.querySelector('.hero-title');
-                const descEl = slideEl.querySelector('.hero-description');
-                if (subEl && p.subtitulo) subEl.textContent = p.subtitulo;
-                if (titEl && p.titulo) titEl.textContent = p.titulo;
-                if (descEl && p.descripcion_breve) descEl.textContent = p.descripcion_breve;
-            });
+        renderizarHeroPortadas(portadas);
+
+        // B. Contenido 100% Editable de Inicio (index.html)
+        const ini = Object.assign({}, INICIO_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_inicio_cache') || '{}'));
+        const mapaInicio = {
+            'homePresTag': ini.pres_tag, 'homeTituloEstudio': ini.pres_titulo, 'homePresTexto': ini.pres_texto,
+            'homeCantidadAreas': ini.pres_badge_titulo, 'homeFraseInstitucional': ini.pres_badge_sub,
+            'homeAreasTag': ini.areas_tag, 'homeAreasTitulo': ini.areas_titulo, 'homeAreasSub': ini.areas_sub,
+            'homeStaffTag': ini.staff_tag, 'homeStaffTitulo': ini.staff_titulo, 'homeStaffSub': ini.staff_sub,
+            'homePorqueTag': ini.porque_tag, 'homePorqueTitulo': ini.porque_titulo, 'homePorqueSub': ini.porque_sub,
+            'homeTestTag': ini.test_tag, 'homeTestTitulo': ini.test_titulo, 'homeTestSub': ini.test_sub,
+            'homeArtTag': ini.art_tag, 'homeArtTitulo': ini.art_titulo, 'homeArtSub': ini.art_sub,
+            'homeCtaTitulo': ini.cta_titulo, 'homeCtaSub': ini.cta_sub
+        };
+        Object.entries(mapaInicio).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        const imgPres = document.getElementById('homePresImagen');
+        if (imgPres && ini.pres_imagen) imgPres.src = ini.pres_imagen;
+
+        const pilaresGrid = document.getElementById('homePilaresGrid');
+        if (pilaresGrid && Array.isArray(ini.pilares)) {
+            pilaresGrid.innerHTML = ini.pilares.map(p => `
+                <div class="pillar-box">
+                    <div class="pillar-icon"><i class="${p.icono || 'fa-solid fa-check'}"></i></div>
+                    <div><h4>${p.titulo}</h4><p>${p.texto}</p></div>
+                </div>
+            `).join('');
         }
 
-        const testimonios = JSON.parse(localStorage.getItem('ureta_testimonios_cache') || 'null');
-        if (testimonios && testimonios.length > 0) {
-            document.querySelectorAll('.testimonial-slide').forEach((tEl, idx) => {
-                const t = testimonios[idx % testimonios.length];
-                const textoEl = tEl.querySelector('.testimonial-text');
-                const autorEl = tEl.querySelector('h4');
-                const cargoEl = tEl.querySelector('.testimonial-author span');
-                if (textoEl) textoEl.textContent = `"${t.comentario}"`;
-                if (autorEl) autorEl.textContent = t.identificacion_cliente;
-                if (cargoEl) cargoEl.textContent = t.cargo_o_tipo_cliente || 'Cliente Patrocinado';
-            });
+        const whyGrid = document.getElementById('homeWhyGrid');
+        if (whyGrid && Array.isArray(ini.porque_cards)) {
+            whyGrid.innerHTML = ini.porque_cards.map(c => `
+                <div class="why-card">
+                    <div class="why-icon"><i class="${c.icono || 'fa-solid fa-star'}"></i></div>
+                    <h3>${c.titulo}</h3>
+                    <p>${c.texto}</p>
+                </div>
+            `).join('');
         }
 
-        // B. Textos institucionales (Nosotros y Contacto)
+        // C. Configuración General para Nosotros y Contacto
         const cfg = JSON.parse(localStorage.getItem('ureta_config_cache') || 'null');
         if (cfg) {
-            const mapaIds = {
-                'homeTituloEstudio': cfg.nombre_estudio,
-                'nosotrosTituloEstudio': cfg.nombre_estudio,
-                'homeFraseInstitucional': cfg.frase_institucional,
-                'nosotrosFraseInsignia': cfg.frase_institucional,
-                'contactoDireccionTexto': cfg.direccion_fisica,
-                'contactoTelefonoTexto': cfg.telefono_principal,
-                'contactoCorreoTexto': cfg.correo_contacto,
-                'contactoHorarioTexto': cfg.horario_atencion,
-                'nosotrosHistoriaTexto': cfg.historia_institucional,
-                'nosotrosMisionTexto': cfg.mision,
-                'nosotrosVisionTexto': cfg.vision
+            const mapaCfg = {
+                'nosotrosTituloEstudio': cfg.nombre_estudio, 'nosotrosFraseInsignia': cfg.frase_institucional,
+                'contactoDireccionTexto': cfg.direccion_fisica, 'contactoTelefonoTexto': cfg.telefono_principal,
+                'contactoCorreoTexto': cfg.correo_contacto, 'contactoHorarioTexto': cfg.horario_atencion,
+                'nosotrosHistoriaTexto': cfg.historia_institucional, 'nosotrosMisionTexto': cfg.mision, 'nosotrosVisionTexto': cfg.vision
             };
-            Object.entries(mapaIds).forEach(([id, val]) => {
+            Object.entries(mapaCfg).forEach(([id, val]) => {
                 const el = document.getElementById(id);
                 if (el && val) el.textContent = val;
             });
         }
 
-        // C. Bloques dinámicos exclusivos de index.html
-        const areasActivas = obtenerAreasLegales().filter(a => a.activo);
+        // D. Carrusel 1: TODAS las Áreas Legales Activas
         const homeAreasGrid = document.getElementById('homeAreasGrid');
+        const areasActivas = obtenerAreasLegales().filter(a => a.activo);
         if (homeAreasGrid && areasActivas.length > 0) {
             const btnTotal = document.getElementById('btnVerTodasAreas');
-            const badgeCant = document.getElementById('homeCantidadAreas');
             if (btnTotal) btnTotal.textContent = `Consultar todas nuestras especialidades (${areasActivas.length})`;
-            if (badgeCant) badgeCant.textContent = `${areasActivas.length} Áreas de Práctica`;
-
-            homeAreasGrid.innerHTML = areasActivas.slice(0, 6).map(a => `
+            homeAreasGrid.innerHTML = areasActivas.map(a => `
                 <article class="area-card">
                     <div class="area-card-img"><img src="${a.imagen}" alt="${a.nombre}"></div>
                     <div class="area-card-body">
@@ -78,12 +271,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </article>
             `).join('');
+            iniciarCarruselSuave('homeAreasGrid', 0.65);
         }
 
+        // E. Carrusel 2: TODO Nuestro Equipo (Staff)
         const homeStaffGrid = document.getElementById('homeStaffGrid');
         const staffActivo = obtenerStaff().filter(s => s.activo);
         if (homeStaffGrid && staffActivo.length > 0) {
-            homeStaffGrid.innerHTML = staffActivo.slice(0, 3).map(s => `
+            homeStaffGrid.innerHTML = staffActivo.map(s => `
                 <div class="staff-card">
                     <div class="staff-img-wrapper"><img src="${s.foto}" alt="${s.nombre}"></div>
                     <div class="staff-info">
@@ -94,12 +289,43 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `).join('');
+            iniciarCarruselSuave('homeStaffGrid', 0.55);
         }
 
+        // F. Carrusel 3: Testimonios de Clientes
+        const homeTestGrid = document.getElementById('homeTestGrid');
+        const testimonios = JSON.parse(localStorage.getItem('ureta_testimonios_cache') || '[]');
+        if (homeTestGrid) {
+            const listaTest = testimonios.length > 0 ? testimonios : [
+                { identificacion_cliente: 'J. R. M.', cargo_o_tipo_cliente: 'Cliente Corporativo', comentario: 'Destaco la claridad y el profesionalismo con el que absolvieron cada una de nuestras consultas societarias.' },
+                { identificacion_cliente: 'M. C. V.', cargo_o_tipo_cliente: 'Cliente Particular', comentario: 'Recibimos una orientación oportuna, transparente y sumamente responsable durante todo el procedimiento de saneamiento registral.' }
+            ];
+            homeTestGrid.innerHTML = listaTest.map(t => {
+                const iniciales = (t.identificacion_cliente || 'CL').replace(/[^A-Za-z]/g, '').substring(0, 2).toUpperCase() || 'CL';
+                return `
+                    <article class="testimonial-card-slide">
+                        <div>
+                            <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+                            <p class="testimonial-text">"${t.comentario}"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">${iniciales}</div>
+                            <div>
+                                <h4>${t.identificacion_cliente}</h4>
+                                <span>${t.cargo_o_tipo_cliente || 'Cliente Patrocinado'}</span>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+            iniciarCarruselSuave('homeTestGrid', 0.5);
+        }
+
+        // G. Carrusel 4: Últimos Artículos
         const homeBlogGrid = document.getElementById('homeBlogGrid');
         const blogPublicado = obtenerBlog().filter(b => b.estado === 'Publicado');
         if (homeBlogGrid && blogPublicado.length > 0) {
-            homeBlogGrid.innerHTML = blogPublicado.slice(0, 3).map(b => `
+            homeBlogGrid.innerHTML = blogPublicado.map(b => `
                 <article class="blog-card">
                     <div class="blog-card-img">
                         <span class="blog-category">${b.categoria}</span>
@@ -113,48 +339,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </article>
             `).join('');
+            iniciarCarruselSuave('homeBlogGrid', 0.6);
         }
     }
 
     renderizarContenidoGlobalYHome();
     if (typeof sincronizarVistasSupabase === 'function' && supabaseEstaConfigurado()) {
-        sincronizarVistasSupabase().then(renderizarContenidoGlobalYHome);
-    }
-
-    // =====================================================================
-    // 2. CARRUSELES DE PORTADA Y TESTIMONIOS
-    // =====================================================================
-    const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.hero-dot');
-    let currentSlide = 0;
-
-    function cambiarSlide(index) {
-        if (slides.length === 0) return;
-        slides.forEach(s => s.classList.remove('active'));
-        dots.forEach(d => d.classList.remove('active'));
-        slides[index].classList.add('active');
-        if (dots[index]) dots[index].classList.add('active');
-        currentSlide = index;
-    }
-    dots.forEach(dot => dot.addEventListener('click', () => cambiarSlide(parseInt(dot.dataset.slide))));
-    if (slides.length > 1) setInterval(() => cambiarSlide((currentSlide + 1) % slides.length), 6000);
-
-    const testSlides = document.querySelectorAll('.testimonial-slide');
-    const prevBtn = document.getElementById('prevTestimonio');
-    const nextBtn = document.getElementById('nextTestimonio');
-    let currentTest = 0;
-
-    if (nextBtn && prevBtn && testSlides.length > 0) {
-        nextBtn.addEventListener('click', () => {
-            testSlides.forEach(s => s.classList.remove('active'));
-            currentTest = (currentTest + 1) % testSlides.length;
-            testSlides[currentTest].classList.add('active');
-        });
-        prevBtn.addEventListener('click', () => {
-            testSlides.forEach(s => s.classList.remove('active'));
-            currentTest = (currentTest - 1 + testSlides.length) % testSlides.length;
-            testSlides[currentTest].classList.add('active');
-        });
+        Promise.all([
+            sincronizarVistasSupabase(),
+            consultarVistaSupabase('contenido_paginas', '?pagina_slug=eq.inicio&select=datos').then(res => {
+                if (res && res[0] && res[0].datos) {
+                    localStorage.setItem('ureta_pagina_inicio_cache', JSON.stringify(res[0].datos));
+                }
+            })
+        ]).then(renderizarContenidoGlobalYHome);
     }
 
     // =====================================================================
