@@ -22,69 +22,7 @@
     <!-- ==========================================
          BARRA SUPERIOR INSTITUCIONAL (CONECTADA A SUPABASE)
          ========================================== -->
-    <div class="top-bar">
-        <div class="container top-bar-content">
-            <div class="top-info" style="display: flex; gap: 18px; flex-wrap: wrap; align-items: center;">
-                <span><i class="fa-solid fa-scale-balanced" style="color: var(--dorado);"></i> <strong id="topNombreEstudio">Estudio Jurídico Ureta & Asociados</strong></span>
-                <span><i class="fa-solid fa-location-dot" style="color: var(--dorado);"></i> <span id="topDireccion">Calle 28 de Julio 701, Urb. Vallecito - Arequipa</span></span>
-                <span><i class="fa-solid fa-phone" style="color: var(--dorado);"></i> <span id="topTelefono">(054) 419349 / 980 249 579</span></span>
-            </div>
-            <div class="top-links">
-                <a href="admin.html" class="admin-link"><i class="fa-solid fa-lock"></i> Panel Admin</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==========================================
-         BARRA DE NAVEGACIÓN PRINCIPAL (STICKY HEADER)
-         ========================================== -->
-    <header class="header" id="header">
-        <div class="container nav-container">
-            
-            <!-- Logotipo Oficial del Estudio en PNG -->
-            <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="Estudio Jurídico Ureta & Asociados" class="logo-img-oficial">
-            </a>
-
-            <!-- Botón Menú Hamburguesa (Celulares) -->
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
-            <!-- Menú Principal Actualizado (Artículos + Eventos) -->
-            <nav class="nav-menu" id="navMenu">
-                <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link active">Inicio</a></li>
-                    <li><a href="nosotros.html" class="nav-link">Nosotros</a></li>
-                    
-                    <!-- Menú Desplegable Dinámico: 9 Especialidades -->
-                    <li class="dropdown" id="areasDropdown">
-                        <a href="areas.html" class="nav-link dropdown-toggle">
-                            Nuestras Áreas <i class="fa-solid fa-chevron-down"></i>
-                        </a>
-                        <ul class="dropdown-menu" id="navAreasDropdownMenu">
-                            <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
-                            <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
-                            <li><a href="area-detalle.html?area=derecho-familia">Derecho de Familia</a></li>
-                            <li><a href="area-detalle.html?area=derecho-penal-delitos-especiales">Derecho Penal - Delitos Especiales</a></li>
-                            <li><a href="area-detalle.html?area=derecho-penal-delitos-comunes">Derecho Penal - Delitos Comunes</a></li>
-                            <li><a href="area-detalle.html?area=saneamientos">Saneamientos</a></li>
-                            <li><a href="area-detalle.html?area=arbitraje">Arbitraje</a></li>
-                            <li><a href="area-detalle.html?area=derecho-empresarial">Derecho Empresarial</a></li>
-                            <li><a href="area-detalle.html?area=derecho-administrativo">Derecho Administrativo</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="staff.html" class="nav-link">Nuestro Staff</a></li>
-                    <li><a href="blog.html" class="nav-link">Artículos</a></li>
-                    <li><a href="eventos.html" class="nav-link">Eventos</a></li>
-                    <li><a href="trabaja-con-nosotros.html" class="nav-link">Trabaja con nosotros</a></li>
-                    <li><a href="contacto.html" class="btn-nav">Contáctanos</a></li>
-                </ul>
-            </nav>
-
-        </div>
-    </header>
+    <div id="master-header"></div>
 
     <!-- ==========================================
          SECCIÓN 1: PORTADA PRINCIPAL (ADMINISTRABLE DESDE SUPABASE)
@@ -429,97 +367,12 @@
     <!-- ==========================================
          SECCIÓN 9: FOOTER (ADMINISTRABLE DESDE SUPABASE)
          ========================================== -->
-    <footer class="footer">
-        <div class="container footer-grid">
-            <!-- Columna 1: Estudio y Redes -->
-            <div class="footer-col">
-                <a href="index.html" class="logo footer-logo">
-                    <img src="img/logo.png" alt="Estudio Jurídico Ureta & Asociados" class="logo-img-oficial">
-                </a>
-                <p class="footer-desc">
-                    Firma de abogados líder en la Región Sur, dedicada a brindar asesoría legal integral, preventiva y patrocinio estratégico con lealtad, trascendencia y excelencia.
-                </p>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/estudioureta/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="https://twitter.com/EstudioUreta" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/estudio_ureta/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                </div>
-            </div>
+    <div id="master-footer"></div>
 
-            <!-- Columna 2: Enlaces principales -->
-            <div class="footer-col">
-                <h4>Navegación</h4>
-                <ul class="footer-links">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="areas.html">Nuestras Áreas</a></li>
-                    <li><a href="staff.html">Nuestro Staff</a></li>
-                    <li><a href="blog.html">Artículos</a></li>
-                    <li><a href="eventos.html">Eventos</a></li>
-                    <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
-                    <li><a href="contacto.html">Contáctanos</a></li>
-                </ul>
-            </div>
-
-            <!-- Columna 3: Especialidades Jurídicas -->
-            <div class="footer-col">
-                <h4>Áreas Jurídicas</h4>
-                <ul class="footer-links" id="footerAreasLinks">
-                    <li><a href="area-detalle.html?area=derecho-civil">Derecho Civil</a></li>
-                    <li><a href="area-detalle.html?area=derecho-laboral">Derecho Laboral</a></li>
-                    <li><a href="area-detalle.html?area=derecho-familia">Derecho de Familia</a></li>
-                    <li><a href="area-detalle.html?area=derecho-penal-delitos-especiales">Derecho Penal - Delitos Especiales</a></li>
-                    <li><a href="area-detalle.html?area=saneamientos">Saneamientos</a></li>
-                    <li><a href="area-detalle.html?area=derecho-empresarial">Derecho Empresarial</a></li>
-                    <li><a href="areas.html">Ver las 9 especialidades →</a></li>
-                </ul>
-            </div>
-
-            <!-- Columna 4: Datos de Contacto Administrables -->
-            <div class="footer-col">
-                <h4>Central de Atención</h4>
-                <ul class="footer-contact">
-                    <li>
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span id="sitioDireccion">Calle 28 de Julio 701, Urb. Vallecito - Arequipa</span>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-phone"></i>
-                        <span id="sitioTelefono">(054) 419349 / 980 249 579</span>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-envelope"></i>
-                        <span id="sitioCorreo">contacto@estudio-ureta.com</span>
-                    </li>
-                    <li>
-                        <i class="fa-regular fa-clock"></i>
-                        <span id="sitioHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="container footer-bottom-content">
-                <p>© 2026 Estudio Jurídico Ureta & Asociados. Todos los derechos reservados.</p>
-                <div class="footer-legal">
-                    <a href="contacto.html">Aviso de Privacidad y Protección de Datos Personales</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Botón Flotante de WhatsApp -->
-    <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20realizar%20una%20consulta%20legal" target="_blank" class="whatsapp-float" aria-label="Consultar por WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i> <span>Consulta por WhatsApp</span>
-    </a>
-
-    <!-- ==========================================
-         SCRIPTS CONECTADOS A SUPABASE Y PANEL ADMIN
-         ========================================== -->
     <script src="js/datos-estudio.js"></script>
+    <script src="js/layout.js"></script>
     <script src="js/main.js"></script>
+
     <script>
         // Pintado instantáneo (0 ms) + actualización silenciosa desde Supabase
         document.addEventListener('DOMContentLoaded', () => {

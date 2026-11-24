@@ -3063,3 +3063,152 @@ ul {
     margin: 0 auto 10px;
     display: block;
 }
+/* =========================================================================
+   BOTONES FLOTANTES: MENÚ DESPLEGABLE DE REDES SOCIALES + WHATSAPP
+   ========================================================================= */
+.floating-dock {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+/* Contenedor del botón desplegable de redes */
+.social-fab-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Menú oculto que se despliega hacia arriba al hacer clic */
+.social-fab-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px) scale(0.95);
+    pointer-events: none;
+    transition: all 0.25s ease;
+}
+
+.social-fab-wrapper.open .social-fab-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Cada red social desplegada */
+.social-fab-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    color: #171a18;
+    padding: 6px 6px 6px 14px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(181, 154, 98, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-fab-item:hover {
+    transform: translateX(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+}
+
+.social-fab-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.social-fab-icon.fb { background: #1877F2; }
+.social-fab-icon.ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social-fab-icon.x  { background: #171a18; }
+.social-fab-icon.in { background: #0A66C2; }
+
+/* Pequeño botón circular que abre/cierra las redes sociales */
+.social-fab-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #b59a62;
+    background: #123c2a;
+    color: #b59a62;
+    font-size: 1.15rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    transition: all 0.25s ease;
+}
+
+.social-fab-toggle:hover,
+.social-fab-wrapper.open .social-fab-toggle {
+    background: #b59a62;
+    color: #171a18;
+    transform: scale(1.06);
+}
+
+/* Botón flotante de WhatsApp */
+.whatsapp-float-pro {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 9px;
+    background: #25D366 !important;
+    color: #ffffff !important;
+    padding: 12px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.whatsapp-float-pro i {
+    font-size: 1.35rem;
+}
+
+.whatsapp-float-pro:hover {
+    background: #1ebe5b !important;
+    transform: translateY(-2px);
+}
+
+/* Ajuste compacto en celulares */
+@media (max-width: 600px) {
+    .floating-dock {
+        bottom: 16px !important;
+        right: 16px !important;
+    }
+    .whatsapp-float-pro {
+        width: 54px;
+        height: 54px;
+        padding: 0;
+        justify-content: center;
+    }
+    .whatsapp-float-pro span {
+        display: none;
+    }
+    .whatsapp-float-pro i {
+        font-size: 1.6rem;
+    }
+}
