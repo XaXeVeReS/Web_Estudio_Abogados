@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestras Áreas Legales | Estudio Jurídico Ureta & Asociados</title>
+    <meta name="description" content="Conoce las 9 áreas de práctica jurídica del Estudio Jurídico Ureta & Asociados en Arequipa.">
+    <title>Nuestras Áreas | Estudio Jurídico Ureta & Asociados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -12,92 +13,62 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <!-- HEADER MAESTRO -->
     <div id="master-header"></div>
 
-    <!-- PORTADA DE ESPECIALIDADES -->
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80');">
+    <!-- PORTADA INTERNA (EDITABLE) -->
+    <section class="page-banner" id="areasBanner" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80');">
         <div class="page-banner-overlay"></div>
         <div class="container page-banner-content">
-            <span class="hero-badge">PRÁCTICA MULTIDISCIPLINARIA</span>
-            <h1>Nuestras Áreas de Especialización Legal</h1>
-            <p>Contamos con especialistas altamente calificados en las 13 ramas principales del Derecho para brindar asesoría preventiva, corporativa y patrocinio procesal.</p>
+            <span class="hero-badge" id="areasBannerTag">ESPECIALIDADES JURÍDICAS</span>
+            <h1 id="areasBannerTitulo">Nuestras Áreas de Práctica</h1>
+            <p id="areasBannerSub">Brindamos asesoría legal integral y patrocinio estratégico a cargo de abogados especialistas en 9 ramas clave del Derecho.</p>
         </div>
     </section>
 
-    <!-- CATÁLOGO INTERACTIVO DE LAS 13 ESPECIALIDADES -->
+    <!-- CATÁLOGO CON BUSCADOR INSTANTÁNEO (9 ESPECIALIDADES) -->
     <section class="section bg-light">
         <div class="container">
-            
-            <!-- Buscador rápido de especialidades -->
-            <div class="filter-bar" style="margin-bottom: 34px;">
-                <div class="search-box" style="flex: 1;">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="buscarAreaCatalogoInput" placeholder="Buscar especialidad jurídica (Ej. Corporativo, Civil, Laboral, Propiedades, SUNAT, INDECOPI)...">
-                </div>
-                <a href="contacto.html" class="btn btn-gold">
-                    <i class="fa-solid fa-calendar-check"></i> Solicitar Asesoría General
-                </a>
+            <div class="section-header">
+                <span class="section-tag" id="areasCatTag">PORTAFOLIO LEGAL</span>
+                <h2 class="section-title" id="areasCatTitulo">Especialidades del Estudio</h2>
+                <p class="section-subtitle" id="areasCatSub">Selecciona una especialidad para conocer el alcance del servicio, los casos que atendemos y solicitar una consulta directa.</p>
             </div>
 
-            <!-- Grilla de las 13 Áreas Legales (Se llena desde Supabase / datos-estudio.js) -->
-            <div class="cards-grid-3" id="catalogoAreasContainer"></div>
+            <!-- Barra de búsqueda rápida -->
+            <div class="filter-bar" style="grid-template-columns: 1fr; max-width: 720px; margin: 0 auto 38px;">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="buscarAreaInput" placeholder="Buscar especialidad jurídica (ej. Civil, Penal, Laboral, Saneamientos)...">
+                </div>
+            </div>
 
+            <!-- Grilla dinámica conectada a Supabase -->
+            <div class="cards-grid-3" id="catalogoAreasContainer"></div>
         </div>
     </section>
 
-    <!-- BANNER CTA DE ATENCIÓN -->
+    <!-- BANNER CTA (EDITABLE) -->
     <section class="cta-banner">
         <div class="container cta-content">
             <div class="cta-text">
-                <h2>¿No estás seguro de qué área legal corresponde a tu caso?</h2>
-                <p>Escríbenos y derivaremos tu consulta internamente al abogado especialista indicado.</p>
+                <h2 id="areasCtaTitulo">¿Requieres patrocinio o consultoría en alguna especialidad?</h2>
+                <p id="areasCtaSub">Agenda una reunión confidencial con nuestros especialistas para analizar la estrategia legal más segura para tu caso.</p>
             </div>
             <div class="cta-buttons">
-                <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20orientaci%C3%B3n%20sobre%20una%20consulta%20legal" target="_blank" class="btn btn-whatsapp">
-                    <i class="fa-brands fa-whatsapp"></i> Orientación por WhatsApp
+                <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20solicitar%20asesor%C3%ADa%20legal" target="_blank" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp
                 </a>
-                <a href="contacto.html" class="btn btn-gold">Ir al Formulario de Contacto</a>
+                <a href="contacto.html" class="btn btn-gold">Ir a la página de Contacto</a>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER INSTITUCIONAL COMPLETO DE 4 COLUMNAS -->
+    <!-- FOOTER MAESTRO + REDES + WHATSAPP -->
     <div id="master-footer"></div>
 
     <script src="js/datos-estudio.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        // Filtro en vivo en el catálogo de áreas legales
-        document.addEventListener('DOMContentLoaded', () => {
-            const inputBuscarArea = document.getElementById('buscarAreaCatalogoInput');
-            const contenedor = document.getElementById('catalogoAreasContainer');
-            if (inputBuscarArea && contenedor && typeof obtenerAreasLegales === 'function') {
-                inputBuscarArea.addEventListener('input', () => {
-                    const q = inputBuscarArea.value.toLowerCase().trim();
-                    const activas = obtenerAreasLegales().filter(a => a.activo && (
-                        a.nombre.toLowerCase().includes(q) ||
-                        a.resumen.toLowerCase().includes(q) ||
-                        a.descripcion.toLowerCase().includes(q)
-                    ));
-                    contenedor.innerHTML = activas.map(area => `
-                        <article class="area-card">
-                            <div class="area-card-img">
-                                <img src="${area.imagen}" alt="${area.nombre}">
-                            </div>
-                            <div class="area-card-body">
-                                <h3><i class="${area.icono || 'fa-solid fa-scale-balanced'}" style="color: var(--dorado); margin-right: 6px;"></i> ${area.nombre}</h3>
-                                <p>${area.resumen}</p>
-                                <a href="area-detalle.html?area=${area.slug}" class="card-link">
-                                    Conocer más <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </article>
-                    `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:24px;">No se encontraron especialidades con ese término.</p>`;
-                });
-            }
-        });
-    </script>
 </body>
 </html>

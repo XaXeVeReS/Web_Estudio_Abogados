@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conoce la historia, misión, visión y valores del Estudio Jurídico Ureta & Asociados en Arequipa.">
     <title>Nosotros | Estudio Jurídico Ureta & Asociados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,131 +13,115 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <!-- HEADER MAESTRO -->
     <div id="master-header"></div>
 
-    <!-- BANNER INTERNO -->
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');">
+    <!-- PORTADA INTERNA (EDITABLE) -->
+    <section class="page-banner" id="nosBanner" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');">
         <div class="page-banner-overlay"></div>
         <div class="container page-banner-content">
-            <span class="hero-badge">QUIÉNES SOMOS</span>
-            <h1>Nuestra Firma Jurídica</h1>
-            <p>Liderazgo, ética profesional y alta especialización al servicio de personas y empresas en la Región Sur y todo el Perú.</p>
+            <span class="hero-badge" id="nosBannerTag">NUESTRA FIRMA JURÍDICA</span>
+            <h1 id="nosBannerTitulo">Sobre Estudio Jurídico Ureta & Asociados</h1>
+            <p id="nosBannerSub">Lealtad, trascendencia y excelencia al servicio de personas, familias y empresas en Arequipa y la Región Sur.</p>
         </div>
     </section>
 
-    <!-- HISTORIA Y PRESENTACIÓN EJECUTIVA (ADMINISTRABLE DESDE SUPABASE) -->
+    <!-- SECCIÓN 1: HISTORIA Y PRESENTACIÓN EJECUTIVA (EDITABLE) -->
     <section class="section">
         <div class="container about-grid-executive">
             <div class="about-visual-wrapper">
                 <div class="about-main-photo">
-                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85" alt="Instalaciones Estudio Jurídico Ureta & Asociados">
+                    <img id="nosHistImagen" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85" alt="Estudio Jurídico Ureta & Asociados">
                 </div>
                 <div class="about-floating-badge">
-                    <div class="badge-icon-box">
-                        <i class="fa-solid fa-scale-balanced"></i>
-                    </div>
+                    <div class="badge-icon-box"><i class="fa-solid fa-scale-balanced"></i></div>
                     <div class="badge-text-box">
-                        <strong>Estudio Jurídico Líder en la Región Sur</strong>
-                        <span id="nosotrosFraseInsignia">Manteniendo un alto nivel de especialización en 13 áreas del Derecho</span>
+                        <strong id="nosBadgeTitulo">Sede Arequipa</strong>
+                        <span id="nosBadgeSub">Lealtad, trascendencia y excelencia</span>
                     </div>
                 </div>
             </div>
 
             <div class="about-text-executive">
-                <span class="section-tag">HISTORIA E IDENTIDAD INSTITUCIONAL</span>
+                <span class="section-tag" id="nosHistTag">QUIÉNES SOMOS</span>
                 <h2 class="section-title-left" id="nosotrosTituloEstudio">Estudio Jurídico Ureta & Asociados</h2>
-                
-                <p class="about-lead-highlight" id="nosotrosHistoriaTexto">
-                    Somos una de las prestigiosas firmas de abogados del Sur del Perú, que ofrece una amplia gama de profesionales de primer nivel, especializados en distintas áreas del Derecho, los mismos que están avocados a encontrar soluciones innovadoras e impulsar el crecimiento y desarrollo de sus clientes.
-                </p>
-
-                <div class="pillars-cards-grid">
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-handshake-angle"></i></div>
-                        <div>
-                            <h4>Servicio al cliente</h4>
-                            <p>El mejor servicio de asesoría y asistencia legal dedicada a todos nuestros patrocinados.</p>
-                        </div>
-                    </div>
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-bolt"></i></div>
-                        <div>
-                            <h4>Calidad y Eficiencia</h4>
-                            <p>Servicios legales de la más alta calidad mediante procesos eficientes y optimizados.</p>
-                        </div>
-                    </div>
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                        <div>
-                            <h4>Reconocimiento y Prestigio</h4>
-                            <p>Profesionales con alta formación académica y especialización continua.</p>
-                        </div>
-                    </div>
-                    <div class="pillar-box">
-                        <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                        <div>
-                            <h4>Ética y Reserva</h4>
-                            <p>Manejo estrictamente confidencial y transparente en cada estrategia procesal.</p>
-                        </div>
-                    </div>
+                <p class="about-lead-highlight" id="nosotrosHistoriaTexto"></p>
+                <p id="nosHistParrafo2" style="color: var(--gris-texto); line-height: 1.75; margin-bottom: 26px;"></p>
+                <div class="about-actions-bar">
+                    <a href="areas.html" class="btn btn-primary-dark">Conoce nuestras 9 Áreas <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i></a>
+                    <a href="staff.html" class="btn btn-gold">Nuestro Staff Jurídico</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MISIÓN, VISIÓN Y FILOSOFÍA (CONECTADOS A SUPABASE) -->
+    <!-- SECCIÓN 2: MISIÓN, VISIÓN Y FILOSOFÍA (3 TARJETAS EDITABLES) -->
     <section class="section bg-light">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">PROPÓSITO INSTITUCIONAL</span>
-                <h2 class="section-title">Misión, Visión y Filosofía de Trabajo</h2>
+                <span class="section-tag" id="nosMvTag">IDENTIDAD INSTITUCIONAL</span>
+                <h2 class="section-title" id="nosMvTitulo">Misión, Visión y Filosofía de Trabajo</h2>
+                <p class="section-subtitle" id="nosMvSub">Los principios que guían nuestra práctica profesional y el respaldo hacia cada patrocinado.</p>
             </div>
 
-            <div class="cards-grid-3">
-                <div class="detail-box highlight-box">
-                    <h3><i class="fa-solid fa-bullseye" style="color:var(--dorado); margin-right:8px;"></i> Nuestra Misión</h3>
-                    <p id="nosotrosMisionTexto" style="font-size:0.94rem; color:var(--gris-texto); line-height:1.75;">
-                        Brindar asesoría jurídica integral, preventiva y patrocinio estratégico con los más altos estándares éticos, técnicos y de eficiencia, protegiendo los intereses patrimoniales, corporativos y personales de nuestros clientes.
-                    </p>
-                </div>
+            <div class="mv-grid">
+                <article class="mv-card">
+                    <div class="mv-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 id="nosMisionTitulo">Nuestra Misión</h3>
+                    <p id="nosotrosMisionTexto"></p>
+                </article>
 
-                <div class="detail-box highlight-box">
-                    <h3><i class="fa-solid fa-eye" style="color:var(--dorado); margin-right:8px;"></i> Nuestra Visión</h3>
-                    <p id="nosotrosVisionTexto" style="font-size:0.94rem; color:var(--gris-texto); line-height:1.75;">
-                        Mantener y consolidar nuestro liderazgo como estudio jurídico referente en la Región Sur y a nivel nacional, reconocido por su excelencia académica, innovación legal y solidez en cada área de práctica.
-                    </p>
-                </div>
+                <article class="mv-card">
+                    <div class="mv-icon"><i class="fa-solid fa-eye"></i></div>
+                    <h3 id="nosVisionTitulo">Nuestra Visión</h3>
+                    <p id="nosotrosVisionTexto"></p>
+                </article>
 
-                <div class="detail-box highlight-box">
-                    <h3><i class="fa-solid fa-Gavel" style="color:var(--dorado); margin-right:8px;"></i> Filosofía de Trabajo</h3>
-                    <p style="font-size:0.94rem; color:var(--gris-texto); line-height:1.75;">
-                        Integramos el análisis preventivo con la litigación estratégica. Cada caso es evaluado de forma colegiada por nuestros especialistas para anticipar contingencias y ofrecer soluciones claras, honestas y oportunas.
-                    </p>
-                </div>
+                <article class="mv-card">
+                    <div class="mv-icon"><i class="fa-solid fa-landmark"></i></div>
+                    <h3 id="nosFiloTitulo">Filosofía de Trabajo</h3>
+                    <p id="nosFiloTexto"></p>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- CTA CONTACTO -->
+    <!-- SECCIÓN 3: VALORES Y COMPROMISO ÉTICO (EDITABLE) -->
+    <section class="section">
+        <div class="container alternate-row">
+            <div class="alternate-text">
+                <span class="section-tag" id="nosValTag">PRINCIPIOS Y CULTURA</span>
+                <h2 class="section-title-left" id="nosValTitulo">Nuestros Valores y Compromiso Ético</h2>
+                <p id="nosValDesc"></p>
+                <ul class="check-list" id="nosValLista"></ul>
+            </div>
+            <div class="alternate-img">
+                <img id="nosValImagen" src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1000&q=85" alt="Valores y Ética Jurídica">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 4: BANNER CTA (EDITABLE) -->
     <section class="cta-banner">
         <div class="container cta-content">
             <div class="cta-text">
-                <h2>Conoce a nuestros especialistas y áreas de práctica</h2>
-                <p>Estamos ubicados en Yanahuara, Arequipa, listos para atender tus consultas de forma presencial o virtual.</p>
+                <h2 id="nosCtaTitulo">¿Deseas conocer cómo podemos respaldar tu caso o empresa?</h2>
+                <p id="nosCtaSub">Agenda una reunión confidencial con nuestro equipo de especialistas en nuestra sede de Urb. Vallecito o vía virtual.</p>
             </div>
             <div class="cta-buttons">
-                <a href="staff.html" class="btn btn-gold">Ver Nuestro Staff</a>
-                <a href="contacto.html" class="btn btn-outline-light">Agendar una Cita</a>
+                <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20solicitar%20asesor%C3%ADa%20legal" target="_blank" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp
+                </a>
+                <a href="contacto.html" class="btn btn-gold">Ir a la página de Contacto</a>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER MAESTRO + REDES + WHATSAPP -->
     <div id="master-footer"></div>
 
     <script src="js/datos-estudio.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/main.js"></script>
-
 </body>
 </html>

@@ -3387,3 +3387,46 @@ ul {
 .why-us-section .why-card p {
     color: #e6e0db !important;
 }
+.checks-especialidades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.check-esp-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #171a18;
+    transition: all 0.2s ease;
+    margin: 0 !important;
+}
+
+.check-esp-item:hover {
+    border-color: #b59a62;
+}
+
+.check-esp-item input[type="checkbox"] {
+    width: 17px !important;
+    height: 17px !important;
+    margin: 0;
+    accent-color: #123c2a;
+    cursor: pointer;
+}
+
+.check-esp-item:has(input:checked) {
+    background: #eef7f1;
+    border-color: #123c2a;
+    color: #123c2a;
+}

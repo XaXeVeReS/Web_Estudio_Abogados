@@ -12,46 +12,47 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <!-- HEADER MAESTRO -->
     <div id="master-header"></div>
+
     <!-- BANNER DINÁMICO DE LA ESPECIALIDAD -->
-    <section class="page-banner" id="areaBannerImg" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80');">
+    <section class="page-banner" id="areaBannerImg" style="background-image: url('https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1600&q=80');">
         <div class="page-banner-overlay"></div>
         <div class="container page-banner-content">
-            <span class="hero-badge"><i id="areaIcono" class="fa-solid fa-scale-balanced"></i> ÁREA DE PRÁCTICA ESPECIALIZADA</span>
-            <h1 id="areaNombre">Derecho Corporativo</h1>
-            <p id="areaResumen">Asesoría societaria integral, gobierno corporativo, contratos mercantiles y operaciones empresariales.</p>
+            <span class="hero-badge"><i id="areaIcono" class="fa-solid fa-scale-balanced"></i> <span id="areaDetBadge">ÁREA DE PRÁCTICA ESPECIALIZADA</span></span>
+            <h1 id="areaNombre">Derecho Civil</h1>
+            <p id="areaResumen"></p>
         </div>
     </section>
 
-    <!-- CONTENIDO DE LA ESPECIALIDAD + BARRA LATERAL INTERACTIVA -->
+    <!-- CONTENIDO DE LA ESPECIALIDAD + BARRA LATERAL -->
     <section class="section">
         <div class="container area-detail-layout">
-            
-            <!-- Columna Principal: Alcance, Servicios y Situaciones Frecuentes -->
+
+            <!-- Columna Principal -->
             <div class="area-main-content">
                 <div class="detail-box">
-                    <span class="section-tag">ALCANCE DEL SERVICIO</span>
-                    <h2 class="section-title-left" style="margin-bottom: 14px;">Presentación del Área</h2>
-                    <p id="areaDescripcion" style="font-size: 1.02rem; line-height: 1.8; color: #334155;"></p>
+                    <span class="section-tag" id="areaDetAlcanceTag">ALCANCE DEL SERVICIO</span>
+                    <h2 class="section-title-left" id="areaDetAlcanceTitulo" style="margin-bottom: 14px;">Presentación del Área</h2>
+                    <p id="areaDescripcion" style="font-size: 1.02rem; line-height: 1.8; color: #3d4440;"></p>
                 </div>
 
                 <div class="detail-box">
-                    <h3><i class="fa-solid fa-list-check" style="color: var(--dorado); margin-right: 8px;"></i> Principales Servicios que Ofrecemos</h3>
+                    <h3><i class="fa-solid fa-list-check" style="color: var(--dorado); margin-right: 8px;"></i> <span id="areaDetServiciosTitulo">Principales Servicios que Ofrecemos</span></h3>
                     <ul class="check-list" id="areaListaServicios"></ul>
                 </div>
 
                 <div class="detail-box highlight-box">
-                    <h3><i class="fa-solid fa-shield-halved" style="color: var(--dorado); margin-right: 8px;"></i> ¿En qué situaciones brindamos asesoría?</h3>
-                    <ul class="situations-list" id="areaListaSituaciones"></ul>
+                    <h3><i class="fa-solid fa-shield-halved" style="color: var(--dorado); margin-right: 8px;"></i> <span id="areaDetSituacionesTitulo">¿En qué situaciones brindamos asesoría?</span></h3>
+                    <ul class="check-list" id="areaListaSituaciones"></ul>
                 </div>
 
-                <!-- Bloque de Llamada a la Acción Directa -->
+                <!-- Bloque CTA Directo -->
                 <div class="spontaneous-banner-executive" style="margin-top: 28px;">
                     <div class="spontaneous-banner-text">
                         <span class="sidebar-gold-tag">ATENCIÓN PERSONALIZADA</span>
-                        <h3>¿Requieres patrocinio o consultoría en esta especialidad?</h3>
-                        <p>Agenda una reunión con nuestros especialistas para analizar la estrategia legal más segura para tu caso.</p>
+                        <h3 id="areaDetCtaTitulo">¿Requieres patrocinio o consultoría en alguna especialidad?</h3>
+                        <p id="areaDetCtaSub">Agenda una reunión confidencial con nuestros especialistas para analizar la estrategia legal más segura para tu caso.</p>
                     </div>
                     <a href="contacto.html" id="btnSolicitarAsesoriaArea" class="btn btn-gold">
                         Solicitar Asesoría en esta Área <i class="fa-solid fa-arrow-right" style="margin-left:6px;"></i>
@@ -59,14 +60,12 @@
                 </div>
             </div>
 
-            <!-- Columna Lateral: Formulario Rápido + Menú de las 13 Áreas -->
+            <!-- Columna Lateral: Consulta Rápida + Navegador de Especialidades -->
             <aside class="area-sidebar">
-                
-                <!-- Formulario Rápido de la Especialidad (Conectado a Supabase) -->
-                <div class="sidebar-form-card" style="background: #142B40; color: #ffffff; padding: 28px; border-radius: 8px; border-top: 4px solid var(--dorado); margin-bottom: 28px;">
-                    <span class="sidebar-gold-tag">CONSULTA DIRECTA</span>
-                    <h3 style="font-family: var(--fuente-titulos); color: #ffffff; font-size: 1.35rem; margin-bottom: 8px;">Consultar con un Especialista</h3>
-                    <p style="font-size: 0.84rem; color: #cbd5e1; margin-bottom: 18px;">Déjanos tus datos y el equipo de esta área te responderá a la brevedad.</p>
+                <div class="sidebar-form-card" style="background: linear-gradient(165deg, #123c2a 0%, #171a18 100%); color: #ffffff; padding: 28px; border-radius: 8px; border-top: 4px solid var(--dorado); margin-bottom: 28px;">
+                    <span class="sidebar-gold-tag" id="areaDetFormTag">CONSULTA DIRECTA</span>
+                    <h3 id="areaDetFormTitulo" style="font-family: var(--fuente-titulos); color: #ffffff; font-size: 1.35rem; margin-bottom: 8px;">Consultar con un Especialista</h3>
+                    <p id="areaDetFormSub" style="font-size: 0.84rem; color: #e6e0db; margin-bottom: 18px;">Déjanos tus datos y el equipo de esta área te responderá a la brevedad con absoluta reserva.</p>
 
                     <form id="formConsultaRapidaArea">
                         <input type="hidden" id="inputAreaSeleccionada">
@@ -91,18 +90,16 @@
                     </form>
                 </div>
 
-                <!-- Navegador Lateral de las 13 Especialidades -->
-                <div class="sidebar-widget">
-                    <h4>Todas Nuestras Especialidades</h4>
-                    <ul class="sidebar-areas-nav" id="sidebarAreasList"></ul>
+                <div class="sidebar-card">
+                    <h4 id="areaDetSidebarTitulo">Todas Nuestras Especialidades</h4>
+                    <ul class="sidebar-areas-list" id="sidebarAreasList"></ul>
                 </div>
-
             </aside>
 
         </div>
     </section>
 
-    <!-- FOOTER INSTITUCIONAL COMPLETO DE 4 COLUMNAS -->
+    <!-- FOOTER MAESTRO + REDES + WHATSAPP -->
     <div id="master-footer"></div>
 
     <script src="js/datos-estudio.js"></script>

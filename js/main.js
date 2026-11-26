@@ -343,68 +343,309 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // =====================================================================
+    // 1C. PINTADO 100% EDITABLE DE LA PÁGINA "NOSOTROS" (nosotros.html)
+    // =====================================================================
+    const NOSOTROS_DEFECTO = {
+        banner_tag: 'NUESTRA FIRMA JURÍDICA',
+        banner_titulo: 'Sobre Estudio Jurídico Ureta & Asociados',
+        banner_sub: 'Lealtad, trascendencia y excelencia al servicio de personas, familias y empresas en Arequipa y la Región Sur.',
+        banner_img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80',
+        hist_tag: 'QUIÉNES SOMOS',
+        hist_titulo: 'Estudio Jurídico Ureta & Asociados',
+        hist_texto_1: 'Somos una prestigiosa firma de abogados en Arequipa que reúne a profesionales especializados en 9 ramas clave del Derecho, enfocados en brindar soluciones jurídicas sólidas, preventivas y estratégicas.',
+        hist_texto_2: 'Acompañamos cada decisión patrimonial, empresarial, penal, laboral o familiar con rigor académico, trato directo de nuestros socios y absoluta confidencialidad en cada etapa del proceso.',
+        hist_img: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85',
+        badge_titulo: 'Sede Arequipa',
+        badge_sub: 'Lealtad, trascendencia y excelencia',
+        mv_tag: 'IDENTIDAD INSTITUCIONAL',
+        mv_titulo: 'Misión, Visión y Filosofía de Trabajo',
+        mv_sub: 'Los principios que guían nuestra práctica profesional y el respaldo hacia cada patrocinado.',
+        mision_titulo: 'Nuestra Misión',
+        mision_texto: 'Brindar asesoría legal integral, preventiva y patrocinio estratégico de alta exigencia técnica, protegiendo los derechos y el patrimonio de nuestros clientes con ética y transparencia.',
+        vision_titulo: 'Nuestra Visión',
+        vision_texto: 'Consolidarnos como la firma jurídica referente en Arequipa y la Región Sur del Perú, reconocida por su solidez académica, lealtad institucional y formación de nuevas generaciones de abogados.',
+        filo_titulo: 'Filosofía de Trabajo',
+        filo_texto: 'Cada caso recibe análisis multidisciplinario, estrategia a medida y comunicación constante, priorizando soluciones eficaces antes, durante y después de cualquier controversia.',
+        val_tag: 'PRINCIPIOS Y CULTURA',
+        val_titulo: 'Nuestros Valores y Compromiso Ético',
+        val_desc: 'Nuestro ejercicio profesional se sostiene sobre estándares firmes que garantizan confianza y resultados sostenibles para quienes nos confían sus casos:',
+        val_img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1000&q=85',
+        valores: [
+            'Lealtad absoluta y defensa responsable de los intereses de cada patrocinado.',
+            'Rigor académico y actualización jurisprudencial constante en nuestras 9 especialidades.',
+            'Confidencialidad estricta y manejo reservado de la información personal y corporativa.',
+            'Transparencia en el diagnóstico legal, plazos procesales y alternativas de solución.',
+            'Trascendencia profesional: formamos practicantes y abogados con vocación ética.'
+        ],
+        cta_titulo: '¿Deseas conocer cómo podemos respaldar tu caso o empresa?',
+        cta_sub: 'Agenda una reunión confidencial con nuestro equipo de especialistas en nuestra sede de Urb. Vallecito o vía virtual.'
+    };
+
+    function renderizarPaginaNosotros() {
+        const banner = document.getElementById('nosBanner');
+        if (!banner) return;
+
+        const nos = Object.assign({}, NOSOTROS_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_nosotros_cache') || '{}'));
+
+        if (nos.banner_img) banner.style.backgroundImage = `url('${nos.banner_img}')`;
+        const imgHist = document.getElementById('nosHistImagen');
+        if (imgHist && nos.hist_img) imgHist.src = nos.hist_img;
+        const imgVal = document.getElementById('nosValImagen');
+        if (imgVal && nos.val_img) imgVal.src = nos.val_img;
+
+        const mapaNos = {
+            'nosBannerTag': nos.banner_tag,
+            'nosBannerTitulo': nos.banner_titulo,
+            'nosBannerSub': nos.banner_sub,
+            'nosBadgeTitulo': nos.badge_titulo,
+            'nosBadgeSub': nos.badge_sub,
+            'nosHistTag': nos.hist_tag,
+            'nosotrosTituloEstudio': nos.hist_titulo,
+            'nosotrosHistoriaTexto': nos.hist_texto_1,
+            'nosHistParrafo2': nos.hist_texto_2,
+            'nosMvTag': nos.mv_tag,
+            'nosMvTitulo': nos.mv_titulo,
+            'nosMvSub': nos.mv_sub,
+            'nosMisionTitulo': nos.mision_titulo,
+            'nosotrosMisionTexto': nos.mision_texto,
+            'nosVisionTitulo': nos.vision_titulo,
+            'nosotrosVisionTexto': nos.vision_texto,
+            'nosFiloTitulo': nos.filo_titulo,
+            'nosFiloTexto': nos.filo_texto,
+            'nosValTag': nos.val_tag,
+            'nosValTitulo': nos.val_titulo,
+            'nosValDesc': nos.val_desc,
+            'nosCtaTitulo': nos.cta_titulo,
+            'nosCtaSub': nos.cta_sub
+        };
+        Object.entries(mapaNos).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        const listaVal = document.getElementById('nosValLista');
+        if (listaVal && Array.isArray(nos.valores)) {
+            listaVal.innerHTML = nos.valores.map(v => `
+                <li><i class="fa-solid fa-circle-check"></i> <span>${v}</span></li>
+            `).join('');
+        }
+    }
+
+    // =====================================================================
+    // 1D. PINTADO 100% EDITABLE DE "ÁREAS" (areas.html y area-detalle.html)
+    // =====================================================================
+    const AREAS_PAGINA_DEFECTO = {
+        banner_tag: 'ESPECIALIDADES JURÍDICAS',
+        banner_titulo: 'Nuestras Áreas de Práctica',
+        banner_sub: 'Brindamos asesoría legal integral y patrocinio estratégico a cargo de abogados especialistas en 9 ramas clave del Derecho.',
+        banner_img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1600&q=80',
+        cat_tag: 'PORTAFOLIO LEGAL',
+        cat_titulo: 'Especialidades del Estudio',
+        cat_sub: 'Selecciona una especialidad para conocer el alcance del servicio, los casos que atendemos y solicitar una consulta directa.',
+        buscador_placeholder: 'Buscar especialidad jurídica (ej. Civil, Penal, Laboral, Saneamientos)...',
+        det_badge: 'ÁREA DE PRÁCTICA ESPECIALIZADA',
+        det_alcance_tag: 'ALCANCE DEL SERVICIO',
+        det_alcance_titulo: 'Presentación del Área',
+        det_servicios_titulo: 'Principales Servicios que Ofrecemos',
+        det_situaciones_titulo: '¿En qué situaciones brindamos asesoría?',
+        det_form_tag: 'CONSULTA DIRECTA',
+        det_form_titulo: 'Consultar con un Especialista',
+        det_form_sub: 'Déjanos tus datos y el equipo de esta área te responderá a la brevedad con absoluta reserva.',
+        det_sidebar_titulo: 'Todas Nuestras Especialidades',
+        cta_titulo: '¿Requieres patrocinio o consultoría en alguna especialidad?',
+        cta_sub: 'Agenda una reunión confidencial con nuestros especialistas para analizar la estrategia legal más segura para tu caso.'
+    };
+
+    function renderizarPaginaAreas() {
+        const ar = Object.assign({}, AREAS_PAGINA_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_areas_cache') || '{}'));
+
+        // Banner de areas.html
+        const bannerAreas = document.getElementById('areasBanner');
+        if (bannerAreas && ar.banner_img) {
+            bannerAreas.style.backgroundImage = `url('${ar.banner_img}')`;
+        }
+
+        const buscadorAreas = document.getElementById('buscarAreaInput');
+        if (buscadorAreas && ar.buscador_placeholder) {
+            buscadorAreas.placeholder = ar.buscador_placeholder;
+        }
+
+        // Textos editables tanto de areas.html como de area-detalle.html
+        const mapaAreas = {
+            'areasBannerTag': ar.banner_tag,
+            'areasBannerTitulo': ar.banner_titulo,
+            'areasBannerSub': ar.banner_sub,
+            'areasCatTag': ar.cat_tag,
+            'areasCatTitulo': ar.cat_titulo,
+            'areasCatSub': ar.cat_sub,
+            'areasCtaTitulo': ar.cta_titulo,
+            'areasCtaSub': ar.cta_sub,
+            'areaDetBadge': ar.det_badge,
+            'areaDetAlcanceTag': ar.det_alcance_tag,
+            'areaDetAlcanceTitulo': ar.det_alcance_titulo,
+            'areaDetServiciosTitulo': ar.det_servicios_titulo,
+            'areaDetSituacionesTitulo': ar.det_situaciones_titulo,
+            'areaDetFormTag': ar.det_form_tag,
+            'areaDetFormTitulo': ar.det_form_titulo,
+            'areaDetFormSub': ar.det_form_sub,
+            'areaDetSidebarTitulo': ar.det_sidebar_titulo,
+            'areaDetCtaTitulo': ar.cta_titulo,
+            'areaDetCtaSub': ar.cta_sub
+        };
+        Object.entries(mapaAreas).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        // Refrescar tarjetas del catálogo y ficha detalle si están en pantalla
+        if (typeof window.refrescarCatalogoAreas === 'function') window.refrescarCatalogoAreas();
+        if (typeof window.refrescarDetalleArea === 'function') window.refrescarDetalleArea();
+    }
+// =====================================================================
+    // 1E. PINTADO 100% EDITABLE DE "NUESTRO STAFF" (staff.html)
+    // =====================================================================
+    const STAFF_PAGINA_DEFECTO = {
+        banner_tag: 'DIRECTORIO JURÍDICO',
+        banner_titulo: 'Nuestro Staff de Abogados',
+        banner_sub: 'Conoce al equipo multidisciplinario de especialistas comprometidos con la lealtad, trascendencia y excelencia en cada patrocinio.',
+        banner_img: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80',
+        dir_tag: 'EQUIPO ESPECIALIZADO',
+        dir_titulo: 'Profesionales a tu Servicio',
+        dir_sub: 'Busca por nombre, cargo o filtra por especialidad jurídica para revisar la ficha académica y profesional de cada integrante.',
+        buscador_placeholder: 'Buscar abogado por nombre o cargo...',
+        filtro_todas_texto: 'Todas las especialidades',
+        btn_perfil_texto: 'Ver ficha profesional',
+        cta_titulo: '¿Deseas agendar una consulta con alguno de nuestros especialistas?',
+        cta_sub: 'Coordina una cita presencial en nuestra sede de Urb. Vallecito o vía virtual con total confidencialidad.'
+    };
+
+    function renderizarPaginaStaff() {
+        const banner = document.getElementById('staffBanner');
+        if (!banner) return;
+
+        const st = Object.assign({}, STAFF_PAGINA_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_staff_cache') || '{}'));
+        if (st.banner_img) banner.style.backgroundImage = `url('${st.banner_img}')`;
+
+        const buscador = document.getElementById('buscarAbogadoInput');
+        if (buscador && st.buscador_placeholder) buscador.placeholder = st.buscador_placeholder;
+
+        const mapaStaff = {
+            'staffBannerTag': st.banner_tag,
+            'staffBannerTitulo': st.banner_titulo,
+            'staffBannerSub': st.banner_sub,
+            'staffDirTag': st.dir_tag,
+            'staffDirTitulo': st.dir_titulo,
+            'staffDirSub': st.dir_sub,
+            'staffCtaTitulo': st.cta_titulo,
+            'staffCtaSub': st.cta_sub
+        };
+        Object.entries(mapaStaff).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        // Guardar textos dinámicos para usarlos dentro del filtro y botones de tarjetas
+        window.__staffTextosUi = st;
+        if (typeof window.refrescarDirectorioStaff === 'function') window.refrescarDirectorioStaff();
+    }
+
     renderizarContenidoGlobalYHome();
+    renderizarPaginaNosotros();
+    renderizarPaginaAreas();
+    renderizarPaginaStaff();
+
     if (typeof sincronizarVistasSupabase === 'function' && supabaseEstaConfigurado()) {
         Promise.all([
             sincronizarVistasSupabase(),
-            consultarVistaSupabase('contenido_paginas', '?pagina_slug=eq.inicio&select=datos').then(res => {
-                if (res && res[0] && res[0].datos) {
-                    localStorage.setItem('ureta_pagina_inicio_cache', JSON.stringify(res[0].datos));
+            consultarVistaSupabase('contenido_paginas', '?select=pagina_slug,datos').then(filas => {
+                if (Array.isArray(filas)) {
+                    filas.forEach(f => {
+                        if (f.pagina_slug && f.datos) {
+                            localStorage.setItem(`ureta_pagina_${f.pagina_slug}_cache`, JSON.stringify(f.datos));
+                        }
+                    });
                 }
             })
-        ]).then(renderizarContenidoGlobalYHome);
+        ]).then(() => {
+            renderizarContenidoGlobalYHome();
+            renderizarPaginaNosotros();
+            renderizarPaginaAreas();
+            renderizarPaginaStaff();
+        });
     }
-
     // =====================================================================
     // 3. CATÁLOGO Y DETALLE DE ESPECIALIDADES (areas.html / area-detalle.html)
     // =====================================================================
     const catalogoAreasContainer = document.getElementById('catalogoAreasContainer');
     if (catalogoAreasContainer) {
-        const areas = obtenerAreasLegales().filter(a => a.activo);
-        catalogoAreasContainer.innerHTML = areas.map(area => `
-            <article class="area-card">
-                <div class="area-card-img"><img src="${area.imagen}" alt="${area.nombre}"></div>
-                <div class="area-card-body">
-                    <h3><i class="${area.icono}" style="color: var(--dorado); margin-right: 6px;"></i> ${area.nombre}</h3>
-                    <p>${area.resumen}</p>
-                    <a href="area-detalle.html?area=${area.slug}" class="card-link">Conocer más <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </article>
-        `).join('');
+        const inputBuscarArea = document.getElementById('buscarAreaInput');
+
+        window.refrescarCatalogoAreas = function () {
+            const q = (inputBuscarArea?.value || '').trim().toLowerCase();
+            const areas = obtenerAreasLegales().filter(a => a.activo && (
+                !q ||
+                a.nombre.toLowerCase().includes(q) ||
+                (a.resumen || '').toLowerCase().includes(q)
+            ));
+
+            catalogoAreasContainer.innerHTML = areas.map(area => `
+                <article class="area-card">
+                    <div class="area-card-img"><img src="${area.imagen}" alt="${area.nombre}"></div>
+                    <div class="area-card-body">
+                        <h3><i class="${area.icono || 'fa-solid fa-scale-balanced'}" style="color: var(--dorado); margin-right: 6px;"></i> ${area.nombre}</h3>
+                        <p>${area.resumen}</p>
+                        <a href="area-detalle.html?area=${area.slug}" class="card-link">Conocer más <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px;">No se encontraron especialidades que coincidan con "${q}".</p>`;
+        };
+
+        inputBuscarArea?.addEventListener('input', window.refrescarCatalogoAreas);
+        window.refrescarCatalogoAreas();
     }
 
     const areaNombreEl = document.getElementById('areaNombre');
     if (areaNombreEl) {
-        const slugBuscado = new URLSearchParams(window.location.search).get('area') || 'derecho-civil';
-        const areas = obtenerAreasLegales();
-        const areaActual = areas.find(a => a.slug === slugBuscado) || areas[0];
+        let areaActualRef = null;
 
-        document.getElementById('pageAreaTitle').textContent = `${areaActual.nombre} | Estudio Jurídico Ureta & Asociados`;
-        document.getElementById('areaBannerImg').style.backgroundImage = `url('${areaActual.imagen}')`;
-        document.getElementById('areaIcono').className = areaActual.icono;
-        areaNombreEl.textContent = areaActual.nombre;
-        document.getElementById('areaResumen').textContent = areaActual.resumen;
-        document.getElementById('areaDescripcion').textContent = areaActual.descripcion;
-        document.getElementById('inputAreaSeleccionada').value = areaActual.nombre;
-        document.getElementById('btnSolicitarAsesoriaArea').href = `contacto.html?area=${encodeURIComponent(areaActual.nombre)}`;
+        window.refrescarDetalleArea = function () {
+            const slugBuscado = new URLSearchParams(window.location.search).get('area') || 'derecho-civil';
+            const areas = obtenerAreasLegales();
+            const areaActual = areas.find(a => a.slug === slugBuscado) || areas[0];
+            if (!areaActual) return;
+            areaActualRef = areaActual;
 
-        document.getElementById('areaListaServicios').innerHTML = (areaActual.servicios || []).map(s => `<li><i class="fa-solid fa-check"></i> <span>${s}</span></li>`).join('');
-        document.getElementById('areaListaSituaciones').innerHTML = (areaActual.situaciones || []).map(sit => `<li><i class="fa-solid fa-circle-dot"></i> <span>${sit}</span></li>`).join('');
-        document.getElementById('sidebarAreasList').innerHTML = areas.filter(a => a.activo).map(a => `
-            <li><a href="area-detalle.html?area=${a.slug}" class="${a.slug === areaActual.slug ? 'active' : ''}"><span>${a.nombre}</span><i class="fa-solid fa-chevron-right"></i></a></li>
-        `).join('');
+            document.getElementById('pageAreaTitle').textContent = `${areaActual.nombre} | Estudio Jurídico Ureta & Asociados`;
+            document.getElementById('areaBannerImg').style.backgroundImage = `url('${areaActual.imagen}')`;
+            document.getElementById('areaIcono').className = areaActual.icono || 'fa-solid fa-scale-balanced';
+            areaNombreEl.textContent = areaActual.nombre;
+            document.getElementById('areaResumen').textContent = areaActual.resumen;
+            document.getElementById('areaDescripcion').textContent = areaActual.descripcion;
+            document.getElementById('inputAreaSeleccionada').value = areaActual.nombre;
+            document.getElementById('btnSolicitarAsesoriaArea').href = `contacto.html?area=${encodeURIComponent(areaActual.nombre)}`;
+
+            document.getElementById('areaListaServicios').innerHTML = (areaActual.servicios || []).map(s => `<li><i class="fa-solid fa-check"></i> <span>${s}</span></li>`).join('');
+            document.getElementById('areaListaSituaciones').innerHTML = (areaActual.situaciones || []).map(sit => `<li><i class="fa-solid fa-circle-dot"></i> <span>${sit}</span></li>`).join('');
+            document.getElementById('sidebarAreasList').innerHTML = areas.filter(a => a.activo).map(a => `
+                <li><a href="area-detalle.html?area=${a.slug}" class="${a.slug === areaActual.slug ? 'active' : ''}"><span>${a.nombre}</span><i class="fa-solid fa-chevron-right"></i></a></li>
+            `).join('');
+        };
+
+        window.refrescarDetalleArea();
 
         const formRapido = document.getElementById('formConsultaRapidaArea');
         if (formRapido) {
             formRapido.addEventListener('submit', async (e) => {
                 e.preventDefault();
+                const nombreArea = areaActualRef ? areaActualRef.nombre : 'Consulta General';
                 const nueva = {
                     nombres: document.getElementById('rapidoNombre').value.trim(),
                     telefono: document.getElementById('rapidoTelefono').value.trim(),
                     correo: document.getElementById('rapidoCorreo').value.trim(),
                     empresa: '',
-                    area: areaActual.nombre,
-                    asunto: `Consulta desde especialidad: ${areaActual.nombre}`,
+                    area: nombreArea,
+                    asunto: `Consulta desde especialidad: ${nombreArea}`,
                     descripcion: document.getElementById('rapidoMensaje').value.trim(),
                     fecha: new Date().toLocaleString('es-PE'),
                     estado: 'Nueva'
@@ -423,7 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =====================================================================
-    // 4. DIRECTORIO DE STAFF (staff.html - SIN "EXPERIENCIA PROFESIONAL")
+    // 4. DIRECTORIO DE STAFF (staff.html - FILTRO DINÁMICO Y MODAL SIN EXPERIENCIA)
     // =====================================================================
     const staffGrid = document.getElementById('staffDirectorioGrid');
     if (staffGrid) {
@@ -432,11 +673,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalStaff = document.getElementById('modalFichaAbogado');
         const modalContenido = document.getElementById('modalStaffContenido');
 
-        function renderizarStaff() {
-            const texto = (inputBuscar?.value || '').toLowerCase();
+        function poblarFiltroEspecialidadesStaff() {
+            if (!selectEsp) return;
+            const seleccionPrevia = selectEsp.value || 'Todas';
+            const etiquetaTodas = window.__staffTextosUi?.filtro_todas_texto || 'Todas las especialidades';
+            const areasActivas = obtenerAreasLegales().filter(a => a.activo);
+
+            selectEsp.innerHTML = `<option value="Todas">${etiquetaTodas}</option>` +
+                areasActivas.map(a => `<option value="${a.nombre}">${a.nombre}</option>`).join('');
+
+            if ([...selectEsp.options].some(o => o.value === seleccionPrevia)) {
+                selectEsp.value = seleccionPrevia;
+            }
+        }
+
+        window.refrescarDirectorioStaff = function () {
+            poblarFiltroEspecialidadesStaff();
+            const texto = (inputBuscar?.value || '').trim().toLowerCase();
             const esp = selectEsp?.value || 'Todas';
+            const textoBtn = window.__staffTextosUi?.btn_perfil_texto || 'Ver ficha profesional';
+
             const filtrados = obtenerStaff().filter(ab => ab.activo &&
-                (ab.nombre.toLowerCase().includes(texto) || ab.cargo.toLowerCase().includes(texto)) &&
+                (
+                    !texto ||
+                    ab.nombre.toLowerCase().includes(texto) ||
+                    ab.cargo.toLowerCase().includes(texto) ||
+                    (ab.especialidades || []).some(e => e.toLowerCase().includes(texto))
+                ) &&
                 (esp === 'Todas' || (ab.especialidades || []).includes(esp))
             );
 
@@ -447,11 +710,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="staff-role">${ab.cargo}</span>
                         <h3>${ab.nombre}</h3>
                         <div class="staff-tags">${(ab.especialidades || []).map(e => `<span class="staff-tag">${e}</span>`).join('')}</div>
-                        <button class="btn-staff-profile" onclick="abrirFichaAbogado(${ab.id})">Ver ficha profesional</button>
+                        <button type="button" class="btn-staff-profile" onclick="abrirFichaAbogado(${ab.id})">${textoBtn}</button>
                     </div>
                 </div>
-            `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px;">No se encontraron abogados con ese criterio.</p>`;
-        }
+            `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px;">No se encontraron abogados con ese criterio de búsqueda.</p>`;
+        };
 
         window.abrirFichaAbogado = function (id) {
             const ab = obtenerStaff().find(item => item.id === id);
@@ -461,21 +724,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="modal-staff-details">
                     <span class="staff-role">${ab.cargo}</span>
                     <h2>${ab.nombre}</h2>
-                    <p style="font-size:0.86rem; color: var(--dorado-hover); font-weight:600;"><i class="fa-solid fa-id-card"></i> Colegiatura: ${ab.colegiatura}</p>
-                    <div class="staff-detail-block"><h4>Especialidades</h4><p>${(ab.especialidades || []).join(' • ')}</p></div>
-                    <div class="staff-detail-block"><h4>Formación Académica</h4><p>${ab.formacion}</p></div>
-                    <div class="staff-detail-block"><h4>Cursos y Especializaciones</h4><p>${ab.cursos}</p></div>
-                    <div class="staff-detail-block"><h4>Biografía</h4><p>${ab.biografia}</p></div>
-                    ${ab.correo ? `<div class="staff-detail-block"><a href="mailto:${ab.correo}" class="btn btn-gold" style="margin-top:8px;"><i class="fa-solid fa-envelope"></i> ${ab.correo}</a></div>` : ''}
+                    <p style="font-size:0.86rem; color: var(--dorado-hover); font-weight:600;">
+                        <i class="fa-solid fa-id-card"></i> Colegiatura: ${ab.colegiatura || 'Registro Habilitado'}
+                    </p>
+                    <div class="staff-detail-block">
+                        <h4>Especialidades</h4>
+                        <p>${(ab.especialidades || []).join(' • ') || 'Asesoría Jurídica Integral'}</p>
+                    </div>
+                    <div class="staff-detail-block">
+                        <h4>Formación Académica</h4>
+                        <p>${ab.formacion || ''}</p>
+                    </div>
+                    <div class="staff-detail-block">
+                        <h4>Cursos y Especializaciones</h4>
+                        <p>${ab.cursos || 'Especialización continua'}</p>
+                    </div>
+                    <div class="staff-detail-block">
+                        <h4>Biografía</h4>
+                        <p>${ab.biografia || ''}</p>
+                    </div>
+                    ${ab.correo ? `
+                    <div class="staff-detail-block">
+                        <a href="mailto:${ab.correo}" class="btn btn-gold" style="margin-top:8px;">
+                            <i class="fa-solid fa-envelope"></i> ${ab.correo}
+                        </a>
+                    </div>` : ''}
                 </div>
             `;
             modalStaff.classList.add('open');
         };
 
         document.getElementById('cerrarModalStaff')?.addEventListener('click', () => modalStaff.classList.remove('open'));
-        inputBuscar?.addEventListener('input', renderizarStaff);
-        selectEsp?.addEventListener('change', renderizarStaff);
-        renderizarStaff();
+        modalStaff?.addEventListener('click', (e) => {
+            if (e.target === modalStaff) modalStaff.classList.remove('open');
+        });
+
+        inputBuscar?.addEventListener('input', window.refrescarDirectorioStaff);
+        selectEsp?.addEventListener('change', window.refrescarDirectorioStaff);
+        window.refrescarDirectorioStaff();
     }
 
     // =====================================================================

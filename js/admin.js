@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputOrdenPortada && !document.getElementById('portadaIdEdit').value) {
             inputOrdenPortada.value = cachePortadas.length + 1;
         }
+        if (!document.getElementById('abIdEdit')?.value) renderizarChecksEspecialidadesStaff();
 
         if (typeof consultarVistaSupabase === 'function' && supabaseEstaConfigurado()) {
             cachePortadas = (await consultarVistaSupabase('vw_portadas_activas')) || [];
@@ -385,9 +386,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('abColegiatura').value = s.colegiatura || '';
         document.getElementById('abCorreo').value = s.correo || 'contacto@estudio-ureta.com';
         document.getElementById('abFoto').value = s.foto || '';
-        document.getElementById('abEspecialidades').value = (s.especialidades || []).join(', ');
+        renderizarChecksEspecialidadesStaff(s.especialidades || []);
         document.getElementById('abFormacion').value = s.formacion || '';
-        document.getElementById('abExperiencia').value = s.experiencia || '';
+        if (document.getElementById('abExperiencia')) {
+            document.getElementById('abExperiencia').value = s.experiencia || '';
+        }
         document.getElementById('abCursos').value = s.cursos || '';
         document.getElementById('abBiografia').value = s.biografia || '';
         document.getElementById('tituloFormStaff').textContent = `Editando Perfil de: ${s.nombre}`;
@@ -397,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('btnCancelarAbogado').addEventListener('click', () => {
         document.getElementById('formNuevoAbogado').reset();
+        renderizarChecksEspecialidadesStaff([]);
         document.getElementById('abIdEdit').value = '';
         document.getElementById('tituloFormStaff').textContent = 'Registrar / Editar Abogado del Staff';
         document.getElementById('btnCancelarAbogado').style.display = 'none';
@@ -525,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await inicializarPanelConSupabase();
     });
 
-    // 2. Área Legal (Incluye PATCH directo para que las imágenes subidas desde PC se actualicen al instante)
+    // 2. Guardar / Editar Área Legal -> sp_guardar_area_legal
     document.getElementById('formNuevaArea').addEventListener('submit', async (e) => {
         e.preventDefault();
         const idEdit = document.getElementById('areaIdEdit').value ? parseInt(document.getElementById('areaIdEdit').value) : null;
@@ -534,8 +538,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let imagen = document.getElementById('areaNuevaImg').value.trim();
         const archivoImg = document.getElementById('areaArchivoImg')?.files[0];
 
-        if (archivoImg && typeof subirArchivoStorageSupabase === 'function') {
-            const subida = await subirArchivoStorageSupabase('imagenes_sitio', archivoImg);
+        if (archivoImg && typeof subirImagenWebSupabase === 'function') {
+            const subida = await subirImagenWebSupabase(archivoImg, 'areas');
             if (subida) imagen = subida;
         }
 
@@ -553,17 +557,8 @@ document.addEventListener('DOMContentLoaded', () => {
             p_descripcion: descripcion,
             p_servicios: servicios,
             p_situaciones: situaciones,
-            p_orden: 1
+            p_orden: idEdit ? 1 : (obtenerAreasLegales().length + 1)
         });
-
-        // Forzar actualización de la imagen directa en la tabla areas_legales
-        if (imagen && typeof supabaseRest === 'function') {
-            const filtro = idEdit ? `?area_id=eq.${idEdit}` : `?nombre=eq.${encodeURIComponent(nombre)}`;
-            await supabaseRest('areas_legales', 'PATCH', filtro, {
-                imagen_id: null,
-                url_imagen_directa: imagen
-            });
-        }
 
         document.getElementById('btnCancelarArea').click();
         await inicializarPanelConSupabase();
@@ -576,30 +571,58 @@ document.addEventListener('DOMContentLoaded', () => {
         let foto = document.getElementById('abFoto').value.trim();
         const archivoFoto = document.getElementById('abArchivoFoto')?.files[0];
 
-        if (archivoFoto && typeof subirArchivoStorageSupabase === 'function') {
-            const subida = await subirArchivoStorageSupabase('imagenes_sitio', archivoFoto);
+        if (archivoFoto && typeof subirImagenWebSupabase === 'function') {
+            const subida = await subirImagenWebSupabase(archivoFoto, 'staff');
             if (subida) foto = subida;
         }
 
-        const especialidades = document.getElementById('abEspecialidades').value.split(',').map(s => s.trim()).filter(Boolean);
+        const especialidades = Array.from(
+            document.querySelectorAll('input[name="abEspCheck"]:checked')
+        ).map(cb => cb.value);
+
+        const msgErrEsp = document.getElementById('errorAbEspecialidades');
+        if (especialidades.length === 0) {
+            if (msgErrEsp) msgErrEsp.style.display = 'block';
+            return;
+        }
+        if (msgErrEsp) msgErrEsp.style.display = 'none';
 
         await llamarProcedimiento('sp_guardar_abogado', {
             p_abogado_id: idEdit,
             p_nombre: document.getElementById('abNombre').value.trim(),
             p_cargo: document.getElementById('abCargo').value.trim(),
-            p_colegiatura: document.getElementById('abColegiatura').value.trim(),
+            p_colegiatura: document.getElementById('abColegiatura')?.value.trim() || '',
             p_foto_url: foto,
             p_formacion: document.getElementById('abFormacion').value.trim(),
-            p_experiencia: document.getElementById('abExperiencia').value.trim(),
-            p_cursos: document.getElementById('abCursos').value.trim(),
+            p_experiencia: document.getElementById('abExperiencia')?.value.trim() || '',
+            p_cursos: document.getElementById('abCursos')?.value.trim() || '',
             p_biografia: document.getElementById('abBiografia').value.trim(),
-            p_correo: document.getElementById('abCorreo').value.trim(),
+            p_correo: document.getElementById('abCorreo')?.value.trim() || '',
             p_nombres_areas: especialidades
         });
 
         document.getElementById('btnCancelarAbogado').click();
         await inicializarPanelConSupabase();
     });
+    // Dibuja los checkboxes dinámicos usando las áreas legales activas de Supabase
+    function renderizarChecksEspecialidadesStaff(seleccionadas = []) {
+        const cont = document.getElementById('abEspecialidadesChecks');
+        if (!cont) return;
+
+        const areasActivas = obtenerAreasLegales().filter(a => a.activo);
+        const setSel = new Set((seleccionadas || []).map(s => s.trim().toLowerCase()));
+
+        cont.innerHTML = areasActivas.map(a => {
+            const marcado = setSel.has(a.nombre.trim().toLowerCase()) ? 'checked' : '';
+            return `
+                <label class="check-esp-item">
+                    <input type="checkbox" name="abEspCheck" value="${a.nombre}" ${marcado}>
+                    <span>${a.nombre}</span>
+                </label>
+            `;
+        }).join('');
+    }
+    renderizarChecksEspecialidadesStaff();
 
     // 4. Artículos Jurídicos (Blog)
     document.getElementById('formNuevoBlog').addEventListener('submit', async (e) => {
@@ -1223,5 +1246,233 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         cargarEditorPaginaInicio();
+    }
+    // =========================================================================
+    // 15. EDITOR COMPLETO DE "PÁGINA: NOSOTROS" (contenido_paginas -> nosotros)
+    // =========================================================================
+    const formNosotros = document.getElementById('formContenidoNosotros');
+
+    async function cargarEditorPaginaNosotros() {
+        if (!formNosotros) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.nosotros&select=datos');
+        const d = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setV('nosInBannerTag', d.banner_tag);
+        setV('nosInBannerTitulo', d.banner_titulo);
+        setV('nosInBannerSub', d.banner_sub);
+        setV('nosInBannerImg', d.banner_img);
+
+        setV('nosInHistTag', d.hist_tag);
+        setV('nosInHistTitulo', d.hist_titulo);
+        setV('nosInHistTexto1', d.hist_texto_1);
+        setV('nosInHistTexto2', d.hist_texto_2);
+        setV('nosInHistImg', d.hist_img);
+        setV('nosInBadgeTitulo', d.badge_titulo);
+        setV('nosInBadgeSub', d.badge_sub);
+
+        setV('nosInMvTag', d.mv_tag);
+        setV('nosInMvTitulo', d.mv_titulo);
+        setV('nosInMvSub', d.mv_sub);
+        setV('nosInMisionTit', d.mision_titulo);
+        setV('nosInMisionTxt', d.mision_texto);
+        setV('nosInVisionTit', d.vision_titulo);
+        setV('nosInVisionTxt', d.vision_texto);
+        setV('nosInFiloTit', d.filo_titulo);
+        setV('nosInFiloTxt', d.filo_texto);
+
+        setV('nosInValTag', d.val_tag);
+        setV('nosInValTitulo', d.val_titulo);
+        setV('nosInValDesc', d.val_desc);
+        setV('nosInValImg', d.val_img);
+        setV('nosInValLista', Array.isArray(d.valores) ? d.valores.join('\n') : '');
+
+        setV('nosInCtaTitulo', d.cta_titulo);
+        setV('nosInCtaSub', d.cta_sub);
+    }
+
+    if (formNosotros) {
+        formNosotros.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getV = id => (document.getElementById(id)?.value || '').trim();
+
+            const nuevosDatos = {
+                banner_tag: getV('nosInBannerTag'),
+                banner_titulo: getV('nosInBannerTitulo'),
+                banner_sub: getV('nosInBannerSub'),
+                banner_img: getV('nosInBannerImg'),
+                hist_tag: getV('nosInHistTag'),
+                hist_titulo: getV('nosInHistTitulo'),
+                hist_texto_1: getV('nosInHistTexto1'),
+                hist_texto_2: getV('nosInHistTexto2'),
+                hist_img: getV('nosInHistImg'),
+                badge_titulo: getV('nosInBadgeTitulo'),
+                badge_sub: getV('nosInBadgeSub'),
+                mv_tag: getV('nosInMvTag'),
+                mv_titulo: getV('nosInMvTitulo'),
+                mv_sub: getV('nosInMvSub'),
+                mision_titulo: getV('nosInMisionTit'),
+                mision_texto: getV('nosInMisionTxt'),
+                vision_titulo: getV('nosInVisionTit'),
+                vision_texto: getV('nosInVisionTxt'),
+                filo_titulo: getV('nosInFiloTit'),
+                filo_texto: getV('nosInFiloTxt'),
+                val_tag: getV('nosInValTag'),
+                val_titulo: getV('nosInValTitulo'),
+                val_desc: getV('nosInValDesc'),
+                val_img: getV('nosInValImg'),
+                valores: getV('nosInValLista').split('\n').map(x => x.trim()).filter(Boolean),
+                cta_titulo: getV('nosInCtaTitulo'),
+                cta_sub: getV('nosInCtaSub')
+            };
+
+            const act = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.nosotros', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!act || act.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'nosotros', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_nosotros_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Toda la página "Nosotros" se guardó correctamente en Supabase.');
+        });
+
+        cargarEditorPaginaNosotros();
+    }
+    // =========================================================================
+    // 16. EDITOR DE PORTADA Y TEXTOS DE "PÁGINA: ÁREAS" (contenido_paginas -> areas)
+    // =========================================================================
+    const formAreasPagina = document.getElementById('formContenidoAreas');
+
+    async function cargarEditorPaginaAreas() {
+        if (!formAreasPagina) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.areas&select=datos');
+        const d = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setV('arInBannerTag', d.banner_tag);
+        setV('arInBannerTitulo', d.banner_titulo);
+        setV('arInBannerSub', d.banner_sub);
+        setV('arInBannerImg', d.banner_img);
+        setV('arInCatTag', d.cat_tag);
+        setV('arInCatTitulo', d.cat_titulo);
+        setV('arInCatSub', d.cat_sub);
+        setV('arInBuscadorPh', d.buscador_placeholder);
+        setV('arInDetBadge', d.det_badge);
+        setV('arInDetAlcanceTag', d.det_alcance_tag);
+        setV('arInDetAlcanceTit', d.det_alcance_titulo);
+        setV('arInDetServTit', d.det_servicios_titulo);
+        setV('arInDetSitTit', d.det_situaciones_titulo);
+        setV('arInDetFormTag', d.det_form_tag);
+        setV('arInDetFormTit', d.det_form_titulo);
+        setV('arInDetFormSub', d.det_form_sub);
+        setV('arInDetSidebarTit', d.det_sidebar_titulo);
+        setV('arInCtaTitulo', d.cta_titulo);
+        setV('arInCtaSub', d.cta_sub);
+    }
+
+    if (formAreasPagina) {
+        formAreasPagina.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getV = id => (document.getElementById(id)?.value || '').trim();
+
+            const nuevosDatos = {
+                banner_tag: getV('arInBannerTag'),
+                banner_titulo: getV('arInBannerTitulo'),
+                banner_sub: getV('arInBannerSub'),
+                banner_img: getV('arInBannerImg'),
+                cat_tag: getV('arInCatTag'),
+                cat_titulo: getV('arInCatTitulo'),
+                cat_sub: getV('arInCatSub'),
+                buscador_placeholder: getV('arInBuscadorPh'),
+                det_badge: getV('arInDetBadge'),
+                det_alcance_tag: getV('arInDetAlcanceTag'),
+                det_alcance_titulo: getV('arInDetAlcanceTit'),
+                det_servicios_titulo: getV('arInDetServTit'),
+                det_situaciones_titulo: getV('arInDetSitTit'),
+                det_form_tag: getV('arInDetFormTag'),
+                det_form_titulo: getV('arInDetFormTit'),
+                det_form_sub: getV('arInDetFormSub'),
+                det_sidebar_titulo: getV('arInDetSidebarTit'),
+                cta_titulo: getV('arInCtaTitulo'),
+                cta_sub: getV('arInCtaSub')
+            };
+
+            const act = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.areas', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!act || act.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'areas', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_areas_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Configuración de "Nuestras Áreas" guardada correctamente en Supabase.');
+        });
+
+        cargarEditorPaginaAreas();
+    }
+    // =========================================================================
+    // 17. EDITOR DE PORTADA Y TEXTOS DE "PÁGINA: STAFF" (contenido_paginas -> staff)
+    // =========================================================================
+    const formStaffPagina = document.getElementById('formContenidoStaff');
+
+    async function cargarEditorPaginaStaff() {
+        if (!formStaffPagina) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.staff&select=datos');
+        const d = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setV('stInBannerTag', d.banner_tag);
+        setV('stInBannerTitulo', d.banner_titulo);
+        setV('stInBannerSub', d.banner_sub);
+        setV('stInBannerImg', d.banner_img);
+        setV('stInDirTag', d.dir_tag);
+        setV('stInDirTitulo', d.dir_titulo);
+        setV('stInDirSub', d.dir_sub);
+        setV('stInBuscadorPh', d.buscador_placeholder);
+        setV('stInFiltroTodas', d.filtro_todas_texto);
+        setV('stInBtnPerfil', d.btn_perfil_texto);
+        setV('stInCtaTitulo', d.cta_titulo);
+        setV('stInCtaSub', d.cta_sub);
+    }
+
+    if (formStaffPagina) {
+        formStaffPagina.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getV = id => (document.getElementById(id)?.value || '').trim();
+
+            const nuevosDatos = {
+                banner_tag: getV('stInBannerTag'),
+                banner_titulo: getV('stInBannerTitulo'),
+                banner_sub: getV('stInBannerSub'),
+                banner_img: getV('stInBannerImg'),
+                dir_tag: getV('stInDirTag'),
+                dir_titulo: getV('stInDirTitulo'),
+                dir_sub: getV('stInDirSub'),
+                buscador_placeholder: getV('stInBuscadorPh'),
+                filtro_todas_texto: getV('stInFiltroTodas'),
+                btn_perfil_texto: getV('stInBtnPerfil'),
+                cta_titulo: getV('stInCtaTitulo'),
+                cta_sub: getV('stInCtaSub')
+            };
+
+            const act = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.staff', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!act || act.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'staff', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_staff_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Configuración de "Nuestro Staff" guardada correctamente en Supabase.');
+        });
+
+        cargarEditorPaginaStaff();
     }
 });

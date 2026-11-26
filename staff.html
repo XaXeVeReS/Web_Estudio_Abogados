@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conoce al Staff Jurídico de Estudio Jurídico Ureta & Asociados en Arequipa.">
     <title>Nuestro Staff | Estudio Jurídico Ureta & Asociados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,74 +13,73 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <!-- HEADER MAESTRO -->
     <div id="master-header"></div>
 
-    <!-- PORTADA PRINCIPAL -->
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80');">
+    <!-- PORTADA INTERNA (EDITABLE) -->
+    <section class="page-banner" id="staffBanner" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1600&q=80');">
         <div class="page-banner-overlay"></div>
         <div class="container page-banner-content">
-            <span class="hero-badge">EQUIPO MULTIDISCIPLINARIO</span>
-            <h1>Nuestro Staff de Abogados</h1>
-            <p>Profesionales con sólida formación académica, especialización continua y experiencia comprobada en la defensa de sus intereses.</p>
+            <span class="hero-badge" id="staffBannerTag">DIRECTORIO JURÍDICO</span>
+            <h1 id="staffBannerTitulo">Nuestro Staff de Abogados</h1>
+            <p id="staffBannerSub">Conoce al equipo multidisciplinario de especialistas comprometidos con la lealtad, trascendencia y excelencia en cada patrocinio.</p>
         </div>
     </section>
 
-    <!-- BUSCADOR POR NOMBRE Y FILTRO POR ESPECIALIDAD -->
+    <!-- DIRECTORIO CON BUSCADOR Y FILTRO DINÁMICO DE LAS 9 ÁREAS -->
     <section class="section bg-light">
         <div class="container">
+            <div class="section-header">
+                <span class="section-tag" id="staffDirTag">EQUIPO ESPECIALIZADO</span>
+                <h2 class="section-title" id="staffDirTitulo">Profesionales a tu Servicio</h2>
+                <p class="section-subtitle" id="staffDirSub">Busca por nombre, cargo o filtra por especialidad jurídica para revisar la ficha académica y profesional de cada integrante.</p>
+            </div>
+
+            <!-- Barra de filtros ejecutiva -->
             <div class="filter-bar">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" id="buscarAbogadoInput" placeholder="Buscar abogado por nombre o cargo...">
                 </div>
                 <div class="select-box">
-                    <select id="filtroEspecialidadStaff">
-                        <option value="Todas">Todas las especialidades jurídicas</option>
-                        <option value="Derecho Corporativo">Derecho Corporativo</option>
-                        <option value="Derecho Laboral">Derecho Laboral</option>
-                        <option value="Recuperaciones">Recuperaciones</option>
-                        <option value="Saneamiento de Propiedades">Saneamiento de Propiedades</option>
-                        <option value="Derecho Administrativo">Derecho Administrativo</option>
-                        <option value="Área Arbitral">Área Arbitral</option>
-                        <option value="Derecho Civil">Derecho Civil</option>
-                        <option value="Derecho de Familia">Derecho de Familia</option>
-                        <option value="Derecho Penal">Derecho Penal</option>
-                        <option value="Competencia y Protección del Consumidor">Competencia y Protección del Consumidor</option>
-                        <option value="Procedimientos Concursales">Procedimientos Concursales</option>
-                        <option value="Propiedad Intelectual">Propiedad Intelectual</option>
-                        <option value="Derecho Tributario">Derecho Tributario</option>
+                    <select id="filtroEspecialidadStaff" aria-label="Filtrar por especialidad">
+                        <option value="Todas">Todas las especialidades</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Grilla de Tarjetas de Abogados (Conectada a vw_abogados_completos en Supabase) -->
+            <!-- Grilla dinámica de abogados conectada a Supabase -->
             <div class="cards-grid-3" id="staffDirectorioGrid"></div>
         </div>
     </section>
 
-    <!-- MODAL DE FICHA INDIVIDUAL DEL ABOGADO -->
-    <div class="modal-overlay" id="modalFichaAbogado">
-        <div class="modal-card">
-            <button class="modal-close" id="cerrarModalStaff" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-staff-grid" id="modalStaffContenido"></div>
-        </div>
-    </div>
-
-    <!-- BANNER CTA DE CITA CON ESPECIALISTA -->
+    <!-- BANNER CTA (EDITABLE) -->
     <section class="cta-banner">
         <div class="container cta-content">
             <div class="cta-text">
-                <h2>Agenda una reunión con el especialista de tu área legal</h2>
-                <p>Recibe atención directa, reservada y personalizada en nuestra sede de Yanahuara o vía videoconferencia.</p>
+                <h2 id="staffCtaTitulo">¿Deseas agendar una consulta con alguno de nuestros especialistas?</h2>
+                <p id="staffCtaSub">Coordina una cita presencial en nuestra sede de Urb. Vallecito o vía virtual con total confidencialidad.</p>
             </div>
             <div class="cta-buttons">
-                <a href="contacto.html" class="btn btn-gold">Agendar Cita Legal</a>
-                <a href="trabaja-con-nosotros.html" class="btn btn-outline-light">Postular a Nuestro Equipo</a>
+                <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20solicitar%20asesor%C3%ADa%20legal" target="_blank" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp
+                </a>
+                <a href="contacto.html" class="btn btn-gold">Ir a la página de Contacto</a>
             </div>
         </div>
     </section>
 
+    <!-- VENTANA MODAL: FICHA INDIVIDUAL DEL ABOGADO -->
+    <div class="modal-overlay" id="modalFichaAbogado">
+        <div class="modal-card">
+            <button type="button" class="modal-close" id="cerrarModalStaff" aria-label="Cerrar ficha">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-staff-grid" id="modalStaffContenido"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER MAESTRO + REDES + WHATSAPP -->
     <div id="master-footer"></div>
 
     <script src="js/datos-estudio.js"></script>

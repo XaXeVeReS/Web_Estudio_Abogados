@@ -677,156 +677,287 @@
                 </section>
 
                 <!-- =====================================
-                     PANEL 2: ÁREAS LEGALES (9 ESPECIALIDADES)
-                     ===================================== -->
+                    PÁGINA: NUESTRAS ÁREAS (CRUD 9 ESPECIALIDADES + TEXTOS DE PÁGINA)
+                    ===================================== -->
                 <section class="admin-tab-panel" id="tabAreas">
-                    <div class="admin-card">
-                        <h3 id="tituloFormArea">Registrar / Editar Especialidad Jurídica</h3>
-                        <form id="formNuevaArea">
-                            <input type="hidden" id="areaIdEdit">
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Nombre de la Especialidad *</label>
-                                    <input type="text" id="areaNuevoNombre" placeholder="Ej. Derecho Civil" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Clase de Ícono FontAwesome</label>
-                                    <input type="text" id="areaNuevoIcono" value="fa-solid fa-scale-balanced">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Imagen de la Especialidad (URL o subir desde tu PC) *</label>
-                                <input type="text" id="areaNuevaImg" placeholder="https://..." required>
-                                <input type="file" id="areaArchivoImg" accept="image/*" style="display:none;">
-                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
-                                        <input type="file" class="input-subir-foto-pc" data-target="areaNuevaImg" data-carpeta="areas" accept="image/*" style="display:none;">
-                                    </label>
-                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Resumen corto para tarjeta *</label>
-                                <textarea id="areaNuevoResumen" rows="2" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Descripción completa del servicio *</label>
-                                <textarea id="areaNuevaDesc" rows="3" required></textarea>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Servicios ofrecidos (Uno por línea) *</label>
-                                    <textarea id="areaNuevosServicios" rows="4" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Situaciones en que brindamos asesoría (Uno por línea) *</label>
-                                    <textarea id="areaNuevasSituaciones" rows="4" required></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Especialidad</button>
-                            <button type="button" id="btnCancelarArea" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
-                        </form>
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subAreasLista"><i class="fa-solid fa-scale-balanced"></i> 1. Especialidades Jurídicas (9)</button>
+                        <button type="button" class="subtab-btn" data-subtab="subAreasPagina"><i class="fa-solid fa-pen-to-square"></i> 2. Portada, Textos y CTA de Áreas</button>
                     </div>
 
-                    <div class="admin-card">
-                        <h3>Especialidades Registradas</h3>
-                        <div class="table-responsive">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Especialidad e Imagen</th>
-                                        <th>Resumen</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaAdminAreas"></tbody>
-                            </table>
+                    <!-- SUB-PESTAÑA 1: CRUD DE LAS 9 ESPECIALIDADES -->
+                    <div class="subtab-panel active" id="subAreasLista">
+                        <div class="admin-card">
+                            <h3 id="tituloFormArea">Registrar / Editar Especialidad Jurídica</h3>
+                            <form id="formNuevaArea">
+                                <input type="hidden" id="areaIdEdit">
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Nombre de la Especialidad *</label>
+                                        <input type="text" id="areaNuevoNombre" placeholder="Ej. Derecho Civil" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Clase de Ícono FontAwesome</label>
+                                        <input type="text" id="areaNuevoIcono" value="fa-solid fa-scale-balanced">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagen de la Especialidad (URL o subir desde tu PC) *</label>
+                                    <input type="text" id="areaNuevaImg" placeholder="https://..." required>
+                                    <input type="file" id="areaArchivoImg" accept="image/*" style="display:none;">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="areaNuevaImg" data-carpeta="areas" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Resumen corto para tarjeta *</label>
+                                    <textarea id="areaNuevoResumen" rows="2" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descripción completa del servicio *</label>
+                                    <textarea id="areaNuevaDesc" rows="3" required></textarea>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Servicios ofrecidos (Uno por línea) *</label>
+                                        <textarea id="areaNuevosServicios" rows="4" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Situaciones en que brindamos asesoría (Uno por línea) *</label>
+                                        <textarea id="areaNuevasSituaciones" rows="4" required></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Especialidad</button>
+                                <button type="button" id="btnCancelarArea" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                            </form>
                         </div>
+
+                        <div class="admin-card">
+                            <h3>Especialidades Registradas</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Especialidad e Imagen</th>
+                                            <th>Resumen</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAdminAreas"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-PESTAÑA 2: TEXTOS Y PORTADA DE areas.html Y area-detalle.html -->
+                    <div class="subtab-panel" id="subAreasPagina">
+                        <form id="formContenidoAreas">
+                            <div class="admin-card">
+                                <h3>Portada Superior y Encabezado de "Nuestras Áreas" (areas.html)</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="arInBannerTag"></div>
+                                    <div class="form-group"><label>Título principal (H1)</label><input type="text" id="arInBannerTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Descripción del banner</label><textarea id="arInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Imagen de fondo del Banner (URL o subir desde PC)</label>
+                                    <input type="text" id="arInBannerImg" placeholder="https://...">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="arInBannerImg" data-carpeta="areas" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Catálogo — Etiqueta</label><input type="text" id="arInCatTag"></div>
+                                    <div class="form-group"><label>Catálogo — Título</label><input type="text" id="arInCatTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Catálogo — Subtítulo</label><input type="text" id="arInCatSub"></div>
+                                <div class="form-group"><label>Texto guía del Buscador</label><input type="text" id="arInBuscadorPh"></div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Etiquetas de la Ficha Individual de Especialidad (area-detalle.html)</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Insignia superior del banner</label><input type="text" id="arInDetBadge"></div>
+                                    <div class="form-group"><label>Etiqueta de alcance</label><input type="text" id="arInDetAlcanceTag"></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Título de presentación</label><input type="text" id="arInDetAlcanceTit"></div>
+                                    <div class="form-group"><label>Título lista de servicios</label><input type="text" id="arInDetServTit"></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Título lista de situaciones</label><input type="text" id="arInDetSitTit"></div>
+                                    <div class="form-group"><label>Título menú lateral de áreas</label><input type="text" id="arInDetSidebarTit"></div>
+                                </div>
+                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Formulario lateral — Etiqueta</label><input type="text" id="arInDetFormTag"></div>
+                                    <div class="form-group"><label>Formulario lateral — Título</label><input type="text" id="arInDetFormTit"></div>
+                                </div>
+                                <div class="form-group"><label>Formulario lateral — Descripción</label><input type="text" id="arInDetFormSub"></div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Banner de Llamada a la Acción (CTA en Áreas y Detalle)</h3>
+                                <div class="form-group"><label>Título del CTA</label><input type="text" id="arInCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción del CTA</label><input type="text" id="arInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Configuración de Página Áreas</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
 
                 <!-- =====================================
                      PANEL 3: NUESTRO STAFF
                      ===================================== -->
+                <!-- =====================================
+                    PÁGINA: NUESTRO STAFF (CRUD ABOGADOS + PORTADA Y TEXTOS)
+                    ===================================== -->
                 <section class="admin-tab-panel" id="tabStaff">
-                    <div class="admin-card">
-                        <h3 id="tituloFormStaff">Registrar / Editar Abogado del Staff</h3>
-                        <form id="formNuevoAbogado">
-                            <input type="hidden" id="abIdEdit">
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Nombre completo *</label>
-                                    <input type="text" id="abNombre" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Cargo en el Estudio *</label>
-                                    <input type="text" id="abCargo" required>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Colegiatura (Ej. CAA N.° ...)</label>
-                                    <input type="text" id="abColegiatura">
-                                </div>
-                                <div class="form-group">
-                                    <label>Correo profesional</label>
-                                    <input type="email" id="abCorreo" value="contacto@estudio-ureta.com">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Fotografía del Abogado (URL o subir desde tu PC) *</label>
-                                <input type="text" id="abFoto" placeholder="https://..." required>
-                                <input type="file" id="abArchivoFoto" accept="image/*" style="display:none;">
-                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
-                                        <input type="file" class="input-subir-foto-pc" data-target="abFoto" data-carpeta="staff" accept="image/*" style="display:none;">
-                                    </label>
-                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Especialidades (Separadas por coma) *</label>
-                                <input type="text" id="abEspecialidades" placeholder="Ej. Derecho Civil, Arbitraje, Derecho Empresarial" required>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Formación Académica *</label>
-                                    <textarea id="abFormacion" rows="3" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Cursos y Especializaciones</label>
-                                    <textarea id="abCursos" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <input type="hidden" id="abExperiencia" value="">
-                            <div class="form-group">
-                                <label>Biografía / Perfil Profesional *</label>
-                                <textarea id="abBiografia" rows="3" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Abogado</button>
-                            <button type="button" id="btnCancelarAbogado" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
-                        </form>
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subStaffLista"><i class="fa-solid fa-user-tie"></i> 1. Directorio de Abogados</button>
+                        <button type="button" class="subtab-btn" data-subtab="subStaffPagina"><i class="fa-solid fa-pen-to-square"></i> 2. Portada, Textos y CTA de Staff</button>
                     </div>
 
-                    <div class="admin-card">
-                        <h3>Directorio de Abogados</h3>
-                        <div class="table-responsive">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Abogado</th>
-                                        <th>Cargo / Colegiatura</th>
-                                        <th>Especialidades</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaAdminStaff"></tbody>
-                            </table>
+                    <!-- SUB-PESTAÑA 1: CRUD DE ABOGADOS -->
+                    <div class="subtab-panel active" id="subStaffLista">
+                        <div class="admin-card">
+                            <h3 id="tituloFormStaff">Registrar / Editar Abogado del Staff</h3>
+                            <form id="formNuevoAbogado">
+                                <input type="hidden" id="abIdEdit">
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Nombre completo *</label>
+                                        <input type="text" id="abNombre" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cargo en el Estudio *</label>
+                                        <input type="text" id="abCargo" required>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Colegiatura (Ej. CAA N.° ...)</label>
+                                        <input type="text" id="abColegiatura">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Correo profesional</label>
+                                        <input type="email" id="abCorreo" value="contacto@estudio-ureta.com">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fotografía del Abogado (URL o subir desde tu PC) *</label>
+                                    <input type="text" id="abFoto" placeholder="https://..." required>
+                                    <input type="file" id="abArchivoFoto" accept="image/*" style="display:none;">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="abFoto" data-carpeta="staff" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Especialidades del Abogado (Marca una o varias) *</label>
+                                    <div id="abEspecialidadesChecks" class="checks-especialidades-grid">
+                                        <!-- Se carga automáticamente con las áreas activas de Supabase -->
+                                    </div>
+                                    <small id="errorAbEspecialidades" style="color: #dc2626; display: none; margin-top: 6px; font-weight: 600;">
+                                        Debes marcar al menos una especialidad jurídica.
+                                    </small>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Formación Académica *</label>
+                                        <textarea id="abFormacion" rows="3" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cursos y Especializaciones</label>
+                                        <textarea id="abCursos" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="abExperiencia" value="">
+                                <div class="form-group">
+                                    <label>Biografía / Perfil Profesional *</label>
+                                    <textarea id="abBiografia" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Abogado</button>
+                                <button type="button" id="btnCancelarAbogado" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                            </form>
                         </div>
+
+                        <div class="admin-card">
+                            <h3>Directorio de Abogados</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Abogado</th>
+                                            <th>Cargo / Colegiatura</th>
+                                            <th>Especialidades</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAdminStaff"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-PESTAÑA 2: PORTADA, TEXTOS Y CTA DE staff.html -->
+                    <div class="subtab-panel" id="subStaffPagina">
+                        <form id="formContenidoStaff">
+                            <div class="admin-card">
+                                <h3>Portada Superior (Banner de Nuestro Staff)</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="stInBannerTag"></div>
+                                    <div class="form-group"><label>Título principal (H1)</label><input type="text" id="stInBannerTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Descripción del banner</label><textarea id="stInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Imagen de fondo del Banner (URL o subir desde PC)</label>
+                                    <input type="text" id="stInBannerImg" placeholder="https://...">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="stInBannerImg" data-carpeta="staff" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Encabezado, Buscador y Etiquetas del Directorio</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="stInDirTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="stInDirTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Subtítulo</label><input type="text" id="stInDirSub"></div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Texto guía del Buscador</label><input type="text" id="stInBuscadorPh"></div>
+                                    <div class="form-group"><label>Opción por defecto del filtro</label><input type="text" id="stInFiltroTodas"></div>
+                                </div>
+                                <div class="form-group"><label>Texto del botón en cada tarjeta</label><input type="text" id="stInBtnPerfil"></div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Banner Inferior de Llamada a la Acción (CTA)</h3>
+                                <div class="form-group"><label>Título del CTA</label><input type="text" id="stInCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción del CTA</label><input type="text" id="stInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Configuración de Página Staff</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
 
@@ -1288,64 +1419,154 @@
                 <!-- =====================================
                      PANEL 11: CONFIGURACIÓN GENERAL Y NOSOTROS
                      ===================================== -->
+                <!-- =====================================
+                    PÁGINA: NOSOTROS Y DATOS GLOBALES (100% EDITABLE)
+                    ===================================== -->
                 <section class="admin-tab-panel" id="tabConfig">
-                    <div class="admin-card">
-                        <h3>Datos Institucionales, Contacto y Página "Nosotros"</h3>
-                        <form id="formConfigGeneral">
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Nombre del Estudio *</label>
-                                    <input type="text" id="cfgNombreEstudio" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Lema / Frase Institucional *</label>
-                                    <input type="text" id="cfgFrase" required>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Dirección Física *</label>
-                                    <input type="text" id="cfgDireccion" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Teléfonos de Central *</label>
-                                    <input type="text" id="cfgTelefono" required>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Número de WhatsApp (Con código 51) *</label>
-                                    <input type="text" id="cfgWhatsapp" placeholder="51980249579" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Correo Electrónico Oficial *</label>
-                                    <input type="email" id="cfgCorreo" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Horario de Atención *</label>
-                                <input type="text" id="cfgHorario" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Historia / Presentación Institucional</label>
-                                <textarea id="cfgHistoria" rows="3"></textarea>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Misión</label>
-                                    <textarea id="cfgMision" rows="3"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Visión</label>
-                                    <textarea id="cfgVision" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Configuración General</button>
-                            <p id="msgConfigGuardada" style="display:none; color:#238d41; font-weight:700; margin-top:12px;">
-                                ✓ Configuración actualizada correctamente en Supabase.
-                            </p>
-                        </form>
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subNosDatos"><i class="fa-solid fa-gear"></i> 1. Datos Globales (Header/Footer/WA)</button>
+                        <button type="button" class="subtab-btn" data-subtab="subNosHist"><i class="fa-solid fa-building-columns"></i> 2. Portada e Historia</button>
+                        <button type="button" class="subtab-btn" data-subtab="subNosMv"><i class="fa-solid fa-bullseye"></i> 3. Misión, Visión y Filosofía</button>
+                        <button type="button" class="subtab-btn" data-subtab="subNosVal"><i class="fa-solid fa-shield-halved"></i> 4. Valores, Foto y CTA</button>
                     </div>
+
+                    <!-- SUB-PESTAÑA 1: DATOS GLOBALES DEL SITIO (configuracion_sitio) -->
+                    <div class="subtab-panel active" id="subNosDatos">
+                        <div class="admin-card">
+                            <h3>Datos Oficiales Globales (Barra Superior, Footer y WhatsApp)</h3>
+                            <form id="formConfigGeneral">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Nombre del Estudio *</label><input type="text" id="cfgNombreEstudio" required></div>
+                                    <div class="form-group"><label>Lema / Frase Institucional *</label><input type="text" id="cfgFrase" required></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Dirección Física *</label><input type="text" id="cfgDireccion" required></div>
+                                    <div class="form-group"><label>Teléfonos de Central *</label><input type="text" id="cfgTelefono" required></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Número de WhatsApp (Con código 51) *</label><input type="text" id="cfgWhatsapp" placeholder="51980249579" required></div>
+                                    <div class="form-group"><label>Correo Electrónico Oficial *</label><input type="email" id="cfgCorreo" required></div>
+                                </div>
+                                <div class="form-group"><label>Horario de Atención *</label><input type="text" id="cfgHorario" required></div>
+
+                                <!-- Campos ocultos de respaldo para compatibilidad con sp_actualizar_configuracion_sitio -->
+                                <input type="hidden" id="cfgHistoria">
+                                <input type="hidden" id="cfgMision">
+                                <input type="hidden" id="cfgVision">
+
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Datos Globales</button>
+                                <p id="msgConfigGuardada" style="display:none; color:#238d41; font-weight:700; margin-top:12px;">
+                                    ✓ Datos globales actualizados correctamente en Supabase.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- FORMULARIO ÚNICO PARA SUB-PESTAÑAS 2, 3 Y 4 DE NOSOTROS -->
+                    <form id="formContenidoNosotros">
+                        <!-- SUB-PESTAÑA 2: PORTADA E HISTORIA -->
+                        <div class="subtab-panel" id="subNosHist">
+                            <div class="admin-card">
+                                <h3>Portada Superior (Banner de Nosotros)</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInBannerTag"></div>
+                                    <div class="form-group"><label>Título principal (H1)</label><input type="text" id="nosInBannerTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Descripción del banner</label><textarea id="nosInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Imagen de fondo del Banner (URL o subir desde PC)</label>
+                                    <input type="text" id="nosInBannerImg" placeholder="https://...">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="nosInBannerImg" data-carpeta="nosotros" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Sección "Quiénes Somos" e Historia</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInHistTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="nosInHistTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Párrafo principal destacado</label><textarea id="nosInHistTexto1" rows="3"></textarea></div>
+                                <div class="form-group"><label>Segundo párrafo complementario</label><textarea id="nosInHistTexto2" rows="3"></textarea></div>
+                                <div class="form-group">
+                                    <label>Fotografía de la firma / oficina (URL o subir desde PC)</label>
+                                    <input type="text" id="nosInHistImg" placeholder="https://...">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="nosInHistImg" data-carpeta="nosotros" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Insignia flotante (Título)</label><input type="text" id="nosInBadgeTitulo"></div>
+                                    <div class="form-group"><label>Insignia flotante (Frase)</label><input type="text" id="nosInBadgeSub"></div>
+                                </div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Página Nosotros</button>
+                            </div>
+                        </div>
+
+                        <!-- SUB-PESTAÑA 3: MISIÓN, VISIÓN Y FILOSOFÍA -->
+                        <div class="subtab-panel" id="subNosMv">
+                            <div class="admin-card">
+                                <h3>Encabezado y 3 Tarjetas (Misión, Visión y Filosofía)</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInMvTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="nosInMvTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Subtítulo</label><input type="text" id="nosInMvSub"></div>
+                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-group"><label>Tarjeta 1 — Título (Misión)</label><input type="text" id="nosInMisionTit"></div>
+                                <div class="form-group"><label>Tarjeta 1 — Texto de la Misión</label><textarea id="nosInMisionTxt" rows="3"></textarea></div>
+                                <div class="form-group"><label>Tarjeta 2 — Título (Visión)</label><input type="text" id="nosInVisionTit"></div>
+                                <div class="form-group"><label>Tarjeta 2 — Texto de la Visión</label><textarea id="nosInVisionTxt" rows="3"></textarea></div>
+                                <div class="form-group"><label>Tarjeta 3 — Título (Filosofía)</label><input type="text" id="nosInFiloTit"></div>
+                                <div class="form-group"><label>Tarjeta 3 — Texto de la Filosofía</label><textarea id="nosInFiloTxt" rows="3"></textarea></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Página Nosotros</button>
+                            </div>
+                        </div>
+
+                        <!-- SUB-PESTAÑA 4: VALORES, FOTO Y CTA -->
+                        <div class="subtab-panel" id="subNosVal">
+                            <div class="admin-card">
+                                <h3>Sección Valores y Compromiso Ético</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInValTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="nosInValTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Introducción</label><textarea id="nosInValDesc" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Lista de Valores (Escribe uno por cada línea)</label>
+                                    <textarea id="nosInValLista" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fotografía lateral de Valores (URL o subir desde PC)</label>
+                                    <input type="text" id="nosInValImg" placeholder="https://...">
+                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
+                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                            <input type="file" class="input-subir-foto-pc" data-target="nosInValImg" data-carpeta="nosotros" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Banner Inferior de Llamada a la Acción (CTA)</h3>
+                                <div class="form-group"><label>Título del Banner CTA</label><input type="text" id="nosInCtaTitulo"></div>
+                                <div class="form-group"><label>Subtítulo del Banner CTA</label><input type="text" id="nosInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Página Nosotros</button>
+                            </div>
+                        </div>
+                    </form>
                 </section>
 
                 <!-- =====================================
