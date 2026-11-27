@@ -2286,53 +2286,62 @@
                         supabaseRest('abogados', 'GET', '?select=abogado_id,activo'),
                         supabaseRest('publicaciones_blog', 'GET', '?select=publicacion_id,estado'),
                         supabaseRest('eventos_academicos', 'GET', '?select=evento_id,estado'),
-                        supabaseRest('solicitudes_contacto', 'GET', '?select=solicitud_id,nombres_apellidos,nombre_area_texto,asunto,estado,fecha_solicitud&order=solicitud_id.desc'),
-                        supabaseRest('postulaciones', 'GET', '?select=postulacion_id,nombres_apellidos,puesto_postula,estado,fecha_postulacion&order=postulacion_id.desc'),
+                        supabaseRest('solicitudes_contacto', 'GET', '?select=*&order=solicitud_id.desc'),
+                        supabaseRest('postulaciones', 'GET', '?select=*&order=postulacion_id.desc'),
                         supabaseRest('vacantes', 'GET', '?select=vacante_id,activa'),
                         supabaseRest('comentarios_blog', 'GET', '?select=comentario_id,estado')
                     ]);
+
+                    const listaCon = Array.isArray(contactos) ? contactos : [];
+                    const listaPost = Array.isArray(postulaciones) ? postulaciones : [];
 
                     setNum('kpiTotalAreas', (areas || []).filter(a => a.activo).length);
                     setNum('kpiTotalAbogados', (abogados || []).filter(a => a.activo).length);
                     setNum('kpiTotalBlog', (blog || []).filter(b => b.estado === 'Publicado').length);
                     setNum('kpiTotalEventos', (eventos || []).filter(e => (e.estado || 'Publicado') === 'Publicado').length);
-                    setNum('kpiTotalContactos', (contactos || []).length);
-                    setNum('kpiTotalPostulaciones', (postulaciones || []).length);
+                    setNum('kpiTotalContactos', listaCon.length);
+                    setNum('kpiTotalPostulaciones', listaPost.length);
                     setNum('kpiTotalVacantes', (vacantes || []).filter(v => v.activa).length);
                     setNum('kpiComentariosPendientes', (comentarios || []).filter(c => c.estado === 'Pendiente').length);
 
                     // Pintar últimas 5 consultas en el Resumen
                     const boxCon = document.getElementById('resumenUltimasConsultas');
                     if (boxCon) {
-                        const ultCon = (contactos || []).slice(0, 5);
+                        const ultCon = listaCon.slice(0, 5);
                         boxCon.innerHTML = ultCon.length === 0
                             ? '<p style="color:#5c6661; font-size:0.86rem;">Todavía no hay consultas registradas.</p>'
-                            : ultCon.map(c => `
-                                <div class="recent-item">
-                                    <div>
-                                        <strong>${c.nombres_apellidos || 'Solicitante'}</strong>
-                                        <small>${c.nombre_area_texto || 'Consulta general'} · ${c.asunto || ''}</small>
+                            : ultCon.map(c => {
+                                const est = c.estado_gestion || c.estado || 'Nueva';
+                                return `
+                                    <div class="recent-item">
+                                        <div>
+                                            <strong>${c.nombres_apellidos || c.nombres || 'Solicitante'}</strong>
+                                            <small>${c.nombre_area_texto || c.area || 'Consulta general'} · ${c.asunto || ''}</small>
+                                        </div>
+                                        <span class="badge-status ${est === 'Atendida' ? 'badge-active' : 'badge-hidden'}">${est}</span>
                                     </div>
-                                    <span class="badge-status ${c.estado === 'Atendida' ? 'badge-active' : 'badge-hidden'}">${c.estado || 'Nueva'}</span>
-                                </div>
-                            `).join('');
+                                `;
+                            }).join('');
                     }
 
                     // Pintar últimas 5 postulaciones en el Resumen
                     const boxPost = document.getElementById('resumenUltimasPostulaciones');
                     if (boxPost) {
-                        const ultPost = (postulaciones || []).slice(0, 5);
+                        const ultPost = listaPost.slice(0, 5);
                         boxPost.innerHTML = ultPost.length === 0
                             ? '<p style="color:#5c6661; font-size:0.86rem;">Todavía no hay postulaciones registradas.</p>'
-                            : ultPost.map(p => `
-                                <div class="recent-item">
-                                    <div>
-                                        <strong>${p.nombres_apellidos || 'Postulante'}</strong>
-                                        <small>${p.puesto_postula || 'Postulación espontánea'}</small>
+                            : ultPost.map(p => {
+                                const est = p.estado_postulacion || p.estado || 'Recibida';
+                                return `
+                                    <div class="recent-item">
+                                        <div>
+                                            <strong>${p.nombres_apellidos || p.nombres || 'Postulante'}</strong>
+                                            <small>${p.puesto_postula || p.puesto || 'Postulación espontánea'}</small>
+                                        </div>
+                                        <span class="badge-status badge-active">${est}</span>
                                     </div>
-                                    <span class="badge-status badge-active">${p.estado || 'Recibida'}</span>
-                                </div>
-                            `).join('');
+                                `;
+                            }).join('');
                     }
                     return;
                 }
@@ -2340,9 +2349,9 @@
                 console.warn('No se pudieron actualizar los indicadores en línea:', err);
             }
 
-            // Respaldo automático con datos locales si no hay conexión
+            // Respaldo con datos locales
             if (typeof obtenerAreasLegales === 'function') setNum('kpiTotalAreas', obtenerAreasLegales().filter(a => a.activo).length);
-            if (typeof obtenerStaff === 'function') setNum('kpiTotalAbogados', obtenerStaff().filter(s => s.activo).length);
+            if (typeof obtenerStaff === 'function') setNum('kpiTotalAbogados', obtenerStaff().filter(a => a.activo).length);
             if (typeof obtenerBlog === 'function') setNum('kpiTotalBlog', obtenerBlog().filter(b => b.estado === 'Publicado').length);
             if (typeof obtenerVacantes === 'function') setNum('kpiTotalVacantes', obtenerVacantes().filter(v => v.activa).length);
             setNum('kpiTotalEventos', JSON.parse(localStorage.getItem('ureta_eventos_db') || '[]').length);
@@ -2352,13 +2361,13 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             actualizarResumenEnVivo();
-            setTimeout(actualizarResumenEnVivo, 900);
+            setTimeout(actualizarResumenEnVivo, 1500);
 
             document.getElementById('btnResetDatabase')?.addEventListener('click', () => {
-                setTimeout(actualizarResumenEnVivo, 600);
+                setTimeout(actualizarResumenEnVivo, 900);
             });
             document.getElementById('formLoginAdmin')?.addEventListener('submit', () => {
-                setTimeout(actualizarResumenEnVivo, 900);
+                setTimeout(actualizarResumenEnVivo, 1200);
             });
             document.querySelector('.admin-tab-btn[data-tab="tabDashboard"]')?.addEventListener('click', actualizarResumenEnVivo);
         });
