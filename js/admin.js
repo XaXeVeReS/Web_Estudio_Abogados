@@ -631,8 +631,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let imagen = document.getElementById('blogImagen').value.trim();
         const archivoImg = document.getElementById('blogArchivoImg')?.files[0];
 
-        if (archivoImg && typeof subirArchivoStorageSupabase === 'function') {
-            const subida = await subirArchivoStorageSupabase('imagenes_sitio', archivoImg);
+        if (archivoImg && typeof subirImagenWebSupabase === 'function') {
+            const subida = await subirImagenWebSupabase(archivoImg, 'articulos');
             if (subida) imagen = subida;
         }
 
@@ -1474,5 +1474,319 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         cargarEditorPaginaStaff();
+    }
+    // =========================================================================
+    // 18. EDITOR DE PORTADA Y TEXTOS DE "PÁGINA: ARTÍCULOS" (contenido_paginas -> articulos)
+    // =========================================================================
+    const formArticulosPagina = document.getElementById('formContenidoArticulos');
+
+    async function cargarEditorPaginaArticulos() {
+        if (!formArticulosPagina) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.articulos&select=datos');
+        const d = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setV('artInBannerTag', d.banner_tag);
+        setV('artInBannerTitulo', d.banner_titulo);
+        setV('artInBannerSub', d.banner_sub);
+        setV('artInBannerImg', d.banner_img);
+        setV('artInSecTag', d.sec_tag);
+        setV('artInSecTitulo', d.sec_titulo);
+        setV('artInSecSub', d.sec_sub);
+        setV('artInBuscadorPh', d.buscador_placeholder);
+        setV('artInCatTodas', d.filtro_cat_todas);
+        setV('artInTipoTodos', d.filtro_tipo_todos);
+        setV('artInDestacado', d.etiqueta_destacado);
+        setV('artInBtnLeer', d.btn_leer_texto);
+        setV('artInComTitulo', d.comentarios_titulo);
+        setV('artInCtaTitulo', d.cta_titulo);
+        setV('artInCtaSub', d.cta_sub);
+    }
+
+    if (formArticulosPagina) {
+        formArticulosPagina.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getV = id => (document.getElementById(id)?.value || '').trim();
+
+            const nuevosDatos = {
+                banner_tag: getV('artInBannerTag'),
+                banner_titulo: getV('artInBannerTitulo'),
+                banner_sub: getV('artInBannerSub'),
+                banner_img: getV('artInBannerImg'),
+                sec_tag: getV('artInSecTag'),
+                sec_titulo: getV('artInSecTitulo'),
+                sec_sub: getV('artInSecSub'),
+                buscador_placeholder: getV('artInBuscadorPh'),
+                filtro_cat_todas: getV('artInCatTodas'),
+                filtro_tipo_todos: getV('artInTipoTodos'),
+                etiqueta_destacado: getV('artInDestacado'),
+                btn_leer_texto: getV('artInBtnLeer'),
+                comentarios_titulo: getV('artInComTitulo'),
+                cta_titulo: getV('artInCtaTitulo'),
+                cta_sub: getV('artInCtaSub')
+            };
+
+            const act = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.articulos', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!act || act.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'articulos', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_articulos_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Configuración de "Artículos Jurídicos" guardada correctamente en Supabase.');
+        });
+
+        cargarEditorPaginaArticulos();
+    }
+    // =========================================================================
+    // 19. EDITOR DE PORTADA Y TEXTOS DE "PÁGINA: EVENTOS" (contenido_paginas -> eventos)
+    // =========================================================================
+    const formEventosPagina = document.getElementById('formContenidoEventos');
+
+    async function cargarEditorPaginaEventos() {
+        if (!formEventosPagina) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.eventos&select=datos');
+        const d = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setV('evInBannerTag', d.banner_tag);
+        setV('evInBannerTitulo', d.banner_titulo);
+        setV('evInBannerSub', d.banner_sub);
+        setV('evInBannerImg', d.banner_img);
+        setV('evInSecTag', d.sec_tag);
+        setV('evInSecTitulo', d.sec_titulo);
+        setV('evInSecSub', d.sec_sub);
+        setV('evInBuscadorPh', d.buscador_placeholder);
+        setV('evInFiltroTodas', d.filtro_mod_todas);
+        setV('evInDestacado', d.etiqueta_destacado);
+        setV('evInBtnDetalle', d.btn_detalle_texto);
+        setV('evInBtnInscribir', d.btn_inscribir_texto);
+        setV('evInCtaTitulo', d.cta_titulo);
+        setV('evInCtaSub', d.cta_sub);
+    }
+
+    if (formEventosPagina) {
+        formEventosPagina.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getV = id => (document.getElementById(id)?.value || '').trim();
+
+            const nuevosDatos = {
+                banner_tag: getV('evInBannerTag'),
+                banner_titulo: getV('evInBannerTitulo'),
+                banner_sub: getV('evInBannerSub'),
+                banner_img: getV('evInBannerImg'),
+                sec_tag: getV('evInSecTag'),
+                sec_titulo: getV('evInSecTitulo'),
+                sec_sub: getV('evInSecSub'),
+                buscador_placeholder: getV('evInBuscadorPh'),
+                filtro_mod_todas: getV('evInFiltroTodas'),
+                etiqueta_destacado: getV('evInDestacado'),
+                btn_detalle_texto: getV('evInBtnDetalle'),
+                btn_inscribir_texto: getV('evInBtnInscribir'),
+                cta_titulo: getV('evInCtaTitulo'),
+                cta_sub: getV('evInCtaSub')
+            };
+
+            const act = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.eventos', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!act || act.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'eventos', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_eventos_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Configuración de "Eventos Académicos" guardada correctamente en Supabase.');
+        });
+
+        cargarEditorPaginaEventos();
+    }
+    // =========================================================================
+    // 20. EDITOR DE "PÁGINA: TRABAJA CON NOSOTROS" (contenido_paginas -> trabaja)
+    // =========================================================================
+    const formTrabajaPagina = document.getElementById('formContenidoTrabaja');
+
+    async function cargarEditorPaginaTrabaja() {
+        if (!formTrabajaPagina) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.trabaja&select=datos');
+        const d = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setV('trInBannerTag', d.banner_tag);
+        setV('trInBannerTitulo', d.banner_titulo);
+        setV('trInBannerSub', d.banner_sub);
+        setV('trInBannerImg', d.banner_img);
+        setV('trInBenTag', d.ben_tag);
+        setV('trInBenTitulo', d.ben_titulo);
+        setV('trInBenSub', d.ben_sub);
+        setV('trInHistTag', d.hist_tag);
+        setV('trInHistTitulo', d.hist_titulo);
+        setV('trInHistSub', d.hist_sub);
+        setV('trInVacTag', d.vac_tag);
+        setV('trInVacTitulo', d.vac_titulo);
+        setV('trInVacSub', d.vac_sub);
+        setV('trInEspTitulo', d.esp_titulo);
+        setV('trInEspSub', d.esp_sub);
+        setV('trInEspBtn', d.esp_btn);
+        setV('trInFormTag', d.form_tag);
+        setV('trInFormTitulo', d.form_titulo);
+        setV('trInFormSub', d.form_sub);
+        setV('trInProcTitulo', d.proc_titulo);
+        setV('trInProcLista', Array.isArray(d.proc_pasos) ? d.proc_pasos.join('\n') : '');
+        setV('trInSedeTitulo', d.sede_titulo);
+        setV('trInSedeImg', d.sede_img);
+        setV('trInSedeTexto', d.sede_texto);
+
+        // Renderizar editor de las 4 tarjetas de beneficios
+        const contBen = document.getElementById('contenedorEditorBeneficiosTrabaja');
+        if (contBen) {
+            const listaBen = Array.isArray(d.beneficios) && d.beneficios.length === 4 ? d.beneficios : [
+                { icono: 'fa-solid fa-graduation-cap', titulo: '', texto: '' },
+                { icono: 'fa-solid fa-arrow-up-right-dots', titulo: '', texto: '' },
+                { icono: 'fa-solid fa-scale-balanced', titulo: '', texto: '' },
+                { icono: 'fa-solid fa-book-open-reader', titulo: '', texto: '' }
+            ];
+            contBen.innerHTML = listaBen.map((b, i) => `
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:10px;">
+                    <strong style="color:#123c2a; font-size:0.85rem;">Beneficio ${i + 1}</strong>
+                    <div class="form-row-2" style="margin-top:8px;">
+                        <div class="form-group"><label>Título</label><input type="text" id="trBenTit${i}" value="${(b.titulo || '').replace(/"/g, '"')}"></div>
+                        <div class="form-group"><label>Ícono FontAwesome</label><input type="text" id="trBenIco${i}" value="${(b.icono || '').replace(/"/g, '"')}"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;"><label>Descripción</label><input type="text" id="trBenTxt${i}" value="${(b.texto || '').replace(/"/g, '"')}"></div>
+                </div>
+            `).join('');
+        }
+    }
+
+    if (formTrabajaPagina) {
+        formTrabajaPagina.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getV = id => (document.getElementById(id)?.value || '').trim();
+
+            const beneficios = [0, 1, 2, 3].map(i => ({
+                titulo: getV(`trBenTit${i}`),
+                icono: getV(`trBenIco${i}`) || 'fa-solid fa-star',
+                texto: getV(`trBenTxt${i}`)
+            }));
+
+            const nuevosDatos = {
+                banner_tag: getV('trInBannerTag'),
+                banner_titulo: getV('trInBannerTitulo'),
+                banner_sub: getV('trInBannerSub'),
+                banner_img: getV('trInBannerImg'),
+                ben_tag: getV('trInBenTag'),
+                ben_titulo: getV('trInBenTitulo'),
+                ben_sub: getV('trInBenSub'),
+                beneficios,
+                hist_tag: getV('trInHistTag'),
+                hist_titulo: getV('trInHistTitulo'),
+                hist_sub: getV('trInHistSub'),
+                vac_tag: getV('trInVacTag'),
+                vac_titulo: getV('trInVacTitulo'),
+                vac_sub: getV('trInVacSub'),
+                esp_titulo: getV('trInEspTitulo'),
+                esp_sub: getV('trInEspSub'),
+                esp_btn: getV('trInEspBtn'),
+                form_tag: getV('trInFormTag'),
+                form_titulo: getV('trInFormTitulo'),
+                form_sub: getV('trInFormSub'),
+                proc_titulo: getV('trInProcTitulo'),
+                proc_pasos: getV('trInProcLista').split('\n').map(x => x.trim()).filter(Boolean),
+                sede_titulo: getV('trInSedeTitulo'),
+                sede_img: getV('trInSedeImg'),
+                sede_texto: getV('trInSedeTexto')
+            };
+
+            const act = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.trabaja', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!act || act.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'trabaja', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_trabaja_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Configuración de "Trabaja con Nosotros" guardada correctamente en Supabase.');
+        });
+
+        cargarEditorPaginaTrabaja();
+    }
+    // =========================================================================
+    // 21. EDITOR DE "PÁGINA: CONTÁCTANOS" (contenido_paginas -> contacto)
+    // =========================================================================
+    const formContactoPagina = document.getElementById('formContenidoContacto');
+
+    async function cargarEditorPaginaContacto() {
+        if (!formContactoPagina) return;
+        const res = await supabaseRest('contenido_paginas', 'GET', '?pagina_slug=eq.contacto&select=datos');
+        const d = (res && res[0] && res[0].datos) ? res[0].datos : {};
+
+        const setV = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setV('conInBannerTag', d.banner_tag);
+        setV('conInBannerTitulo', d.banner_titulo);
+        setV('conInBannerSub', d.banner_sub);
+        setV('conInBannerImg', d.banner_img);
+        setV('conInInfoTag', d.info_tag);
+        setV('conInInfoTitulo', d.info_titulo);
+        setV('conInInfoDesc', d.info_desc);
+        setV('conInWaTitulo', d.wa_titulo);
+        setV('conInWaSub', d.wa_sub);
+        setV('conInPrivNota', d.privacidad_nota);
+        setV('conInFormTag', d.form_tag);
+        setV('conInFormTitulo', d.form_titulo);
+        setV('conInFormSub', d.form_sub);
+        setV('conInFormBtn', d.form_btn);
+        setV('conInMapaTag', d.mapa_tag);
+        setV('conInMapaTitulo', d.mapa_titulo);
+        setV('conInMapaSub', d.mapa_sub);
+        setV('conInMapaUrl', d.mapa_embed_url);
+    }
+
+    if (formContactoPagina) {
+        formContactoPagina.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const getV = id => (document.getElementById(id)?.value || '').trim();
+
+            const nuevosDatos = {
+                banner_tag: getV('conInBannerTag'),
+                banner_titulo: getV('conInBannerTitulo'),
+                banner_sub: getV('conInBannerSub'),
+                banner_img: getV('conInBannerImg'),
+                info_tag: getV('conInInfoTag'),
+                info_titulo: getV('conInInfoTitulo'),
+                info_desc: getV('conInInfoDesc'),
+                wa_titulo: getV('conInWaTitulo'),
+                wa_sub: getV('conInWaSub'),
+                privacidad_nota: getV('conInPrivNota'),
+                form_tag: getV('conInFormTag'),
+                form_titulo: getV('conInFormTitulo'),
+                form_sub: getV('conInFormSub'),
+                form_btn: getV('conInFormBtn'),
+                mapa_tag: getV('conInMapaTag'),
+                mapa_titulo: getV('conInMapaTitulo'),
+                mapa_sub: getV('conInMapaSub'),
+                mapa_embed_url: getV('conInMapaUrl')
+            };
+
+            const act = await supabaseRest('contenido_paginas', 'PATCH', '?pagina_slug=eq.contacto', {
+                datos: nuevosDatos,
+                actualizado_en: new Date().toISOString()
+            });
+
+            if (!act || act.length === 0) {
+                await supabaseRest('contenido_paginas', 'POST', '', { pagina_slug: 'contacto', datos: nuevosDatos });
+            }
+
+            localStorage.setItem('ureta_pagina_contacto_cache', JSON.stringify(nuevosDatos));
+            alert('✓ Configuración de "Contáctanos" guardada correctamente en Supabase.');
+        });
+
+        cargarEditorPaginaContacto();
     }
 });

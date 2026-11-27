@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Programa de Practicantes, línea de carrera y convocatorias en Estudio Jurídico Ureta & Asociados — Arequipa.">
     <title>Trabaja con Nosotros | Estudio Jurídico Ureta & Asociados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,297 +13,178 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <!-- HEADER MAESTRO -->
     <div id="master-header"></div>
 
-    <!-- PORTADA PRINCIPAL -->
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80');">
+    <!-- PORTADA INTERNA (EDITABLE) -->
+    <section class="page-banner" id="trabBanner" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80');">
         <div class="page-banner-overlay"></div>
         <div class="container page-banner-content">
-            <span class="hero-badge">PROGRAMA DE PRACTICANTES Y LÍNEA DE CARRERA</span>
-            <h1>Inicia tu formación jurídica y haz línea de carrera con nosotros</h1>
-            <p>En Estudio Jurídico Ureta & Asociados formamos a futuros abogados de excelencia. Si eres estudiante de los últimos ciclos o recién egresado, te ofrecemos mentoría directa de nuestros socios y oportunidades reales de crecimiento profesional.</p>
+            <span class="hero-badge" id="trabBannerTag">PROGRAMA DE PRACTICANTES Y LÍNEA DE CARRERA</span>
+            <h1 id="trabBannerTitulo">Inicia tu formación jurídica y haz línea de carrera con nosotros</h1>
+            <p id="trabBannerSub">En Estudio Jurídico Ureta & Asociados formamos a futuros abogados de excelencia. Si eres estudiante de los últimos ciclos o recién egresado, te ofrecemos mentoría directa y oportunidades reales de crecimiento.</p>
         </div>
     </section>
 
-    <!-- SECCIÓN NUEVA: DE PRACTICANTE A ABOGADO (CONECTADA A SUPABASE) -->
-    <section class="section bg-light">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">HISTORIAS DE CRECIMIENTO REAL</span>
-                <h2 class="section-title">De Practicante a Abogado</h2>
-                <p class="section-subtitle">Conoce a los profesionales que iniciaron su formación como practicantes en nuestra firma y hoy lideran casos estratégicos como abogados del estudio.</p>
-            </div>
-
-            <div class="career-stories-grid" id="historiasCarreraGrid">
-                <!-- Se carga dinámicamente desde la tabla historias_carrera de Supabase -->
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN A: ¿POR QUÉ TRABAJAR CON NOSOTROS? (GRILLA SIMÉTRICA DE 6 PILARES EN 3 COLUMNAS) -->
+    <!-- SECCIÓN 1: ¿POR QUÉ INTEGRARTE A NUESTRA FIRMA? (4 TARJETAS EDITABLES) -->
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">NUESTRA CULTURA ORGANIZACIONAL</span>
-                <h2 class="section-title">¿Por qué integrarte a nuestra firma?</h2>
-                <p class="section-subtitle">Promovemos un entorno de exigencia académica, respeto profesional y línea de carrera real.</p>
+                <span class="section-tag" id="trabBenTag">CULTURA DE EXCELENCIA</span>
+                <h2 class="section-title" id="trabBenTitulo">¿Por qué integrarte a nuestra firma?</h2>
+                <p class="section-subtitle" id="trabBenSub">Apostamos por el talento joven con vocación ética, rigor técnico y proyección profesional en nuestras 9 especialidades.</p>
             </div>
 
-            <div class="career-benefits-grid">
-                <div class="career-benefit-card">
-                    <div class="benefit-icon-wrap"><i class="fa-solid fa-briefcase"></i></div>
-                    <div>
-                        <h3>Línea de Carrera Real</h3>
-                        <p>Crecimiento estructurado desde prácticas preprofesionales hasta abogado asociado senior.</p>
-                    </div>
-                </div>
-
-                <div class="career-benefit-card">
-                    <div class="benefit-icon-wrap"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <div>
-                        <h3>Mentoría y Aprendizaje</h3>
-                        <p>Acompañamiento directo de nuestros socios y actualización jurisprudencial constante.</p>
-                    </div>
-                </div>
-
-                <div class="career-benefit-card">
-                    <div class="benefit-icon-wrap"><i class="fa-solid fa-people-group"></i></div>
-                    <div>
-                        <h3>Trabajo Multidisciplinario</h3>
-                        <p>Integración activa entre nuestras 13 áreas de práctica para resolver casos de alta complejidad.</p>
-                    </div>
-                </div>
-
-                <div class="career-benefit-card">
-                    <div class="benefit-icon-wrap"><i class="fa-solid fa-feather-pointed"></i></div>
-                    <div>
-                        <h3>Investigación y Publicación</h3>
-                        <p>Impulso a la autoría de artículos de análisis jurídico en nuestro Blog oficial y revistas.</p>
-                    </div>
-                </div>
-
-                <div class="career-benefit-card">
-                    <div class="benefit-icon-wrap"><i class="fa-solid fa-scale-balanced"></i></div>
-                    <div>
-                        <h3>Litigación y Casos Reales</h3>
-                        <p>Participación en el diseño de estrategias procesales, corporativas, registrales y arbitrales.</p>
-                    </div>
-                </div>
-
-                <div class="career-benefit-card">
-                    <div class="benefit-icon-wrap"><i class="fa-solid fa-award"></i></div>
-                    <div>
-                        <h3>Prestigio Institucional</h3>
-                        <p>Respaldo de una de las firmas líderes de la Región Sur con sólidos principios éticos.</p>
-                    </div>
-                </div>
-            </div>
+            <div class="why-work-grid" id="trabBeneficiosGrid"></div>
         </div>
     </section>
 
-    <!-- SECCIÓN B: OPORTUNIDADES LABORALES VIGENTES + POSTULACIÓN ESPONTÁNEA -->
+    <!-- SECCIÓN 2: DE PRACTICANTE A ABOGADO (CONECTADA A SUPABASE) -->
     <section class="section bg-light">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">CONVOCATORIAS VIGENTES</span>
-                <h2 class="section-title">Oportunidades Laborales</h2>
-                <p class="section-subtitle">Postula a nuestras convocatorias abiertas o incorpora tu CV en nuestra base de talento.</p>
+                <span class="section-tag" id="trabHistTag">HISTORIAS DE CRECIMIENTO REAL</span>
+                <h2 class="section-title" id="trabHistTitulo">De Practicante a Abogado</h2>
+                <p class="section-subtitle" id="trabHistSub">Conoce a los profesionales que iniciaron su formación como practicantes en nuestra firma y hoy lideran casos estratégicos como abogados del estudio.</p>
             </div>
 
-            <!-- Grilla de Vacantes Activas (Se carga desde Supabase) -->
+            <div class="career-stories-grid" id="historiasCarreraGrid"></div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3: CONVOCATORIAS VIGENTES + POSTULACIÓN ESPONTÁNEA -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" id="trabVacTag">CONVOCATORIAS VIGENTES</span>
+                <h2 class="section-title" id="trabVacTitulo">Oportunidades para Practicantes y Talento Jurídico</h2>
+                <p class="section-subtitle" id="trabVacSub">Revisa los requisitos de nuestras convocatorias abiertas y postula adjuntando tu CV en formato PDF.</p>
+            </div>
+
             <div class="cards-grid-2" id="vacantesListadoGrid"></div>
 
-            <!-- Banner Destacado de Postulación Espontánea -->
-            <div class="spontaneous-banner-executive">
-                <div class="spontaneous-banner-text">
-                    <span class="sidebar-gold-tag" style="margin-bottom:6px;">BASE PERMANENTE DE TALENTO</span>
-                    <h3><i class="fa-solid fa-file-signature" style="color:var(--dorado);"></i> ¿Postulación Espontánea?</h3>
-                    <p>Si actualmente no encuentras una convocatoria abierta para tu especialidad, envíanos tu CV para futuras incorporaciones de abogados asociados, asistentes legales o practicantes.</p>
+            <!-- Banner Postulación Espontánea -->
+            <div class="spontaneous-box" style="background: linear-gradient(120deg, #123c2a 0%, #171a18 100%);">
+                <div>
+                    <h3 id="trabEspTitulo">¿No encuentras una convocatoria abierta para tu especialidad?</h3>
+                    <p id="trabEspSub">Envíanos tu CV mediante una Postulación Espontánea y lo incorporaremos a nuestra base de talento para futuras plazas.</p>
                 </div>
-                <a href="#bloqueFormularioPostulacion" class="btn btn-gold" onclick="seleccionarPostulacionEspontanea()">
-                    Postular de Forma Espontánea <i class="fa-solid fa-arrow-down" style="margin-left:6px;"></i>
+                <a href="#bloqueFormularioPostulacion" class="btn btn-gold" id="trabEspBtn" onclick="seleccionarPostulacionEspontanea()">
+                    Enviar Postulación Espontánea
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN C y D: FORMULARIO DE POSTULACIÓN CON CV PDF + PROCESO Y SEDE -->
-    <section class="section" id="bloqueFormularioPostulacion">
+    <!-- SECCIÓN 4: FORMULARIO AMPLIO CON CV PDF + ETAPAS Y SEDE -->
+    <section class="section bg-light" id="bloqueFormularioPostulacion">
         <div class="container talent-application-grid">
-            
-            <!-- Columna Izquierda: Formulario de Postulación Profesional -->
-            <div class="contact-form-executive">
-                <div class="form-header-banner">
-                    <div>
-                        <span class="section-tag">REGISTRO DE CANDIDATOS</span>
-                        <h3>Formulario de Postulación</h3>
-                    </div>
-                    <div class="security-badge">
-                        <i class="fa-solid fa-file-pdf"></i> Recepción Directa de CV
-                    </div>
-                </div>
 
-                <p class="form-intro-note">
-                    Completa tus datos académicos y profesionales y adjunta tu Currículum Vitae en formato <strong>PDF</strong> (máximo 5 MB).
-                </p>
+            <!-- Columna Izquierda (62%): Formulario de Postulación -->
+            <div class="contact-form-card contact-form-executive">
+                <span class="section-tag" id="trabFormTag">POSTULACIÓN EN LÍNEA</span>
+                <h3 id="trabFormTitulo">Formulario de Postulación (CV en PDF)</h3>
+                <p id="trabFormSub">Completa tus datos académicos y adjunta tu currículum actualizado en PDF (máximo 5 MB). Tu información se trata de forma estrictamente confidencial.</p>
 
                 <form id="formPostulacionTalento">
+                    <div class="form-group">
+                        <label for="postPuestoSelect">Convocatoria a la que postula *</label>
+                        <select id="postPuestoSelect" required>
+                            <option value="Postulación Espontánea">Postulación Espontánea (Base de Talento)</option>
+                        </select>
+                    </div>
+
                     <div class="form-row-2">
                         <div class="form-group">
-                            <label><i class="fa-regular fa-user" style="color:var(--dorado);"></i> Nombres y apellidos *</label>
-                            <input type="text" id="postNombres" placeholder="Nombre completo del postulante" required>
+                            <label for="postNombres">Nombres y apellidos *</label>
+                            <input type="text" id="postNombres" placeholder="Ej. Ana Lucía Paredes Quispe" required>
                         </div>
                         <div class="form-group">
-                            <label><i class="fa-regular fa-id-card" style="color:var(--dorado);"></i> Documento de identidad (DNI / CE) *</label>
-                            <input type="text" id="postDocumento" placeholder="N.° de documento" required>
+                            <label for="postDocumento">DNI / Documento de identidad *</label>
+                            <input type="text" id="postDocumento" placeholder="Ej. 74859612" required>
                         </div>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-group">
-                            <label><i class="fa-regular fa-envelope" style="color:var(--dorado);"></i> Correo electrónico *</label>
+                            <label for="postCorreo">Correo electrónico *</label>
                             <input type="email" id="postCorreo" placeholder="correo@ejemplo.com" required>
                         </div>
                         <div class="form-group">
-                            <label><i class="fa-solid fa-mobile-screen" style="color:var(--dorado);"></i> Teléfono / Celular *</label>
-                            <input type="tel" id="postTelefono" placeholder="999 888 777" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row-2">
-                        <div class="form-group">
-                            <label><i class="fa-solid fa-user-graduate" style="color:var(--dorado);"></i> Profesión / Grado académico *</label>
-                            <input type="text" id="postProfesion" placeholder="Ej. Abogado Colegiado / Bachiller / 10.° ciclo" required>
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa-solid fa-briefcase" style="color:var(--dorado);"></i> Convocatoria a la que postula *</label>
-                            <select id="postPuestoSelect" required>
-                                <option value="Postulación Espontánea">Postulación Espontánea (Base de Talento)</option>
-                            </select>
+                            <label for="postTelefono">Teléfono / Celular *</label>
+                            <input type="tel" id="postTelefono" placeholder="987 654 321" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label><i class="fa-solid fa-list-check" style="color:var(--dorado);"></i> Resumen de experiencia profesional o académica *</label>
-                        <textarea id="postExperiencia" rows="3" placeholder="Indique su experiencia en estudios jurídicos, entidades públicas, empresas o mérito universitario..." required></textarea>
+                        <label for="postProfesion">Ciclo universitario, grado o profesión *</label>
+                        <input type="text" id="postProfesion" placeholder="Ej. Estudiante de 10.° ciclo de Derecho - UNSA / Bachiller en Derecho" required>
                     </div>
 
                     <div class="form-group">
-                        <label><i class="fa-regular fa-comment" style="color:var(--dorado);"></i> Carta breve de presentación (Opcional)</label>
-                        <textarea id="postMensaje" rows="2" placeholder="Cuéntenos su motivación para integrarse al Estudio Jurídico Ureta & Asociados..."></textarea>
+                        <label for="postExperiencia">Resumen de mérito académico o experiencia previa *</label>
+                        <textarea id="postExperiencia" rows="3" placeholder="Indica tu tercio/quinto superior, especialidad de interés o prácticas anteriores..." required></textarea>
                     </div>
 
-                    <!-- Zona Destacada para Subir Archivo PDF -->
-                    <div class="pdf-dropzone-box">
-                        <div class="pdf-dropzone-icon">
-                            <i class="fa-solid fa-file-pdf"></i>
-                        </div>
-                        <div class="pdf-dropzone-content">
-                            <label for="postArchivoCv">Adjuntar Currículum Vitae en formato PDF (Máx. 5 MB) *</label>
+                    <div class="form-group">
+                        <label for="postMensaje">Mensaje de presentación (Opcional)</label>
+                        <textarea id="postMensaje" rows="2" placeholder="Cuéntanos por qué deseas formarte en Estudio Jurídico Ureta & Asociados..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postArchivoCv">Adjuntar Currículum Vitae (Solo formato PDF, máx. 5 MB) *</label>
+                        <div class="file-upload-box">
                             <input type="file" id="postArchivoCv" accept=".pdf,application/pdf" required>
-                            <small>El documento será almacenado de forma segura para revisión del Comité de Selección.</small>
-                            <small id="errorArchivoCv" style="color: #dc2626; display: none; margin-top: 6px; font-weight:700;"></small>
+                            <small style="display:block; margin-top:6px; color:#475569;">
+                                <i class="fa-solid fa-file-pdf" style="color:#dc2626;"></i> Asegúrate de subir tu archivo en formato <strong>.pdf</strong>.
+                            </small>
                         </div>
+                        <p id="errorArchivoCv" style="display:none; color:#dc2626; font-size:0.84rem; font-weight:600; margin-top:8px;"></p>
                     </div>
 
-                    <div class="form-check-box">
+                    <label class="form-check">
                         <input type="checkbox" id="postPrivacidad" required>
-                        <label for="postPrivacidad">
-                            Autorizo el tratamiento confidencial de mis datos personales y curriculares conforme a la Ley N.° 29733 para los procesos de evaluación e incorporación del Estudio Jurídico Ureta & Asociados.
-                        </label>
-                    </div>
+                        <span>Autorizo el tratamiento confidencial de mis datos curriculares para procesos de selección conforme a la Ley N.° 29733.</span>
+                    </label>
 
-                    <button type="submit" class="btn btn-gold btn-submit-large">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> Enviar Postulación y Currículum (PDF)
+                    <button type="submit" id="btnEnviarPostulacion" class="btn btn-gold" style="width:100%; justify-content:center; margin-top:10px;">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar Postulación y CV
                     </button>
 
-                    <div id="alertaExitoPostulacion" class="alert-success-box" style="display: none; margin-top: 16px;">
+                    <div class="alert-success-box" id="alertaExitoPostulacion" style="display:none;">
                         <i class="fa-solid fa-circle-check"></i>
                         <div>
-                            <strong>¡Postulación y CV recibidos correctamente!</strong>
-                            <p>Su currículum ha sido registrado en nuestra base de datos para evaluación del Comité de Selección.</p>
+                            <strong>¡Postulación registrada exitosamente!</strong><br>
+                            Tu CV en PDF fue cargado a nuestro sistema. El equipo de selección evaluará tu perfil y se pondrá en contacto contigo.
                         </div>
                     </div>
                 </form>
             </div>
 
-            <!-- Columna Derecha: Etapas del Proceso de Selección + Sede en Yanahuara -->
-            <aside class="talent-sidebar-panel">
-                <div class="selection-steps-card">
-                    <span class="sidebar-gold-tag">COMITÉ DE TALENTO</span>
-                    <h3>Etapas de Evaluación</h3>
-                    <div class="step-item">
-                        <span class="step-num">01</span>
-                        <div>
-                            <h4>Recepción y Filtro Curricular</h4>
-                            <p>Revisión del CV en PDF y adecuación al perfil académico requerido.</p>
-                        </div>
-                    </div>
-                    <div class="step-item">
-                        <span class="step-num">02</span>
-                        <div>
-                            <h4>Evaluación Técnica Jurídica</h4>
-                            <p>Análisis de redacción legal, casuística y dominio normativo.</p>
-                        </div>
-                    </div>
-                    <div class="step-item">
-                        <span class="step-num">03</span>
-                        <div>
-                            <h4>Entrevista con Socios</h4>
-                            <p>Reunión presencial en nuestras oficinas de Yanahuara.</p>
-                        </div>
-                    </div>
+            <!-- Columna Derecha (38%): Etapas del Proceso + Sede -->
+            <aside>
+                <div class="sidebar-card" style="border-top: 4px solid var(--dorado);">
+                    <h4 id="trabProcTitulo">Etapas del Proceso de Selección</h4>
+                    <ul class="check-list" id="trabProcLista"></ul>
                 </div>
 
-                <div class="office-sidebar-card">
-                    <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80" alt="Oficinas del Estudio Jurídico Ureta & Asociados">
-                    <div class="office-sidebar-body">
-                        <h4><i class="fa-solid fa-building-columns" style="color:var(--dorado);"></i> Nuestra Sede en Arequipa</h4>
-                        <p><strong>Dirección:</strong> <span id="sitioDireccion">Calle 28 de Julio 701, Arequipa 04001</span></p>
-                        <p><strong>Horario:</strong> <span id="sitioHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</span></p>
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1137.9061683052162!2d-71.54235147273542!3d-16.402217408554232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91424a58d1e52a3f%3A0x4f1606ef61ec2030!2s28%20de%20Julio%20701%2C%20Arequipa%2004001!5e0!3m2!1ses-419!2spe!4v1794692588599!5m2!1ses-419!2spe" 
-                            width="100%" 
-                            height="210" 
-                            style="border:0; border-radius:6px; margin-top:10px; display:block;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="strict-origin-when-cross-origin">
-                        </iframe>
-                    </div>
+                <div class="sidebar-card">
+                    <h4 id="trabSedeTitulo">Nuestra Sede en Arequipa</h4>
+                    <img id="trabSedeImg" class="office-photo" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80" alt="Sede Estudio Jurídico Ureta & Asociados" style="margin-bottom:14px;">
+                    <p id="trabSedeTexto" style="font-size:0.88rem; color:var(--gris-texto); line-height:1.6;">
+                        Calle 28 de Julio 701, Urb. Vallecito — Arequipa. Un espacio diseñado para el estudio riguroso y el trabajo en equipo.
+                    </p>
                 </div>
             </aside>
 
         </div>
     </section>
 
-    <!-- FOOTER INSTITUCIONAL COMPLETO -->
+    <!-- FOOTER MAESTRO + REDES + WHATSAPP -->
     <div id="master-footer"></div>
 
     <script src="js/datos-estudio.js"></script>
     <script src="js/layout.js"></script>
     <script src="js/main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const gridHistorias = document.getElementById('historiasCarreraGrid');
-            if (!gridHistorias || typeof consultarVistaSupabase !== 'function') return;
-
-            const historias = await consultarVistaSupabase('historias_carrera', '?select=*&activo=eq.true&order=orden.asc') || [];
-            gridHistorias.innerHTML = historias.map(h => `
-                <article class="story-card">
-                    <div class="story-photo-wrap">
-                        <img src="${h.foto_url}" alt="${h.nombre_completo}">
-                        <span class="story-badge-start"><i class="fa-solid fa-seedling"></i> ${h.etapa_inicio}</span>
-                    </div>
-                    <div class="story-body">
-                        <span class="story-role-now">${h.cargo_actual}</span>
-                        <h3>${h.nombre_completo}</h3>
-                        <p>"${h.historia}"</p>
-                    </div>
-                </article>
-            `).join('');
-        });
-    </script>
 </body>
 </html>

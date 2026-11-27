@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contáctanos para solicitar asesoría legal en Estudio Jurídico Ureta & Asociados — Arequipa.">
     <title>Contáctanos | Estudio Jurídico Ureta & Asociados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,28 +13,28 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
+    <!-- HEADER MAESTRO -->
     <div id="master-header"></div>
 
-    <!-- PORTADA PRINCIPAL CONTÁCTANOS -->
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');">
+    <!-- PORTADA PRINCIPAL CONTÁCTANOS (EDITABLE) -->
+    <section class="page-banner" id="conBanner" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80');">
         <div class="page-banner-overlay"></div>
         <div class="container page-banner-content">
-            <span class="hero-badge">ATENCIÓN PERSONALIZADA Y RESERVADA</span>
-            <h1>Estamos aquí para ayudarte</h1>
-            <p>Agenda una consulta presencial en nuestra sede de Yanahuara o solicita asesoría legal virtual con absoluta confidencialidad.</p>
+            <span class="hero-badge" id="conBannerTag">ATENCIÓN PERSONALIZADA Y RESERVADA</span>
+            <h1 id="conBannerTitulo">Estamos aquí para ayudarte</h1>
+            <p id="conBannerSub">Agenda una consulta presencial en nuestra sede de Arequipa o solicita asesoría legal virtual con absoluta confidencialidad.</p>
         </div>
     </section>
 
     <!-- SECCIÓN PRINCIPAL: PANEL EJECUTIVO DE CONTACTO + FORMULARIO -->
     <section class="section bg-light">
         <div class="container contact-executive-grid">
-            
+
             <!-- Columna Izquierda: Tarjeta Institucional Oscura con Canales Directos -->
             <aside class="contact-dark-sidebar">
-                <span class="sidebar-gold-tag">CANALES OFICIALES DE ATENCIÓN</span>
-                <h2>Central de Consultas y Citas Legales</h2>
-                <p class="sidebar-lead">
+                <span class="sidebar-gold-tag" id="conInfoTag">CANALES OFICIALES DE ATENCIÓN</span>
+                <h2 id="conInfoTitulo">Central de Consultas y Citas Legales</h2>
+                <p class="sidebar-lead" id="conInfoDesc">
                     Nuestro equipo de abogados especialistas evalúa cada caso de forma personalizada, garantizando reserva profesional desde el primer contacto.
                 </p>
 
@@ -42,23 +43,23 @@
                         <div class="channel-icon"><i class="fa-solid fa-location-dot"></i></div>
                         <div>
                             <h4>Sede Principal (Arequipa)</h4>
-                            <p id="contactoDireccionTexto">Calle Las Orquídeas 105 Urb. Primavera, Yanahuara - Arequipa</p>
+                            <p id="contactoDireccion">Calle 28 de Julio 701, Urb. Vallecito - Arequipa</p>
                         </div>
                     </div>
 
-                    <a href="tel:054419349" class="channel-row clickable">
+                    <a href="tel:980249579" id="contactoTelefonoLink" class="channel-row clickable">
                         <div class="channel-icon"><i class="fa-solid fa-phone-volume"></i></div>
                         <div>
                             <h4>Central Telefónica y Celular</h4>
-                            <p id="contactoTelefonoTexto">(054) 419349 / 999 322 490</p>
+                            <p id="contactoTelefono">980 249 579</p>
                         </div>
                     </a>
 
-                    <a href="mailto:contacto@estudio-ureta.com" class="channel-row clickable">
+                    <a href="mailto:contacto@estudio-ureta.com" id="contactoCorreoLink" class="channel-row clickable">
                         <div class="channel-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
                         <div>
                             <h4>Correo Institucional</h4>
-                            <p id="contactoCorreoTexto">contacto@estudio-ureta.com</p>
+                            <p id="contactoCorreo">contacto@estudio-ureta.com</p>
                         </div>
                     </a>
 
@@ -66,7 +67,7 @@
                         <div class="channel-icon"><i class="fa-regular fa-clock"></i></div>
                         <div>
                             <h4>Horario de Atención</h4>
-                            <p id="contactoHorarioTexto">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</p>
+                            <p id="contactoHorario">Lunes a Viernes: 8:30 a.m. - 6:00 p.m.</p>
                         </div>
                     </div>
                 </div>
@@ -74,10 +75,10 @@
                 <!-- Caja de Atención Rápida por WhatsApp -->
                 <div class="whatsapp-direct-box">
                     <div>
-                        <strong><i class="fa-brands fa-whatsapp"></i> ¿Requieres coordinación inmediata?</strong>
-                        <span>Escríbenos directamente a nuestra central de WhatsApp para agendar tu reunión.</span>
+                        <strong id="conWaTitulo"><i class="fa-brands fa-whatsapp"></i> ¿Requieres coordinación inmediata?</strong>
+                        <span id="conWaSub">Escríbenos directamente a nuestra central de WhatsApp para agendar tu reunión.</span>
                     </div>
-                    <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20agendar%20una%20consulta%20legal" target="_blank" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:10px;">
+                    <a id="contactoWhatsappCard" href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20agendar%20una%20consulta%20legal" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="width:100%; justify-content:center; margin-top:10px;">
                         <i class="fa-brands fa-whatsapp"></i> Iniciar Chat por WhatsApp
                     </a>
                 </div>
@@ -85,9 +86,9 @@
                 <div class="sidebar-social-footer">
                     <span>Síguenos en redes oficiales:</span>
                     <div class="social-links">
-                        <a href="https://www.facebook.com/estudioureta/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/EstudioUreta" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/estudio_ureta/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/estudioureta/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/EstudioUreta" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/estudio_ureta/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
             </aside>
@@ -96,69 +97,57 @@
             <div class="contact-form-executive">
                 <div class="form-header-banner">
                     <div>
-                        <span class="section-tag">SOLICITUD CONFIDENCIAL</span>
-                        <h3>Formulario de Consulta Legal</h3>
+                        <span class="section-tag" id="conFormTag">SOLICITUD CONFIDENCIAL</span>
+                        <h3 id="conFormTitulo">Formulario de Consulta Legal</h3>
                     </div>
                     <div class="security-badge">
-                        <i class="fa-solid fa-user-shield"></i> Protegido por Secreto Profesional
+                        <i class="fa-solid fa-user-shield"></i> <span id="conPrivacidadNota">Protegido por Secreto Profesional</span>
                     </div>
                 </div>
 
-                <p class="form-intro-note">
+                <p class="form-intro-note" id="conFormSub">
                     Completa los siguientes campos para derivar tu requerimiento al especialista del área correspondiente. Tu información es estrictamente privada.
                 </p>
 
                 <form id="formContactoPrincipal">
                     <div class="form-row-2">
                         <div class="form-group">
-                            <label><i class="fa-regular fa-user" style="color:var(--dorado);"></i> Nombres y apellidos *</label>
+                            <label for="conNombres"><i class="fa-regular fa-user" style="color:var(--dorado);"></i> Nombres y apellidos *</label>
                             <input type="text" id="conNombres" placeholder="Ej. Carlos Mendoza Vargas" required>
                         </div>
                         <div class="form-group">
-                            <label><i class="fa-regular fa-envelope" style="color:var(--dorado);"></i> Correo electrónico *</label>
+                            <label for="conCorreo"><i class="fa-regular fa-envelope" style="color:var(--dorado);"></i> Correo electrónico *</label>
                             <input type="email" id="conCorreo" placeholder="nombre@correo.com" required>
                         </div>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-group">
-                            <label><i class="fa-solid fa-mobile-screen" style="color:var(--dorado);"></i> Teléfono / Celular *</label>
-                            <input type="tel" id="conTelefono" placeholder="Ej. 999 888 777" required>
+                            <label for="conTelefono"><i class="fa-solid fa-mobile-screen" style="color:var(--dorado);"></i> Teléfono / Celular *</label>
+                            <input type="tel" id="conTelefono" placeholder="Ej. 980 249 579" required>
                         </div>
                         <div class="form-group">
-                            <label><i class="fa-regular fa-building" style="color:var(--dorado);"></i> Empresa o Institución (Opcional)</label>
+                            <label for="conEmpresa"><i class="fa-regular fa-building" style="color:var(--dorado);"></i> Empresa o Institución (Opcional)</label>
                             <input type="text" id="conEmpresa" placeholder="Razón social o entidad">
                         </div>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-group">
-                            <label><i class="fa-solid fa-scale-balanced" style="color:var(--dorado);"></i> Área legal de interés *</label>
+                            <label for="conAreaInteres"><i class="fa-solid fa-scale-balanced" style="color:var(--dorado);"></i> Área legal de interés *</label>
                             <select id="conAreaInteres" required>
                                 <option value="">Seleccione una especialidad...</option>
-                                <option value="Derecho Corporativo">Derecho Corporativo</option>
-                                <option value="Derecho Laboral">Derecho Laboral</option>
-                                <option value="Recuperaciones">Recuperaciones</option>
-                                <option value="Saneamiento de Propiedades">Saneamiento de Propiedades</option>
-                                <option value="Derecho Administrativo">Derecho Administrativo</option>
-                                <option value="Área Arbitral">Área Arbitral</option>
-                                <option value="Derecho Civil">Derecho Civil</option>
-                                <option value="Derecho de Familia">Derecho de Familia</option>
-                                <option value="Derecho Penal">Derecho Penal</option>
-                                <option value="Competencia y Protección del Consumidor">Competencia y Protección del Consumidor</option>
-                                <option value="Procedimientos Concursales">Procedimientos Concursales</option>
-                                <option value="Propiedad Intelectual">Propiedad Intelectual</option>
-                                <option value="Derecho Tributario">Derecho Tributario</option>
+                                <option value="Consulta General">Consulta General</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label><i class="fa-regular fa-pen-to-square" style="color:var(--dorado);"></i> Asunto de la consulta *</label>
+                            <label for="conAsunto"><i class="fa-regular fa-pen-to-square" style="color:var(--dorado);"></i> Asunto de la consulta *</label>
                             <input type="text" id="conAsunto" placeholder="Resumen breve del motivo" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label><i class="fa-regular fa-comment-dots" style="color:var(--dorado);"></i> Descripción detallada de su caso o consulta *</label>
+                        <label for="conDescripcion"><i class="fa-regular fa-comment-dots" style="color:var(--dorado);"></i> Descripción detallada de su caso o consulta *</label>
                         <textarea id="conDescripcion" rows="4" placeholder="Describa los hechos principales o el tipo de asesoría que necesita..." required></textarea>
                     </div>
 
@@ -169,8 +158,8 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn-gold btn-submit-large">
-                        <i class="fa-solid fa-paper-plane"></i> Enviar Solicitud de Asesoría Legal
+                    <button type="submit" id="btnEnviarContacto" class="btn btn-gold btn-submit-large">
+                        <i class="fa-solid fa-paper-plane"></i> <span id="conFormBtnTxt">Enviar Solicitud de Asesoría Legal</span>
                     </button>
 
                     <div id="alertaExitoContacto" class="alert-success-box" style="display: none; margin-top: 16px;">
@@ -186,28 +175,29 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE MAPA EJECUTIVO Y UBICACIÓN -->
+    <!-- SECCIÓN DE MAPA EJECUTIVO Y UBICACIÓN (EDITABLE) -->
     <section class="section">
         <div class="container">
             <div class="map-card-wrapper">
                 <div class="map-card-header">
                     <div>
-                        <span class="section-tag">UBICACIÓN ESTRATÉGICA</span>
-                        <h3>Visítanos en Nuestra Sede en Arequipa</h3>
-                        <p id="mapaDireccionSubtitulo">Calle 28 de Julio 701, Cercado - Arequipa (Atención presencial previa cita).</p>
+                        <span class="section-tag" id="conMapaTag">UBICACIÓN ESTRATÉGICA</span>
+                        <h3 id="conMapaTitulo">Visítanos en Nuestra Sede en Arequipa</h3>
+                        <p id="conMapaSub">Calle 28 de Julio 701, Urb. Vallecito - Arequipa (Atención presencial previa cita).</p>
                     </div>
-                    <a href="https://www.google.com/maps/place/28+de+Julio+701,+Arequipa+04001/@-16.4022174,-71.5423515,19z" target="_blank" class="btn btn-primary-dark">
+                    <a href="https://www.google.com/maps/place/28+de+Julio+701,+Arequipa+04001/@-16.4022174,-71.5423515,19z" target="_blank" rel="noopener noreferrer" class="btn btn-primary-dark">
                         <i class="fa-solid fa-location-arrow"></i> Abrir en Google Maps
                     </a>
                 </div>
                 <div class="map-frame-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1137.9061683052162!2d-71.54235147273542!3d-16.402217408554232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91424a58d1e52a3f%3A0x4f1606ef61ec2030!2s28%20de%20Julio%20701%2C%20Arequipa%2004001!5e0!3m2!1ses-419!2spe!4v1794692588599!5m2!1ses-419!2spe" 
-                        width="100%" 
-                        height="420" 
-                        style="border:0; display:block;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
+                    <iframe
+                        id="conMapaIframe"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1137.9061683052162!2d-71.54235147273542!3d-16.402217408554232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91424a58d1e52a3f%3A0x4f1606ef61ec2030!2s28%20de%20Julio%20701%2C%20Arequipa%2004001!5e0!3m2!1ses-419!2spe!4v1794692588599!5m2!1ses-419!2spe"
+                        width="100%"
+                        height="420"
+                        style="border:0; display:block;"
+                        allowfullscreen=""
+                        loading="lazy"
                         referrerpolicy="strict-origin-when-cross-origin">
                     </iframe>
                 </div>

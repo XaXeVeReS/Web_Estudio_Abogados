@@ -550,10 +550,290 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof window.refrescarDirectorioStaff === 'function') window.refrescarDirectorioStaff();
     }
 
+    // =====================================================================
+    // 1F. PINTADO 100% EDITABLE DE "ARTÍCULOS" (blog.html)
+    // =====================================================================
+    const ARTICULOS_PAGINA_DEFECTO = {
+        banner_tag: 'ACTUALIDAD Y OPINIÓN JURÍDICA',
+        banner_titulo: 'Artículos Jurídicos',
+        banner_sub: 'Análisis doctrinales, criterios jurisprudenciales y novedades normativas elaborados por el equipo de Estudio Jurídico Ureta & Asociados.',
+        banner_img: 'https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1600&q=80',
+        sec_tag: 'PUBLICACIONES RECIENTES',
+        sec_titulo: 'Biblioteca de Artículos y Análisis',
+        sec_sub: 'Explora nuestras publicaciones propias, análisis jurídicos y notas de actualidad filtrando por tema o palabra clave.',
+        buscador_placeholder: 'Buscar artículo por título, tema o autor...',
+        filtro_cat_todas: 'Todas las categorías',
+        filtro_tipo_todos: 'Todos los tipos',
+        etiqueta_destacado: 'ARTÍCULO DESTACADO',
+        btn_leer_texto: 'Leer artículo',
+        comentarios_titulo: 'Dejar un comentario',
+        cta_titulo: '¿Tienes dudas sobre algún tema normativo o jurisprudencial?',
+        cta_sub: 'Nuestros abogados especialistas pueden orientarte con un análisis aplicado a tu caso concreto.'
+    };
+
+    function renderizarPaginaArticulos() {
+        const banner = document.getElementById('artBanner');
+        if (!banner) return;
+
+        const art = Object.assign({}, ARTICULOS_PAGINA_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_articulos_cache') || '{}'));
+        if (art.banner_img) banner.style.backgroundImage = `url('${art.banner_img}')`;
+
+        const buscador = document.getElementById('buscarBlogInput');
+        if (buscador && art.buscador_placeholder) buscador.placeholder = art.buscador_placeholder;
+
+        const optTodosTipo = document.querySelector('#filtroTipoBlog option[value="Todos"]');
+        if (optTodosTipo && art.filtro_tipo_todos) optTodosTipo.textContent = art.filtro_tipo_todos;
+
+        const mapaArt = {
+            'artBannerTag': art.banner_tag,
+            'artBannerTitulo': art.banner_titulo,
+            'artBannerSub': art.banner_sub,
+            'artSecTag': art.sec_tag,
+            'artSecTitulo': art.sec_titulo,
+            'artSecSub': art.sec_sub,
+            'artCtaTitulo': art.cta_titulo,
+            'artCtaSub': art.cta_sub
+        };
+        Object.entries(mapaArt).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        window.__articulosTextosUi = art;
+        if (typeof window.refrescarListadoBlog === 'function') window.refrescarListadoBlog();
+    }
+
+    // =====================================================================
+    // 1G. PINTADO 100% EDITABLE DE "EVENTOS ACADÉMICOS" (eventos.html)
+    // =====================================================================
+    const EVENTOS_PAGINA_DEFECTO = {
+        banner_tag: 'CAPACITACIÓN Y EXTENSIÓN JURÍDICA',
+        banner_titulo: 'Eventos Académicos',
+        banner_sub: 'Conferencias, seminarios y jornadas de actualización jurídica organizadas por Estudio Jurídico Ureta & Asociados para profesionales y estudiantes de Derecho.',
+        banner_img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=80',
+        sec_tag: 'AGENDA ACADÉMICA',
+        sec_titulo: 'Próximos Eventos y Jornadas',
+        sec_sub: 'Consulta el temario, ponentes y modalidad de cada actividad académica e inscríbete directamente mediante nuestro formulario oficial.',
+        buscador_placeholder: 'Buscar evento por título, categoría o ponente...',
+        filtro_mod_todas: 'Todas las modalidades',
+        etiqueta_destacado: 'PRÓXIMO EVENTO DESTACADO',
+        btn_detalle_texto: 'Ver información',
+        btn_inscribir_texto: 'Inscribirme (Forms)',
+        cta_titulo: '¿Deseas proponer un convenio académico o capacitación institucional?',
+        cta_sub: 'Coordinamos conferencias, talleres corporativos y jornadas universitarias con nuestros abogados especialistas.'
+    };
+
+    function renderizarPaginaEventos() {
+        const banner = document.getElementById('evBanner');
+        if (!banner) return;
+
+        const ev = Object.assign({}, EVENTOS_PAGINA_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_eventos_cache') || '{}'));
+        if (ev.banner_img) banner.style.backgroundImage = `url('${ev.banner_img}')`;
+
+        const buscador = document.getElementById('buscarEventoInput');
+        if (buscador && ev.buscador_placeholder) buscador.placeholder = ev.buscador_placeholder;
+
+        const optTodas = document.querySelector('#filtroModalidadEvento option[value="Todas"]');
+        if (optTodas && ev.filtro_mod_todas) optTodas.textContent = ev.filtro_mod_todas;
+
+        const mapaEv = {
+            'evBannerTag': ev.banner_tag,
+            'evBannerTitulo': ev.banner_titulo,
+            'evBannerSub': ev.banner_sub,
+            'evSecTag': ev.sec_tag,
+            'evSecTitulo': ev.sec_titulo,
+            'evSecSub': ev.sec_sub,
+            'evCtaTitulo': ev.cta_titulo,
+            'evCtaSub': ev.cta_sub
+        };
+        Object.entries(mapaEv).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        window.__eventosTextosUi = ev;
+        if (typeof window.refrescarListadoEventos === 'function') window.refrescarListadoEventos();
+    }
+// =====================================================================
+    // 1H. PINTADO 100% EDITABLE DE "TRABAJA CON NOSOTROS" (trabaja-con-nosotros.html)
+    // =====================================================================
+    const TRABAJA_PAGINA_DEFECTO = {
+        banner_tag: 'PROGRAMA DE PRACTICANTES Y LÍNEA DE CARRERA',
+        banner_titulo: 'Inicia tu formación jurídica y haz línea de carrera con nosotros',
+        banner_sub: 'En Estudio Jurídico Ureta & Asociados formamos a futuros abogados de excelencia. Si eres estudiante de los últimos ciclos o recién egresado, te ofrecemos mentoría directa y oportunidades reales de crecimiento.',
+        banner_img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80',
+        ben_tag: 'CULTURA DE EXCELENCIA',
+        ben_titulo: '¿Por qué integrarte a nuestra firma?',
+        ben_sub: 'Apostamos por el talento joven con vocación ética, rigor técnico y proyección profesional en nuestras 9 especialidades.',
+        beneficios: [
+            { icono: 'fa-solid fa-graduation-cap', titulo: 'Mentoría directa', texto: 'Aprendizaje práctico junto a socios y abogados especialistas en audiencias, escritos y asesoría.' },
+            { icono: 'fa-solid fa-arrow-up-right-dots', titulo: 'Línea de carrera real', texto: 'Evaluación continua para pasar de practicante preprofesional a profesional y abogado asociado.' },
+            { icono: 'fa-solid fa-scale-balanced', titulo: 'Casos de alto rigor', texto: 'Participación en expedientes civiles, penales, laborales, registrales, arbitrales y corporativos.' },
+            { icono: 'fa-solid fa-book-open-reader', titulo: 'Formación continua', texto: 'Acceso a jornadas académicas internas, investigación jurídica y publicación de artículos.' }
+        ],
+        hist_tag: 'HISTORIAS DE CRECIMIENTO REAL',
+        hist_titulo: 'De Practicante a Abogado',
+        hist_sub: 'Conoce a los profesionales que iniciaron su formación como practicantes en nuestra firma y hoy lideran casos estratégicos como abogados del estudio.',
+        vac_tag: 'CONVOCATORIAS VIGENTES',
+        vac_titulo: 'Oportunidades para Practicantes y Talento Jurídico',
+        vac_sub: 'Revisa los requisitos de nuestras convocatorias abiertas y postula adjuntando tu CV en formato PDF.',
+        esp_titulo: '¿No encuentras una convocatoria abierta para tu especialidad?',
+        esp_sub: 'Envíanos tu CV mediante una Postulación Espontánea y lo incorporaremos a nuestra base de talento para futuras plazas.',
+        esp_btn: 'Enviar Postulación Espontánea',
+        form_tag: 'POSTULACIÓN EN LÍNEA',
+        form_titulo: 'Formulario de Postulación (CV en PDF)',
+        form_sub: 'Completa tus datos académicos y adjunta tu currículum actualizado en PDF (máximo 5 MB). Tu información se trata de forma estrictamente confidencial.',
+        proc_titulo: 'Etapas del Proceso de Selección',
+        proc_pasos: [
+            '1. Recepción y revisión curricular de tu perfil académico.',
+            '2. Evaluación técnica de análisis y redacción jurídica.',
+            '3. Entrevista personal con la coordinación y socios del área.',
+            '4. Incorporación al equipo y plan de mentoría institucional.'
+        ],
+        sede_titulo: 'Nuestra Sede en Arequipa',
+        sede_img: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80',
+        sede_texto: 'Calle 28 de Julio 701, Urb. Vallecito — Arequipa. Un espacio diseñado para el estudio riguroso y el trabajo en equipo.'
+    };
+
+    function renderizarPaginaTrabaja() {
+        const banner = document.getElementById('trabBanner');
+        if (!banner) return;
+
+        const tr = Object.assign({}, TRABAJA_PAGINA_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_trabaja_cache') || '{}'));
+        if (tr.banner_img) banner.style.backgroundImage = `url('${tr.banner_img}')`;
+
+        const imgSede = document.getElementById('trabSedeImg');
+        if (imgSede && tr.sede_img) imgSede.src = tr.sede_img;
+
+        const mapaTr = {
+            'trabBannerTag': tr.banner_tag,
+            'trabBannerTitulo': tr.banner_titulo,
+            'trabBannerSub': tr.banner_sub,
+            'trabBenTag': tr.ben_tag,
+            'trabBenTitulo': tr.ben_titulo,
+            'trabBenSub': tr.ben_sub,
+            'trabHistTag': tr.hist_tag,
+            'trabHistTitulo': tr.hist_titulo,
+            'trabHistSub': tr.hist_sub,
+            'trabVacTag': tr.vac_tag,
+            'trabVacTitulo': tr.vac_titulo,
+            'trabVacSub': tr.vac_sub,
+            'trabEspTitulo': tr.esp_titulo,
+            'trabEspSub': tr.esp_sub,
+            'trabEspBtn': tr.esp_btn,
+            'trabFormTag': tr.form_tag,
+            'trabFormTitulo': tr.form_titulo,
+            'trabFormSub': tr.form_sub,
+            'trabProcTitulo': tr.proc_titulo,
+            'trabSedeTitulo': tr.sede_titulo,
+            'trabSedeTexto': tr.sede_texto
+        };
+        Object.entries(mapaTr).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        // 4 Tarjetas de Beneficios
+        const benGrid = document.getElementById('trabBeneficiosGrid');
+        if (benGrid && Array.isArray(tr.beneficios)) {
+            benGrid.innerHTML = tr.beneficios.map(b => `
+                <div class="mv-card">
+                    <div class="mv-icon"><i class="${b.icono || 'fa-solid fa-star'}"></i></div>
+                    <h3>${b.titulo || ''}</h3>
+                    <p>${b.texto || ''}</p>
+                </div>
+            `).join('');
+        }
+
+        // Lista de Etapas del Proceso
+        const procLista = document.getElementById('trabProcLista');
+        if (procLista && Array.isArray(tr.proc_pasos)) {
+            procLista.innerHTML = tr.proc_pasos.map(p => `
+                <li><i class="fa-solid fa-circle-check"></i> <span>${p}</span></li>
+            `).join('');
+        }
+
+        // Refrescar historias y vacantes si están en pantalla
+        if (typeof window.refrescarTrabajaConNosotros === 'function') window.refrescarTrabajaConNosotros();
+    }
+    // =====================================================================
+    // 1I. PINTADO 100% EDITABLE DE "CONTÁCTANOS" (contacto.html)
+    // =====================================================================
+    const CONTACTO_PAGINA_DEFECTO = {
+        banner_tag: 'CENTRAL DE ATENCIÓN',
+        banner_titulo: 'Estamos aquí para ayudarte',
+        banner_sub: 'Agenda una consulta reservada con nuestros abogados especialistas en Arequipa o vía virtual.',
+        banner_img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80',
+        info_tag: 'CANALES DIRECTOS',
+        info_titulo: 'Información de Contacto',
+        info_desc: 'Atendemos consultas de personas, familias y empresas con rigor técnico y absoluta confidencialidad desde el primer contacto.',
+        wa_titulo: 'Atención rápida por WhatsApp',
+        wa_sub: 'Escríbenos directamente para coordinar una cita presencial o virtual.',
+        privacidad_nota: 'Toda información compartida está protegida bajo secreto profesional y la Ley N.° 29733 de Protección de Datos Personales.',
+        form_tag: 'SOLICITUD DE ASESORÍA',
+        form_titulo: 'Envíanos tu Consulta Legal',
+        form_sub: 'Completa el formulario y un especialista del área correspondiente se pondrá en contacto contigo a la brevedad.',
+        form_btn: 'Enviar Solicitud de Asesoría',
+        mapa_tag: 'UBICACIÓN DE NUESTRA SEDE',
+        mapa_titulo: 'Visítanos en Arequipa',
+        mapa_sub: 'Calle 28 de Julio 701, Urb. Vallecito — Arequipa. Atención previa coordinación de cita.',
+        mapa_embed_url: 'https://www.google.com/maps?q=Calle+28+de+Julio+701,+Vallecito,+Arequipa,+Peru&output=embed'
+    };
+
+    function renderizarPaginaContacto() {
+        const banner = document.getElementById('conBanner');
+        if (!banner) return;
+
+        const c = Object.assign({}, CONTACTO_PAGINA_DEFECTO, JSON.parse(localStorage.getItem('ureta_pagina_contacto_cache') || '{}'));
+        if (c.banner_img) banner.style.backgroundImage = `url('${c.banner_img}')`;
+
+        const mapa = document.getElementById('conMapaIframe');
+        if (mapa && c.mapa_embed_url && mapa.src !== c.mapa_embed_url) {
+            mapa.src = c.mapa_embed_url;
+        }
+
+        // Sincronizar también el enlace de WhatsApp de la tarjeta con configuracion_sitio
+        const cfg = JSON.parse(localStorage.getItem('ureta_config_sitio_cache') || '{}');
+        const waCard = document.getElementById('contactoWhatsappCard');
+        if (waCard && cfg.whatsapp_numero) {
+            const num = String(cfg.whatsapp_numero).replace(/\D/g, '');
+            waCard.href = `https://api.whatsapp.com/send/?phone=${num}&text=Hola,%20deseo%20solicitar%20asesor%C3%ADa%20legal`;
+        }
+
+        const mapaCon = {
+            'conBannerTag': c.banner_tag,
+            'conBannerTitulo': c.banner_titulo,
+            'conBannerSub': c.banner_sub,
+            'conInfoTag': c.info_tag,
+            'conInfoTitulo': c.info_titulo,
+            'conInfoDesc': c.info_desc,
+            'conWaTitulo': c.wa_titulo,
+            'conWaSub': c.wa_sub,
+            'conPrivacidadNota': c.privacidad_nota,
+            'conFormTag': c.form_tag,
+            'conFormTitulo': c.form_titulo,
+            'conFormSub': c.form_sub,
+            'conFormBtnTxt': c.form_btn,
+            'conMapaTag': c.mapa_tag,
+            'conMapaTitulo': c.mapa_titulo,
+            'conMapaSub': c.mapa_sub
+        };
+        Object.entries(mapaCon).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val) el.textContent = val;
+        });
+
+        if (typeof window.poblarAreasContacto === 'function') window.poblarAreasContacto();
+    }
+
     renderizarContenidoGlobalYHome();
     renderizarPaginaNosotros();
     renderizarPaginaAreas();
     renderizarPaginaStaff();
+    renderizarPaginaArticulos();
+    renderizarPaginaEventos();
+    renderizarPaginaTrabaja();
+    renderizarPaginaContacto();
 
     if (typeof sincronizarVistasSupabase === 'function' && supabaseEstaConfigurado()) {
         Promise.all([
@@ -566,12 +846,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 }
+            }),
+            consultarVistaSupabase('eventos_academicos', '?select=*&order=fecha_evento.desc,evento_id.desc').then(filas => {
+                if (Array.isArray(filas)) localStorage.setItem('ureta_eventos_db', JSON.stringify(filas));
+            }),
+            consultarVistaSupabase('historias_carrera', '?select=*&activo=eq.true&order=orden.asc,historia_id.asc').then(filas => {
+                if (Array.isArray(filas)) localStorage.setItem('ureta_historias_db', JSON.stringify(filas));
             })
         ]).then(() => {
             renderizarContenidoGlobalYHome();
             renderizarPaginaNosotros();
             renderizarPaginaAreas();
             renderizarPaginaStaff();
+            renderizarPaginaArticulos();
+            renderizarPaginaEventos();
+            renderizarPaginaTrabaja();
+            renderizarPaginaContacto();
         });
     }
     // =====================================================================
@@ -767,6 +1057,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================================================================
     // 5. ARTÍCULOS JURÍDICOS (blog.html)
     // =====================================================================
+    // =====================================================================
+    // 5. ARTÍCULOS JURÍDICOS (blog.html - FILTROS DINÁMICOS Y COMENTARIOS)
+    // =====================================================================
     const blogGrid = document.getElementById('blogListadoGrid');
     if (blogGrid) {
         const inputBuscarBlog = document.getElementById('buscarBlogInput');
@@ -776,30 +1069,56 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBlog = document.getElementById('modalArticuloBlog');
         const modalBlogContenido = document.getElementById('modalBlogContenido');
 
-        function renderizarBlog() {
+        function etiquetaTipoBlog(tipo) {
+            if (tipo === 'ArticuloPropio') return 'Artículo Propio';
+            if (tipo === 'AnalisisJuridico') return 'Análisis Jurídico';
+            return 'Noticia Externa';
+        }
+
+        function poblarFiltroCategoriasBlog(articulos) {
+            if (!selectCatBlog) return;
+            const prev = selectCatBlog.value || 'Todas';
+            const txtTodas = window.__articulosTextosUi?.filtro_cat_todas || 'Todas las categorías';
+            const categoriasUnicas = [...new Set(articulos.map(a => a.categoria).filter(Boolean))].sort();
+
+            selectCatBlog.innerHTML = `<option value="Todas">${txtTodas}</option>` +
+                categoriasUnicas.map(c => `<option value="${c}">${c}</option>`).join('');
+
+            if ([...selectCatBlog.options].some(o => o.value === prev)) {
+                selectCatBlog.value = prev;
+            }
+        }
+
+        window.refrescarListadoBlog = function () {
             const articulos = obtenerBlog().filter(p => p.estado === 'Publicado');
+            poblarFiltroCategoriasBlog(articulos);
+
+            const ui = window.__articulosTextosUi || ARTICULOS_PAGINA_DEFECTO;
             const dest = articulos.find(p => p.destacado) || articulos[0];
+
             if (dest && destacadoContainer) {
                 destacadoContainer.innerHTML = `
                     <div class="featured-post-card">
                         <div class="featured-post-img" style="background-image: url('${dest.imagen}');"></div>
                         <div class="featured-post-body">
-                            <div><span class="badge-tipo">★ ARTÍCULO DESTACADO</span></div>
+                            <div><span class="badge-tipo">★ ${ui.etiqueta_destacado} • ${etiquetaTipoBlog(dest.tipo)}</span></div>
                             <h2>${dest.titulo}</h2>
                             <p>${dest.subtitulo}</p>
                             <p style="font-size: 0.82rem; color: var(--dorado);">Por: ${dest.autor} | Fecha: ${dest.fecha}</p>
-                            <div><button class="btn btn-gold" onclick="abrirArticuloBlog(${dest.id})">Leer artículo completo</button></div>
+                            <div><button type="button" class="btn btn-gold" onclick="abrirArticuloBlog(${dest.id})">${ui.btn_leer_texto} completo</button></div>
                         </div>
                     </div>
                 `;
+            } else if (destacadoContainer) {
+                destacadoContainer.innerHTML = '';
             }
 
-            const q = (inputBuscarBlog?.value || '').toLowerCase();
+            const q = (inputBuscarBlog?.value || '').trim().toLowerCase();
             const cat = selectCatBlog?.value || 'Todas';
             const tipo = selectTipoBlog?.value || 'Todos';
 
             const filtrados = articulos.filter(p =>
-                (p.titulo.toLowerCase().includes(q) || p.subtitulo.toLowerCase().includes(q) || p.autor.toLowerCase().includes(q)) &&
+                (!q || p.titulo.toLowerCase().includes(q) || (p.subtitulo || '').toLowerCase().includes(q) || (p.autor || '').toLowerCase().includes(q)) &&
                 (cat === 'Todas' || p.categoria === cat) &&
                 (tipo === 'Todos' || p.tipo === tipo)
             );
@@ -811,26 +1130,50 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${p.imagen}" alt="${p.titulo}">
                     </div>
                     <div class="blog-card-body">
-                        <span class="blog-date"><i class="fa-regular fa-calendar"></i> ${p.fecha}</span>
+                        <span class="blog-date"><i class="fa-regular fa-calendar"></i> ${p.fecha} • <strong>${etiquetaTipoBlog(p.tipo)}</strong></span>
                         <h3>${p.titulo}</h3>
                         <p>${p.subtitulo}</p>
-                        <button onclick="abrirArticuloBlog(${p.id})" class="card-link" style="background:none; border:none; cursor:pointer; padding:0;">Leer artículo <i class="fa-solid fa-arrow-right"></i></button>
+                        <button type="button" onclick="abrirArticuloBlog(${p.id})" class="card-link" style="background:none; border:none; cursor:pointer; padding:0;">
+                            ${ui.btn_leer_texto} <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </div>
                 </article>
-            `).join('');
-        }
+            `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px;">No se encontraron artículos con ese criterio de búsqueda.</p>`;
+        };
 
-        window.abrirArticuloBlog = function (id) {
+        window.abrirArticuloBlog = async function (id) {
             const art = obtenerBlog().find(a => a.id === id);
             if (!art) return;
+            const ui = window.__articulosTextosUi || ARTICULOS_PAGINA_DEFECTO;
+
             modalBlogContenido.innerHTML = `
-                <span class="badge-tipo">${art.categoria}</span>
+                <span class="badge-tipo">${art.categoria} • ${etiquetaTipoBlog(art.tipo)}</span>
                 <h2 style="font-family: var(--fuente-titulos); font-size: 2rem; margin: 8px 0 10px;">${art.titulo}</h2>
-                <p style="font-size: 0.86rem; color: var(--gris-texto); margin-bottom: 20px;">Por: <strong>${art.autor}</strong> | ${art.fecha}</p>
+                <p style="font-size: 0.86rem; color: var(--gris-texto); margin-bottom: 20px;">
+                    <i class="fa-solid fa-user-pen" style="color:var(--dorado);"></i> Autor: <strong>${art.autor}</strong>  | 
+                    <i class="fa-regular fa-calendar" style="color:var(--dorado);"></i> ${art.fecha}
+                </p>
                 <img src="${art.imagen}" alt="${art.titulo}" style="width:100%; height:300px; object-fit:cover; border-radius:4px; margin-bottom:24px;">
-                <div class="article-content-body">${art.contenido}</div>
-                <div class="detail-box" style="margin-top: 28px;">
-                    <h3><i class="fa-regular fa-comments"></i> Dejar un comentario</h3>
+                <div class="article-content-body">${art.contenido || ''}</div>
+
+                ${art.fuenteUrl ? `
+                <div class="detail-box highlight-box" style="margin-top: 24px;">
+                    <h3><i class="fa-solid fa-arrow-up-right-from-square"></i> Fuente Externa Oficial</h3>
+                    <p style="margin-bottom:10px;">Medio: <strong>${art.fuenteNombre || 'Enlace de referencia'}</strong></p>
+                    <a href="${art.fuenteUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary-dark">Visitar fuente original</a>
+                </div>` : ''}
+
+                <div class="share-bar">
+                    <span style="font-size: 0.85rem; font-weight: 700;">Compartir artículo:</span>
+                    <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(art.titulo + ' - ' + window.location.href)}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" style="padding: 8px 14px; font-size:0.8rem;">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+
+                <div id="listaComentariosArticulo" style="margin-top: 22px;"></div>
+
+                <div class="detail-box" style="margin-top: 24px;">
+                    <h3><i class="fa-regular fa-comments"></i> ${ui.comentarios_titulo}</h3>
                     <form onsubmit="enviarComentarioBlog(event, ${art.id})">
                         <div class="form-row-2">
                             <div class="form-group"><input type="text" id="comNombreVisitante" placeholder="Su nombre *" required></div>
@@ -838,11 +1181,26 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="form-group"><textarea id="comTextoVisitante" rows="2" placeholder="Escriba su comentario *" required></textarea></div>
                         <button type="submit" class="btn btn-primary-dark">Enviar comentario</button>
-                        <p id="msgComentarioEnviado" style="display:none; color:#238d41; font-size:0.84rem; margin-top:8px; font-weight:600;">✓ Comentario enviado para aprobación.</p>
+                        <p id="msgComentarioEnviado" style="display:none; color:#238d41; font-size:0.84rem; margin-top:8px; font-weight:600;">✓ Comentario enviado para aprobación del equipo editorial.</p>
                     </form>
                 </div>
             `;
             modalBlog.classList.add('open');
+
+            // Cargar comentarios aprobados de este artículo desde Supabase
+            const comentarios = await consultarVistaSupabase('comentarios_blog', `?publicacion_id=eq.${art.id}&estado=eq.Aprobado&order=fecha_comentario.desc`);
+            const contCom = document.getElementById('listaComentariosArticulo');
+            if (contCom && Array.isArray(comentarios) && comentarios.length > 0) {
+                contCom.innerHTML = `
+                    <h4 style="font-family:var(--fuente-titulos); color:#123c2a; margin-bottom:10px;">Comentarios de lectores (${comentarios.length})</h4>
+                    ${comentarios.map(c => `
+                        <div style="background:#f8fafc; border-left:3px solid #b59a62; padding:12px 14px; border-radius:4px; margin-bottom:10px;">
+                            <strong style="color:#123c2a; font-size:0.88rem;">${c.nombre_visitante}</strong>
+                            <p style="margin:4px 0 0; font-size:0.88rem; color:#475569;">${c.comentario}</p>
+                        </div>
+                    `).join('')}
+                `;
+            }
         };
 
         window.enviarComentarioBlog = async function (e, pubId) {
@@ -858,209 +1216,380 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         document.getElementById('cerrarModalBlog')?.addEventListener('click', () => modalBlog.classList.remove('open'));
-        inputBuscarBlog?.addEventListener('input', renderizarBlog);
-        selectCatBlog?.addEventListener('change', renderizarBlog);
-        selectTipoBlog?.addEventListener('change', renderizarBlog);
-        renderizarBlog();
+        modalBlog?.addEventListener('click', (e) => {
+            if (e.target === modalBlog) modalBlog.classList.remove('open');
+        });
+
+        inputBuscarBlog?.addEventListener('input', window.refrescarListadoBlog);
+        selectCatBlog?.addEventListener('change', window.refrescarListadoBlog);
+        selectTipoBlog?.addEventListener('change', window.refrescarListadoBlog);
+        window.refrescarListadoBlog();
     }
 
     // =====================================================================
     // 6. EVENTOS ACADÉMICOS CON LINK EDITABLE DE FORMS (eventos.html)
     // =====================================================================
+    // =====================================================================
+    // 6. EVENTOS ACADÉMICOS (eventos.html - DESTACADO, FILTROS Y GOOGLE FORMS)
+    // =====================================================================
     const eventosGrid = document.getElementById('eventosListadoGrid');
     if (eventosGrid) {
-        (async () => {
-            const destContainer = document.getElementById('eventoDestacadoContainer');
-            const inputBuscar = document.getElementById('buscarEventoInput');
-            const selectMod = document.getElementById('filtroModalidadEvento');
-            const modal = document.getElementById('modalDetalleEvento');
-            const modalBody = document.getElementById('modalEventoContenido');
-            const eventos = await consultarVistaSupabase('eventos_academicos', '?select=*&estado=neq.Oculto&order=evento_id.desc') || [];
+        const inputBuscarEv = document.getElementById('buscarEventoInput');
+        const selectModEv = document.getElementById('filtroModalidadEvento');
+        const destEvCont = document.getElementById('eventoDestacadoContainer');
+        const modalEv = document.getElementById('modalDetalleEvento');
+        const modalEvCont = document.getElementById('modalEventoContenido');
 
-            window.abrirModalEvento = (id) => {
-                const ev = eventos.find(e => e.evento_id === id);
-                if (!ev) return;
-                modalBody.innerHTML = `
-                    <img src="${ev.imagen_url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80'}" style="width:100%; max-height:320px; object-fit:cover; border-radius:6px; margin-bottom:20px;">
-                    <span class="section-tag">${ev.categoria} • ${ev.modalidad}</span>
-                    <h2 style="font-family:var(--fuente-titulos); color:#123c2a; margin:8px 0 12px;">${ev.titulo}</h2>
-                    <div style="background:#e6e0db; padding:14px 18px; border-radius:6px; margin-bottom:18px; font-size:0.9rem;">
-                        <p style="margin-bottom:6px;"><strong>Fecha:</strong> ${ev.fecha_evento || 'Por confirmar'}</p>
-                        <p style="margin-bottom:6px;"><strong>Hora y Lugar:</strong> ${ev.hora_lugar || 'Sede Arequipa / Virtual'}</p>
-                        <p style="margin:0;"><strong>Ponente(s):</strong> ${ev.ponente}</p>
-                    </div>
-                    <div style="line-height:1.8; margin-bottom:24px;">${ev.descripcion_html || ev.subtitulo}</div>
-                    ${ev.link_inscripcion ? `<a href="${ev.link_inscripcion}" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%; justify-content:center; padding:15px;"><i class="fa-solid fa-clipboard-check"></i> Inscribirse en el Formulario Oficial (Forms)</a>` : ''}
-                `;
-                modal.classList.add('active');
-            };
+        function obtenerEventosPublicados() {
+            const lista = JSON.parse(localStorage.getItem('ureta_eventos_db') || '[]');
+            return lista.filter(ev => (ev.estado || 'Publicado') === 'Publicado');
+        }
 
-            document.getElementById('cerrarModalEvento')?.addEventListener('click', () => modal.classList.remove('active'));
+        window.refrescarListadoEventos = function () {
+            const eventos = obtenerEventosPublicados();
+            const ui = window.__eventosTextosUi || EVENTOS_PAGINA_DEFECTO;
 
-            function renderEventos() {
-                const q = (inputBuscar?.value || '').toLowerCase();
-                const mod = selectMod?.value || 'Todas';
-                const dest = eventos.find(e => e.destacado) || eventos[0];
-
-                if (dest && destContainer) {
-                    destContainer.innerHTML = `
-                        <div class="featured-post-card" style="display:grid; grid-template-columns:1fr 1.2fr; gap:28px; background:#fff; border-radius:8px; overflow:hidden; margin-bottom:32px; border:1px solid #a8ada8;">
-                            <img src="${dest.imagen_url}" alt="${dest.titulo}" style="width:100%; height:100%; min-height:280px; object-fit:cover;">
-                            <div style="padding:32px;">
-                                <span class="section-tag">EVENTO DESTACADO • ${dest.categoria}</span>
-                                <h2 style="font-family:var(--fuente-titulos); color:#123c2a; margin:8px 0 12px;">${dest.titulo}</h2>
-                                <p style="margin-bottom:14px;">${dest.subtitulo}</p>
-                                <p style="font-size:0.86rem; color:#238d41; font-weight:600; margin-bottom:20px;"><i class="fa-regular fa-calendar"></i> ${dest.fecha_evento} | ${dest.hora_lugar}</p>
-                                <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                                    <button onclick="abrirModalEvento(${dest.evento_id})" class="btn btn-primary-dark">Información del evento</button>
-                                    ${dest.link_inscripcion ? `<a href="${dest.link_inscripcion}" target="_blank" class="btn btn-gold">Inscribirme (Forms)</a>` : ''}
-                                </div>
+            // Evento destacado superior
+            const dest = eventos.find(e => e.destacado) || eventos[0];
+            if (dest && destEvCont) {
+                const imgDest = dest.imagen_url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80';
+                destEvCont.innerHTML = `
+                    <div class="featured-post-card">
+                        <div class="featured-post-img" style="background-image: url('${imgDest}');"></div>
+                        <div class="featured-post-body">
+                            <div><span class="badge-tipo">★ ${ui.etiqueta_destacado} • ${dest.modalidad || 'Evento'}</span></div>
+                            <h2>${dest.titulo}</h2>
+                            <p>${dest.subtitulo || ''}</p>
+                            <p style="font-size:0.84rem; color:var(--dorado); margin-bottom:18px;">
+                                <i class="fa-regular fa-calendar"></i> ${dest.fecha_evento || 'Por confirmar'}  | 
+                                <i class="fa-solid fa-location-dot"></i> ${dest.hora_lugar || 'Sede Institucional'}  | 
+                                <i class="fa-solid fa-chalkboard-user"></i> ${dest.ponente || 'Equipo Jurídico'}
+                            </p>
+                            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                                ${dest.link_inscripcion ? `
+                                    <a href="${dest.link_inscripcion}" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+                                        <i class="fa-solid fa-pen-to-square"></i> ${ui.btn_inscribir_texto}
+                                    </a>` : ''}
+                                <button type="button" class="btn btn-outline-light" onclick="abrirModalEvento(${dest.evento_id})">
+                                    ${ui.btn_detalle_texto}
+                                </button>
                             </div>
                         </div>
-                    `;
-                }
+                    </div>
+                `;
+            } else if (destEvCont) {
+                destEvCont.innerHTML = '';
+            }
 
-                const filtrados = eventos.filter(e =>
-                    (mod === 'Todas' || (e.modalidad || '').includes(mod)) &&
-                    (e.titulo.toLowerCase().includes(q) || (e.subtitulo || '').toLowerCase().includes(q))
-                );
+            // Filtros de la grilla
+            const q = (inputBuscarEv?.value || '').trim().toLowerCase();
+            const mod = selectModEv?.value || 'Todas';
 
-                eventosGrid.innerHTML = filtrados.map(ev => `
+            const filtrados = eventos.filter(ev => {
+                const coincideTexto = !q ||
+                    (ev.titulo || '').toLowerCase().includes(q) ||
+                    (ev.subtitulo || '').toLowerCase().includes(q) ||
+                    (ev.categoria || '').toLowerCase().includes(q) ||
+                    (ev.ponente || '').toLowerCase().includes(q);
+                const coincideMod = mod === 'Todas' || (ev.modalidad || '') === mod;
+                return coincideTexto && coincideMod;
+            });
+
+            eventosGrid.innerHTML = filtrados.map(ev => {
+                const imgCard = ev.imagen_url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80';
+                return `
                     <article class="blog-card">
                         <div class="blog-card-img">
-                            <span class="blog-category">${ev.categoria}</span>
-                            <img src="${ev.imagen_url}" alt="${ev.titulo}">
+                            <span class="blog-category">${ev.categoria || 'Evento Académico'}</span>
+                            <img src="${imgCard}" alt="${ev.titulo}">
                         </div>
                         <div class="blog-card-body">
-                            <span class="blog-date"><i class="fa-regular fa-calendar"></i> ${ev.fecha_evento || ''} • ${ev.modalidad}</span>
+                            <span class="blog-date">
+                                <i class="fa-regular fa-calendar"></i> ${ev.fecha_evento || 'Próximamente'} • <strong>${ev.modalidad || ''}</strong>
+                            </span>
                             <h3>${ev.titulo}</h3>
-                            <p>${ev.subtitulo}</p>
-                            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:14px; flex-wrap:wrap;">
-                                <a href="javascript:void(0)" onclick="abrirModalEvento(${ev.evento_id})" class="card-link">Información <i class="fa-solid fa-arrow-right"></i></a>
-                                ${ev.link_inscripcion ? `<a href="${ev.link_inscripcion}" target="_blank" class="btn btn-gold" style="padding:7px 14px; font-size:0.8rem;">Inscribirme</a>` : ''}
+                            <p>${ev.subtitulo || ''}</p>
+                            <p style="font-size:0.82rem; color:#123c2a; font-weight:600; margin-bottom:14px;">
+                                <i class="fa-solid fa-chalkboard-user" style="color:var(--dorado);"></i> ${ev.ponente || ''}<br>
+                                <i class="fa-regular fa-clock" style="color:var(--dorado);"></i> ${ev.hora_lugar || ''}
+                            </p>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:auto;">
+                                <button type="button" onclick="abrirModalEvento(${ev.evento_id})" class="btn btn-primary-dark" style="padding:8px 14px; font-size:0.8rem;">
+                                    ${ui.btn_detalle_texto}
+                                </button>
+                                ${ev.link_inscripcion ? `
+                                    <a href="${ev.link_inscripcion}" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="padding:8px 14px; font-size:0.8rem;">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i> ${ui.btn_inscribir_texto}
+                                    </a>` : ''}
                             </div>
                         </div>
                     </article>
-                `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px;">Próximamente publicaremos nuevos eventos académicos.</p>`;
-            }
+                `;
+            }).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px;">No se encontraron eventos académicos con ese criterio.</p>`;
+        };
 
-            inputBuscar?.addEventListener('input', renderEventos);
-            selectMod?.addEventListener('change', renderEventos);
-            renderEventos();
-        })();
+        window.abrirModalEvento = function (id) {
+            const ev = obtenerEventosPublicados().find(x => Number(x.evento_id) === Number(id));
+            if (!ev) return;
+            const ui = window.__eventosTextosUi || EVENTOS_PAGINA_DEFECTO;
+            const imgModal = ev.imagen_url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80';
+
+            modalEvCont.innerHTML = `
+                <span class="badge-tipo">${ev.categoria || 'Evento Académico'} • ${ev.modalidad || ''}</span>
+                <h2 style="font-family:var(--fuente-titulos); font-size:1.9rem; margin:8px 0 12px; color:#123c2a;">${ev.titulo}</h2>
+                <div style="display:flex; flex-wrap:wrap; gap:16px; font-size:0.88rem; color:#475569; margin-bottom:18px;">
+                    <span><i class="fa-regular fa-calendar" style="color:var(--dorado);"></i> <strong>Fecha:</strong> ${ev.fecha_evento || 'Por confirmar'}</span>
+                    <span><i class="fa-regular fa-clock" style="color:var(--dorado);"></i> <strong>Hora y Lugar:</strong> ${ev.hora_lugar || ''}</span>
+                    <span><i class="fa-solid fa-chalkboard-user" style="color:var(--dorado);"></i> <strong>Ponente(s):</strong> ${ev.ponente || ''}</span>
+                </div>
+                <img src="${imgModal}" alt="${ev.titulo}" style="width:100%; max-height:320px; object-fit:cover; border-radius:6px; margin-bottom:20px;">
+                <div class="article-content-body">${ev.descripcion_html || `<p>${ev.subtitulo || ''}</p>`}</div>
+                <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; padding-top:18px; border-top:1px solid #e2e8f0;">
+                    ${ev.link_inscripcion ? `
+                        <a href="${ev.link_inscripcion}" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+                            <i class="fa-brands fa-google"></i> ${ui.btn_inscribir_texto}
+                        </a>` : ''}
+                    <a href="https://api.whatsapp.com/send?text=${encodeURIComponent('Te invito al evento: ' + ev.titulo + ' - ' + (ev.link_inscripcion || window.location.href))}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> Compartir Evento
+                    </a>
+                </div>
+            `;
+            modalEv.classList.add('open');
+        };
+
+        document.getElementById('cerrarModalEvento')?.addEventListener('click', () => modalEv.classList.remove('open'));
+        modalEv?.addEventListener('click', (e) => {
+            if (e.target === modalEv) modalEv.classList.remove('open');
+        });
+
+        inputBuscarEv?.addEventListener('input', window.refrescarListadoEventos);
+        selectModEv?.addEventListener('change', window.refrescarListadoEventos);
+        window.refrescarListadoEventos();
     }
 
     // =====================================================================
     // 7. CONTÁCTANOS (contacto.html)
     // =====================================================================
+    // =====================================================================
+    // 7. PÁGINA CONTÁCTANOS (SELECTOR DE 9 ÁREAS + ENVÍO A SUPABASE)
+    // =====================================================================
     const formContacto = document.getElementById('formContactoPrincipal');
     if (formContacto) {
-        const areaPre = new URLSearchParams(window.location.search).get('area');
-        if (areaPre && document.getElementById('conAreaInteres')) {
-            document.getElementById('conAreaInteres').value = areaPre;
-        }
+        const selectAreaCon = document.getElementById('conAreaInteres');
+        const areaPreUrl = new URLSearchParams(window.location.search).get('area');
+
+        window.poblarAreasContacto = function () {
+            if (!selectAreaCon || typeof obtenerAreasLegales !== 'function') return;
+            const prev = selectAreaCon.value;
+            const areasActivas = obtenerAreasLegales().filter(a => a.activo);
+
+            selectAreaCon.innerHTML = `<option value="Consulta General">Consulta General</option>` +
+                areasActivas.map(a => `<option value="${a.nombre}">${a.nombre}</option>`).join('');
+
+            if (areaPreUrl && [...selectAreaCon.options].some(o => o.value === areaPreUrl)) {
+                selectAreaCon.value = areaPreUrl;
+            } else if (prev && [...selectAreaCon.options].some(o => o.value === prev)) {
+                selectAreaCon.value = prev;
+            }
+        };
+        window.poblarAreasContacto();
 
         formContacto.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const datos = {
+            const btn = document.getElementById('btnEnviarContacto');
+            const alerta = document.getElementById('alertaExitoContacto');
+            alerta.style.display = 'none';
+
+            const datosConsulta = {
                 nombres: document.getElementById('conNombres').value.trim(),
                 correo: document.getElementById('conCorreo').value.trim(),
                 telefono: document.getElementById('conTelefono').value.trim(),
                 empresa: document.getElementById('conEmpresa').value.trim(),
-                area: document.getElementById('conAreaInteres').value,
+                area: selectAreaCon ? selectAreaCon.value : 'Consulta General',
                 asunto: document.getElementById('conAsunto').value.trim(),
                 descripcion: document.getElementById('conDescripcion').value.trim(),
                 fecha: new Date().toLocaleString('es-PE'),
-                estado: 'Nueva'
+                estado: 'Nueva',
+                observaciones: ''
             };
-            await llamarProcedimiento('sp_registrar_solicitud_contacto', {
-                p_nombres: datos.nombres, p_correo: datos.correo, p_telefono: datos.telefono,
-                p_empresa: datos.empresa, p_area_nombre: datos.area, p_asunto: datos.asunto, p_descripcion: datos.descripcion
-            });
-            const lista = JSON.parse(localStorage.getItem('ureta_contactos_db') || '[]');
-            lista.unshift({ id: Date.now(), ...datos });
-            localStorage.setItem('ureta_contactos_db', JSON.stringify(lista));
-            formContacto.reset();
-            document.getElementById('alertaExitoContacto').style.display = 'flex';
+
+            if (btn) btn.disabled = true;
+
+            try {
+                if (typeof llamarProcedimiento === 'function' && supabaseEstaConfigurado()) {
+                    await llamarProcedimiento('sp_registrar_solicitud_contacto', {
+                        p_nombres: datosConsulta.nombres,
+                        p_correo: datosConsulta.correo,
+                        p_telefono: datosConsulta.telefono,
+                        p_empresa: datosConsulta.empresa,
+                        p_area_nombre: datosConsulta.area,
+                        p_asunto: datosConsulta.asunto,
+                        p_descripcion: datosConsulta.descripcion
+                    });
+                }
+
+                const solicitudes = JSON.parse(localStorage.getItem('ureta_contactos_db') || '[]');
+                solicitudes.unshift({ id: Date.now(), ...datosConsulta });
+                localStorage.setItem('ureta_contactos_db', JSON.stringify(solicitudes));
+
+                formContacto.reset();
+                alerta.style.display = 'flex';
+            } catch (err) {
+                console.error('Error al registrar consulta:', err);
+                alert('No se pudo enviar tu consulta. Intenta nuevamente o escríbenos por WhatsApp.');
+            } finally {
+                if (btn) btn.disabled = false;
+            }
         });
     }
 
     // =====================================================================
     // 8. TRABAJA CON NOSOTROS + "DE PRACTICANTE A ABOGADO"
     // =====================================================================
-    const gridHistorias = document.getElementById('historiasCarreraGrid');
-    if (gridHistorias) {
-        consultarVistaSupabase('historias_carrera', '?select=*&activo=eq.true&order=orden.asc').then(historias => {
-            if (!historias) return;
-            gridHistorias.innerHTML = historias.map(h => `
-                <article class="story-card">
-                    <div class="story-photo-wrap">
-                        <img src="${h.foto_url}" alt="${h.nombre_completo}">
-                        <span class="story-badge-start"><i class="fa-solid fa-seedling"></i> ${h.etapa_inicio}</span>
-                    </div>
-                    <div class="story-body">
-                        <span class="story-role-now">${h.cargo_actual}</span>
-                        <h3>${h.nombre_completo}</h3>
-                        <p>"${h.historia}"</p>
-                    </div>
-                </article>
-            `).join('');
-        });
-    }
-
+    // =====================================================================
+    // 8. TRABAJA CON NOSOTROS (HISTORIAS, VACANTES Y SUBIDA REAL DE CV PDF)
+    // =====================================================================
     const vacantesGrid = document.getElementById('vacantesListadoGrid');
-    if (vacantesGrid) {
+    const historiasGrid = document.getElementById('historiasCarreraGrid');
+
+    if (vacantesGrid || historiasGrid) {
         const selectPuesto = document.getElementById('postPuestoSelect');
-        const vacantesActivas = obtenerVacantes().filter(v => v.activa);
 
-        vacantesActivas.forEach(v => {
-            const opt = document.createElement('option');
-            opt.value = v.puesto;
-            opt.textContent = `${v.puesto} (${v.area})`;
-            selectPuesto?.appendChild(opt);
-        });
+        window.refrescarTrabajaConNosotros = function () {
+            // 1. Pintar historias "De Practicante a Abogado"
+            if (historiasGrid) {
+                const historias = JSON.parse(localStorage.getItem('ureta_historias_db') || '[]');
+                historiasGrid.innerHTML = historias.map(h => `
+                    <article class="story-card">
+                        <div class="story-photo-wrap">
+                            <img src="${h.foto_url}" alt="${h.nombre_completo}">
+                            <span class="story-badge-start"><i class="fa-solid fa-seedling"></i> ${h.etapa_inicio || 'Inició como Practicante'}</span>
+                        </div>
+                        <div class="story-body">
+                            <span class="story-role-now">${h.cargo_actual || ''}</span>
+                            <h3>${h.nombre_completo || ''}</h3>
+                            <p>"${h.historia || ''}"</p>
+                        </div>
+                    </article>
+                `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:20px;">Próximamente compartiremos más historias de crecimiento profesional de nuestro equipo.</p>`;
+            }
 
-        vacantesGrid.innerHTML = vacantesActivas.map(v => `
-            <article class="vacancy-card">
-                <span class="staff-role">${v.area}</span>
-                <h3 style="font-family: var(--fuente-titulos); font-size: 1.35rem; margin: 6px 0;">${v.puesto}</h3>
-                <div class="vacancy-meta">
-                    <span><i class="fa-solid fa-building-user"></i> ${v.modalidad}</span>
-                    <span><i class="fa-solid fa-hourglass-half"></i> Cierre: ${v.fechaLimite}</span>
-                </div>
-                <p style="font-size: 0.9rem; margin-bottom: 14px;">${v.descripcion}</p>
-                <a href="#bloqueFormularioPostulacion" class="btn btn-primary-dark" onclick="document.getElementById('postPuestoSelect').value='${v.puesto}'">Postular a esta convocatoria</a>
-            </article>
-        `).join('') || `<p>Actualmente no hay convocatorias abiertas, pero puedes enviarnos tu CV de forma espontánea.</p>`;
+            // 2. Pintar convocatorias activas + poblar selector sin duplicados
+            if (vacantesGrid && typeof obtenerVacantes === 'function') {
+                const vacantesActivas = obtenerVacantes().filter(v => v.activa);
 
+                if (selectPuesto) {
+                    const prev = selectPuesto.value || 'Postulación Espontánea';
+                    selectPuesto.innerHTML = `<option value="Postulación Espontánea">Postulación Espontánea (Base de Talento)</option>` +
+                        vacantesActivas.map(v => `<option value="${v.puesto}">${v.puesto} (${v.area})</option>`).join('');
+                    if ([...selectPuesto.options].some(o => o.value === prev)) selectPuesto.value = prev;
+                }
+
+                vacantesGrid.innerHTML = vacantesActivas.length === 0
+                    ? `<p style="grid-column:1/-1; text-align:center; padding:24px;">Actualmente no hay convocatorias abiertas, pero puedes enviarnos tu CV mediante una Postulación Espontánea.</p>`
+                    : vacantesActivas.map(v => `
+                        <article class="vacancy-card">
+                            <span class="staff-role">${v.area || 'Área Jurídica'}</span>
+                            <h3 style="font-family: var(--fuente-titulos); font-size: 1.35rem; margin: 6px 0;">${v.puesto}</h3>
+                            <div class="vacancy-meta">
+                                <span><i class="fa-solid fa-building-user"></i> ${v.modalidad || 'Presencial - Arequipa'}</span>
+                                <span><i class="fa-regular fa-calendar"></i> Publicado: ${v.fechaPublicacion || '-'}</span>
+                                <span><i class="fa-solid fa-hourglass-half"></i> Cierre: ${v.fechaLimite || 'Abierta'}</span>
+                            </div>
+                            <p style="font-size: 0.9rem; color: var(--gris-texto); margin-bottom: 14px;">${v.descripcion || ''}</p>
+                            <h4 style="font-size: 0.85rem; margin-bottom: 8px; color:#123c2a;">Requisitos principales:</h4>
+                            <ul class="check-list" style="margin-bottom: 20px;">
+                                ${(v.requisitos || []).map(r => `<li><i class="fa-solid fa-check"></i> <span>${r}</span></li>`).join('')}
+                            </ul>
+                            <a href="#bloqueFormularioPostulacion" class="btn btn-primary-dark" onclick="postularAVacante('${(v.puesto || '').replace(/'/g, "\\'")}')">
+                                Postular a esta convocatoria
+                            </a>
+                        </article>
+                    `).join('');
+            }
+        };
+
+        window.postularAVacante = function (nombrePuesto) {
+            if (selectPuesto) selectPuesto.value = nombrePuesto;
+        };
+
+        window.seleccionarPostulacionEspontanea = function () {
+            if (selectPuesto) selectPuesto.value = 'Postulación Espontánea';
+        };
+
+        window.refrescarTrabajaConNosotros();
+
+        // 3. Envío del Formulario de Postulación + Subida de PDF a Supabase Storage
         const formPostulacion = document.getElementById('formPostulacionTalento');
         if (formPostulacion) {
             formPostulacion.addEventListener('submit', async (e) => {
                 e.preventDefault();
+                const inputCv = document.getElementById('postArchivoCv');
                 const errorCv = document.getElementById('errorArchivoCv');
+                const alertaExito = document.getElementById('alertaExitoPostulacion');
+                const btnEnviar = document.getElementById('btnEnviarPostulacion');
+
                 errorCv.style.display = 'none';
-                const archivo = document.getElementById('postArchivoCv').files[0];
+                alertaExito.style.display = 'none';
+
+                const archivo = inputCv?.files[0];
                 if (!archivo) return;
 
-                if (!archivo.name.toLowerCase().endsWith('.pdf') || archivo.size > 5 * 1024 * 1024) {
-                    errorCv.textContent = 'Error: Solo se admite formato PDF menor a 5 MB.';
+                const esPdf = archivo.type === 'application/pdf' || archivo.name.toLowerCase().endsWith('.pdf');
+                if (!esPdf) {
+                    errorCv.textContent = 'Error: Por seguridad, solo se admiten archivos en formato PDF (.pdf).';
+                    errorCv.style.display = 'block';
+                    return;
+                }
+                if (archivo.size > 5 * 1024 * 1024) {
+                    errorCv.textContent = 'Error: El archivo PDF supera el límite máximo permitido de 5 MB.';
                     errorCv.style.display = 'block';
                     return;
                 }
 
-                const datos = {
+                const datosPost = {
+                    puesto: selectPuesto ? selectPuesto.value : 'Postulación Espontánea',
                     nombres: document.getElementById('postNombres').value.trim(),
                     documento: document.getElementById('postDocumento').value.trim(),
                     correo: document.getElementById('postCorreo').value.trim(),
                     telefono: document.getElementById('postTelefono').value.trim(),
                     profesion: document.getElementById('postProfesion').value.trim(),
-                    puesto: selectPuesto.value,
                     experiencia: document.getElementById('postExperiencia').value.trim(),
                     mensaje: document.getElementById('postMensaje').value.trim()
                 };
-                await subirCvPdfASupabase(archivo, datos);
-                formPostulacion.reset();
-                document.getElementById('alertaExitoPostulacion').style.display = 'flex';
+
+                if (btnEnviar) {
+                    btnEnviar.disabled = true;
+                    btnEnviar.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Subiendo CV en PDF...';
+                }
+
+                try {
+                    if (typeof subirCvPdfASupabase === 'function' && supabaseEstaConfigurado()) {
+                        await subirCvPdfASupabase(archivo, datosPost);
+                    }
+                    const lista = JSON.parse(localStorage.getItem('ureta_postulaciones_db') || '[]');
+                    lista.unshift({
+                        id: Date.now(),
+                        ...datosPost,
+                        nombreArchivoCv: archivo.name,
+                        tamanoKb: Math.round(archivo.size / 1024) + ' KB',
+                        fecha: new Date().toLocaleString('es-PE'),
+                        estado: 'Recibida'
+                    });
+                    localStorage.setItem('ureta_postulaciones_db', JSON.stringify(lista));
+
+                    formPostulacion.reset();
+                    alertaExito.style.display = 'flex';
+                } catch (err) {
+                    console.error('Error al enviar postulación:', err);
+                    errorCv.textContent = 'Ocurrió un problema al subir tu CV. Inténtalo nuevamente.';
+                    errorCv.style.display = 'block';
+                } finally {
+                    if (btnEnviar) {
+                        btnEnviar.disabled = false;
+                        btnEnviar.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Postulación y CV';
+                    }
+                }
             });
         }
     }

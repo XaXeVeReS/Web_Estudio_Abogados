@@ -3,67 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrativo | Estudio Jurídico Ureta & Asociados</title>
+    <title>Panel de Gestión | Estudio Jurídico Ureta & Asociados</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* Estilos exclusivos del Panel Administrativo Ejecutivo */
+        :root {
+            --adm-verde: #123c2a;
+            --adm-verde-oscuro: #0c291d;
+            --adm-esmeralda: #238d41;
+            --adm-dorado: #b59a62;
+            --adm-dorado-suave: #f7f3ea;
+            --adm-fondo: #f4f2ee;
+            --adm-borde: #e5e1d8;
+            --adm-texto: #1e2421;
+            --adm-texto-suave: #5c6661;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            background-color: #e6e0db;
-            color: #171a18;
+            background-color: var(--adm-fondo);
+            color: var(--adm-texto);
             font-family: 'Montserrat', sans-serif;
             margin: 0;
         }
 
-        /* Pantalla de Login */
+        /* ================= LOGIN ================= */
         .admin-login-screen {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #123c2a 0%, #171a18 100%);
-            padding: 20px;
+            background: radial-gradient(circle at top right, #1d593e 0%, #123c2a 48%, #0d1f17 100%);
+            padding: 24px;
         }
 
         .admin-login-box {
             background: #ffffff;
             width: 100%;
-            max-width: 430px;
-            padding: 40px 36px;
-            border-radius: 10px;
-            border-top: 5px solid #b59a62;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            max-width: 420px;
+            padding: 42px 36px;
+            border-radius: 14px;
+            border-top: 5px solid var(--adm-dorado);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
             text-align: center;
         }
 
         .admin-login-logo {
-            background: #123c2a;
-            padding: 14px 20px;
-            border-radius: 8px;
+            background: var(--adm-verde);
+            padding: 14px 22px;
+            border-radius: 10px;
             display: inline-block;
             margin-bottom: 18px;
         }
 
         .admin-login-logo img {
-            height: 48px;
+            height: 46px;
             width: auto;
             display: block;
         }
 
         .admin-login-box h2 {
             font-family: 'Playfair Display', serif;
-            color: #123c2a;
-            margin-bottom: 6px;
-            font-size: 1.65rem;
+            color: var(--adm-verde);
+            margin: 0 0 8px;
+            font-size: 1.7rem;
         }
 
         .admin-login-box p {
-            color: #525b56;
+            color: var(--adm-texto-suave);
             font-size: 0.88rem;
-            margin-bottom: 24px;
+            margin: 0 0 24px;
+            line-height: 1.5;
         }
 
         .admin-login-box .form-group {
@@ -71,39 +85,46 @@
             margin-bottom: 16px;
         }
 
-        /* Layout Principal del Panel */
+        /* ================= ESTRUCTURA GENERAL ================= */
         .admin-app-layout {
             display: none;
-            grid-template-columns: 270px 1fr;
+            grid-template-columns: 268px 1fr;
             min-height: 100vh;
         }
 
         .admin-sidebar {
-            background: linear-gradient(180deg, #123c2a 0%, #171a18 100%);
+            background: linear-gradient(180deg, #123c2a 0%, #0d2a1e 100%);
             color: #ffffff;
             display: flex;
             flex-direction: column;
-            border-right: 2px solid #b59a62;
+            border-right: 1px solid rgba(181, 154, 98, 0.35);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
         }
 
+        .admin-sidebar::-webkit-scrollbar { width: 5px; }
+        .admin-sidebar::-webkit-scrollbar-thumb { background: rgba(181, 154, 98, 0.35); border-radius: 10px; }
+
         .admin-sidebar-header {
-            padding: 22px 20px;
-            border-bottom: 1px solid rgba(181, 154, 98, 0.25);
+            padding: 22px 18px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
         .admin-sidebar-header img {
-            height: 46px;
+            height: 44px;
             width: auto;
             margin: 0 auto 8px;
             display: block;
         }
 
         .admin-sidebar-header span {
-            font-size: 0.74rem;
-            letter-spacing: 1.2px;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #b59a62;
+            color: var(--adm-dorado);
             font-weight: 700;
         }
 
@@ -111,292 +132,572 @@
             padding: 14px 12px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
             flex: 1;
+        }
+
+        .admin-nav-group {
+            font-size: 0.67rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(181, 154, 98, 0.85);
+            font-weight: 700;
+            padding: 14px 12px 5px;
         }
 
         .admin-tab-btn {
             background: transparent;
             border: none;
-            color: #e6e0db;
+            color: #e9e6e0;
             text-align: left;
-            padding: 11px 14px;
-            border-radius: 6px;
+            padding: 10px 13px;
+            border-radius: 8px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.86rem;
+            font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 11px;
             transition: all 0.2s ease;
         }
 
         .admin-tab-btn i {
             width: 18px;
             text-align: center;
-            color: #b59a62;
+            color: var(--adm-dorado);
+            font-size: 0.92rem;
         }
 
         .admin-tab-btn:hover {
-            background: rgba(181, 154, 98, 0.16);
+            background: rgba(255, 255, 255, 0.08);
             color: #ffffff;
         }
 
         .admin-tab-btn.active {
-            background: #b59a62;
-            color: #171a18;
+            background: var(--adm-dorado);
+            color: #141c18;
             font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
         }
 
         .admin-tab-btn.active i {
-            color: #171a18;
+            color: #141c18;
         }
 
         .admin-sidebar-footer {
-            padding: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 14px 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
-        /* Área Principal Derecha */
+        /* ================= CABECERA Y CONTENIDO ================= */
         .admin-main-area {
             display: flex;
             flex-direction: column;
-            background: #e6e0db;
+            min-width: 0;
         }
 
         .admin-topbar {
-            background: #ffffff;
-            padding: 16px 28px;
-            border-bottom: 1px solid #cbd5e1;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            padding: 16px 32px;
+            border-bottom: 1px solid var(--adm-borde);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 40;
         }
 
-        .admin-topbar h1 {
+        .admin-topbar-title h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.45rem;
-            color: #123c2a;
+            font-size: 1.55rem;
+            color: var(--adm-verde);
             margin: 0;
+            line-height: 1.2;
+        }
+
+        .admin-topbar-title small {
+            color: var(--adm-texto-suave);
+            font-size: 0.78rem;
+            display: block;
+            margin-top: 2px;
         }
 
         .admin-topbar-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .admin-user-pill {
-            background: #f1f5f9;
-            color: #123c2a;
-            padding: 7px 14px;
+            background: var(--adm-dorado-suave);
+            color: var(--adm-verde);
+            padding: 8px 15px;
             border-radius: 50px;
-            font-size: 0.82rem;
+            font-size: 0.81rem;
             font-weight: 600;
-            border: 1px solid #cbd5e1;
+            border: 1px solid rgba(181, 154, 98, 0.45);
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
         }
 
         .admin-content-body {
-            padding: 28px;
+            padding: 28px 32px 48px;
             max-width: 1320px;
             width: 100%;
+            margin: 0 auto;
         }
 
-        .admin-tab-panel {
-            display: none;
+        .admin-tab-panel { display: none; animation: admFade 0.2s ease; }
+        .admin-tab-panel.active { display: block; }
+
+        @keyframes admFade {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .admin-tab-panel.active {
-            display: block;
+        /* ================= DASHBOARD / RESUMEN ================= */
+        .welcome-banner {
+            background: linear-gradient(125deg, #123c2a 0%, #1b543c 65%, #103223 100%);
+            color: #ffffff;
+            padding: 26px 30px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            border-left: 5px solid var(--adm-dorado);
+            box-shadow: 0 10px 26px rgba(18, 60, 42, 0.14);
         }
 
-        /* Tarjetas y KPIs */
+        .welcome-banner h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            margin: 0 0 6px;
+            color: #ffffff;
+        }
+
+        .welcome-banner p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: #e6e0db;
+            max-width: 620px;
+            line-height: 1.55;
+        }
+
+        .welcome-quick-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
             margin-bottom: 26px;
         }
 
         .kpi-card {
             background: #ffffff;
-            padding: 22px 20px;
-            border-radius: 8px;
-            border-left: 5px solid #b59a62;
-            box-shadow: 0 4px 14px rgba(18, 60, 42, 0.06);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--adm-borde);
+            box-shadow: 0 4px 14px rgba(18, 60, 42, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        .kpi-card span {
-            font-size: 0.8rem;
-            color: #525b56;
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--adm-dorado);
+            box-shadow: 0 10px 24px rgba(18, 60, 42, 0.09);
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--adm-dorado-suave);
+            color: var(--adm-verde);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(181, 154, 98, 0.35);
+        }
+
+        .kpi-card.alert-kpi .kpi-icon {
+            background: #fef3c7;
+            color: #92400e;
+            border-color: #f59e0b;
+        }
+
+        .kpi-meta span {
+            font-size: 0.76rem;
+            color: var(--adm-texto-suave);
             font-weight: 600;
-            text-transform: uppercase;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
         }
 
-        .kpi-card strong {
-            font-size: 1.9rem;
-            color: #123c2a;
+        .kpi-meta strong {
+            font-size: 1.75rem;
+            color: var(--adm-verde);
             font-family: 'Playfair Display', serif;
+            line-height: 1.1;
         }
+
+        .dashboard-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .recent-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #efede8;
+        }
+
+        .recent-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .recent-item strong { color: var(--adm-verde); font-size: 0.88rem; display: block; }
+        .recent-item small { color: var(--adm-texto-suave); font-size: 0.78rem; }
+
+        /* ================= SUB-PESTAÑAS Y TARJETAS ================= */
+        .subtab-bar {
+            display: inline-flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+            background: #ffffff;
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid var(--adm-borde);
+            box-shadow: 0 2px 8px rgba(18, 60, 42, 0.04);
+        }
+
+        .subtab-btn {
+            background: transparent;
+            border: none;
+            color: var(--adm-texto-suave);
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.83rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s ease;
+        }
+
+        .subtab-btn:hover {
+            background: var(--adm-fondo);
+            color: var(--adm-verde);
+        }
+
+        .subtab-btn.active {
+            background: var(--adm-verde);
+            color: #ffffff;
+            box-shadow: 0 3px 10px rgba(18, 60, 42, 0.2);
+        }
+
+        .subtab-panel { display: none; }
+        .subtab-panel.active { display: block; }
 
         .admin-card {
             background: #ffffff;
             padding: 26px 28px;
-            border-radius: 8px;
-            border: 1px solid rgba(168, 173, 168, 0.5);
-            box-shadow: 0 6px 18px rgba(18, 60, 42, 0.05);
-            margin-bottom: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--adm-borde);
+            box-shadow: 0 4px 16px rgba(18, 60, 42, 0.04);
+            margin-bottom: 22px;
         }
 
         .admin-card h3 {
             font-family: 'Playfair Display', serif;
-            color: #123c2a;
-            font-size: 1.3rem;
-            margin-top: 0;
-            margin-bottom: 18px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e2e8f0;
+            color: var(--adm-verde);
+            font-size: 1.25rem;
+            margin: 0 0 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #efede8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
 
-        /* Tablas */
-        .table-responsive {
-            overflow-x: auto;
+        /* ================= FORMULARIOS ================= */
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
         }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.81rem;
+            font-weight: 600;
+            color: var(--adm-verde);
+            margin-bottom: 6px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="url"],
+        .form-group input[type="date"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1.5px solid #d8d4cb;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            color: var(--adm-texto);
+            background: #fcfcfb;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--adm-dorado);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(181, 154, 98, 0.18);
+        }
+
+        .upload-img-inline {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-upload-soft {
+            background: #eef4f0;
+            color: var(--adm-verde);
+            border: 1px solid #c5d9cd;
+            padding: 7px 14px;
+            border-radius: 7px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0 !important;
+            transition: all 0.2s ease;
+        }
+
+        .btn-upload-soft:hover {
+            background: var(--adm-verde);
+            color: #ffffff;
+            border-color: var(--adm-verde);
+        }
+
+        .helper-note {
+            font-size: 0.82rem;
+            color: var(--adm-texto-suave);
+            background: var(--adm-dorado-suave);
+            border-left: 3px solid var(--adm-dorado);
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+        }
+
+        /* Checks de especialidades en Staff */
+        .checks-especialidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+            gap: 10px;
+            padding: 14px;
+            background: #f9f8f5;
+            border: 1.5px solid #e2ded5;
+            border-radius: 10px;
+        }
+
+        .check-esp-item {
+            display: flex !important;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: #ffffff;
+            border: 1.5px solid #d8d4cb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: var(--adm-texto);
+            transition: all 0.2s ease;
+            margin: 0 !important;
+        }
+
+        .check-esp-item:hover { border-color: var(--adm-dorado); }
+        .check-esp-item input[type="checkbox"] {
+            width: 17px !important;
+            height: 17px !important;
+            margin: 0;
+            accent-color: var(--adm-verde);
+            cursor: pointer;
+        }
+
+        .check-esp-item:has(input:checked) {
+            background: #eef7f1;
+            border-color: var(--adm-verde);
+            color: var(--adm-verde);
+        }
+
+        /* ================= TABLAS Y BOTONES DE ACCIÓN ================= */
+        .table-responsive { overflow-x: auto; }
 
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.86rem;
+            font-size: 0.85rem;
         }
 
         .admin-table th {
-            background: #123c2a;
-            color: #ffffff;
+            background: #f7f5f0;
+            color: var(--adm-verde);
             text-align: left;
             padding: 12px 14px;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.77rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--adm-borde);
         }
 
         .admin-table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 13px 14px;
+            border-bottom: 1px solid #efede8;
             vertical-align: middle;
         }
 
-        .admin-table tr:hover {
-            background: #f8fafc;
+        .admin-table tbody tr:hover {
+            background: #faf9f6;
         }
 
-        .badge-status {
+        .badge-status,
+        .badge {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 4px 11px;
             border-radius: 50px;
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             font-weight: 700;
         }
 
-        .badge-active {
+        .badge-active,
+        .badge-success {
             background: #dcfce7;
             color: #166534;
         }
 
-        .badge-hidden {
+        .badge-hidden,
+        .badge-secondary {
             background: #fee2e2;
             color: #991b1b;
         }
 
-        .btn-sm-action {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            color: #123c2a;
-            padding: 5px 10px;
-            border-radius: 4px;
+        .btn-sm-action,
+        .btn-sm {
+            background: #f6f4ef;
+            border: 1px solid #d8d4cb;
+            color: var(--adm-verde);
+            padding: 6px 11px;
+            border-radius: 6px;
             font-size: 0.78rem;
             font-weight: 600;
             cursor: pointer;
             margin-right: 4px;
             margin-bottom: 4px;
+            transition: all 0.18s ease;
         }
 
-        .btn-sm-action:hover {
-            background: #b59a62;
-            color: #171a18;
-            border-color: #b59a62;
+        .btn-sm-action:hover,
+        .btn-sm.btn-edit:hover {
+            background: var(--adm-dorado);
+            color: #141c18;
+            border-color: var(--adm-dorado);
+        }
+
+        .btn-sm.btn-delete {
+            color: #b91c1c;
+            border-color: #fecaca;
+            background: #fef2f2;
+        }
+
+        .btn-sm.btn-delete:hover {
+            background: #dc2626;
+            color: #ffffff;
+            border-color: #dc2626;
+        }
+
+        @media (max-width: 1180px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .dashboard-two-col { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 960px) {
-            .admin-app-layout {
-                grid-template-columns: 1fr;
-            }
-            .admin-nav-list {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
+            .admin-app-layout { grid-template-columns: 1fr; }
+            .admin-sidebar { position: static; height: auto; }
+            .admin-nav-list { flex-direction: row; flex-wrap: wrap; }
+            .admin-nav-group { width: 100%; }
+            .form-row-2 { grid-template-columns: 1fr; }
+            .admin-content-body { padding: 20px 16px; }
+            .admin-topbar { padding: 14px 16px; }
         }
-        .admin-nav-group {
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 1.4px;
-            color: #b59a62;
-            font-weight: 700;
-            padding: 12px 10px 4px;
-            opacity: 0.85;
+
+        @media (max-width: 560px) {
+            .kpi-grid { grid-template-columns: 1fr; }
         }
-        .subtab-bar {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #cbd5e1;
-            padding-bottom: 12px;
-        }
-        .subtab-btn {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            color: #123c2a;
-            padding: 9px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.84rem;
-            cursor: pointer;
-        }
-        .subtab-btn.active {
-            background: #123c2a;
-            color: #ffffff;
-            border-color: #123c2a;
-        }
-        .subtab-panel { display: none; }
-        .subtab-panel.active { display: block; }
     </style>
 </head>
 <body>
 
     <!-- =========================================================
-         PANTALLA DE INICIO DE SESIÓN PRIVADO
+         PANTALLA DE INICIO DE SESIÓN
          ========================================================= -->
     <div class="admin-login-screen" id="adminLoginScreen">
         <div class="admin-login-box">
             <div class="admin-login-logo">
                 <img src="img/logo.png" alt="Estudio Jurídico Ureta & Asociados">
             </div>
-            <h2>Panel Administrativo</h2>
-            <p>Acceso exclusivo para socios y personal autorizado del Estudio Jurídico Ureta & Asociados.</p>
+            <h2>Panel de Gestión</h2>
+            <p>Ingresa con tu cuenta autorizada para administrar el contenido del sitio web del estudio.</p>
 
             <form id="formLoginAdmin">
                 <div class="form-group">
-                    <label>Correo Institucional *</label>
+                    <label>Correo institucional *</label>
                     <input type="email" id="loginEmail" placeholder="admin@estudio-ureta.com" required>
                 </div>
                 <div class="form-group">
@@ -404,71 +705,74 @@
                     <input type="password" id="loginPass" placeholder="••••••••••" required>
                 </div>
                 <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center; margin-top: 8px;">
-                    <i class="fa-solid fa-right-to-bracket"></i> Ingresar al Sistema
+                    <i class="fa-solid fa-right-to-bracket"></i> Ingresar
                 </button>
                 <p id="loginError" style="display: none; color: #dc2626; font-weight: 600; margin-top: 14px; font-size: 0.84rem;">
-                    Credenciales incorrectas. Verifique su correo y contraseña.
+                    Correo o contraseña incorrectos. Intenta nuevamente.
                 </p>
             </form>
 
-            <div style="margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 14px;">
-                <a href="index.html" style="color: #123c2a; font-size: 0.84rem; font-weight: 600; text-decoration: none;">
-                    ← Volver al sitio web público
+            <div style="margin-top: 22px; border-top: 1px solid #efede8; padding-top: 14px;">
+                <a href="index.html" style="color: #123c2a; font-size: 0.83rem; font-weight: 600; text-decoration: none;">
+                    ← Volver al sitio web
                 </a>
             </div>
         </div>
     </div>
 
     <!-- =========================================================
-         INTERFAZ PRINCIPAL DEL PANEL ADMINISTRATIVO (12 MÓDULOS)
+         INTERFAZ PRINCIPAL DEL PANEL DE GESTIÓN
          ========================================================= -->
     <div class="admin-app-layout" id="adminAppLayout">
-        
-        <!-- Barra Lateral de Navegación -->
+
+        <!-- Menú Lateral Limpio -->
         <aside class="admin-sidebar">
             <div class="admin-sidebar-header">
                 <img src="img/logo.png" alt="Estudio Jurídico Ureta & Asociados">
-                <span>Sistema de Gestión Web</span>
+                <span>Gestión de Sitio Web</span>
             </div>
 
             <nav class="admin-nav-list">
-                <button class="admin-tab-btn active" data-tab="tabDashboard"><i class="fa-solid fa-chart-line"></i> Resumen (KPIs)</button>
+                <button class="admin-tab-btn active" data-tab="tabDashboard"><i class="fa-solid fa-chart-pie"></i> Resumen</button>
 
-                <span class="admin-nav-group">Páginas del Sitio Web</span>
-                <button class="admin-tab-btn" data-tab="tabPaginaInicio"><i class="fa-solid fa-house"></i> Página: Inicio (Index)</button>
-                <button class="admin-tab-btn" data-tab="tabConfig"><i class="fa-solid fa-building-columns"></i> Página: Nosotros y Datos</button>
-                <button class="admin-tab-btn" data-tab="tabAreas"><i class="fa-solid fa-scale-balanced"></i> Página: Nuestras Áreas (9)</button>
-                <button class="admin-tab-btn" data-tab="tabStaff"><i class="fa-solid fa-user-tie"></i> Página: Nuestro Staff</button>
-                <button class="admin-tab-btn" data-tab="tabBlog"><i class="fa-solid fa-newspaper"></i> Página: Artículos</button>
-                <button class="admin-tab-btn" data-tab="tabEventos"><i class="fa-solid fa-calendar-days"></i> Página: Eventos</button>
-                <button class="admin-tab-btn" data-tab="tabHistorias"><i class="fa-solid fa-user-graduate"></i> Trabaja: De Practicante a Abogado</button>
-                <button class="admin-tab-btn" data-tab="tabVacantes"><i class="fa-solid fa-briefcase"></i> Trabaja: Convocatorias</button>
+                <span class="admin-nav-group">Sitio Web</span>
+                <button class="admin-tab-btn" data-tab="tabPaginaInicio"><i class="fa-solid fa-house"></i> Inicio</button>
+                <button class="admin-tab-btn" data-tab="tabConfig"><i class="fa-solid fa-building-columns"></i> Nosotros</button>
+                <button class="admin-tab-btn" data-tab="tabAreas"><i class="fa-solid fa-scale-balanced"></i> Nuestras Áreas</button>
+                <button class="admin-tab-btn" data-tab="tabStaff"><i class="fa-solid fa-user-tie"></i> Nuestro Staff</button>
+                <button class="admin-tab-btn" data-tab="tabBlog"><i class="fa-solid fa-newspaper"></i> Artículos</button>
+                <button class="admin-tab-btn" data-tab="tabEventos"><i class="fa-solid fa-calendar-days"></i> Eventos</button>
+                <button class="admin-tab-btn" data-tab="tabHistorias"><i class="fa-solid fa-user-graduate"></i> De Practicante a Abogado</button>
+                <button class="admin-tab-btn" data-tab="tabVacantes"><i class="fa-solid fa-briefcase"></i> Trabaja con Nosotros</button>
+                <button class="admin-tab-btn" data-tab="tabContactos"><i class="fa-solid fa-envelope-open-text"></i> Contacto</button>
 
-                <span class="admin-nav-group">Bandejas y Gestión</span>
-                <button class="admin-tab-btn" data-tab="tabContactos"><i class="fa-solid fa-envelope-open-text"></i> Contacto: Consultas Recibidas</button>
-                <button class="admin-tab-btn" data-tab="tabPostulaciones"><i class="fa-solid fa-file-pdf"></i> Trabaja: Postulaciones (CVs)</button>
+                <span class="admin-nav-group">Atención y Control</span>
+                <button class="admin-tab-btn" data-tab="tabPostulaciones"><i class="fa-solid fa-file-pdf"></i> Postulaciones</button>
                 <button class="admin-tab-btn" data-tab="tabTestimonios"><i class="fa-solid fa-comments"></i> Testimonios y Comentarios</button>
-                <button class="admin-tab-btn" data-tab="tabUsuarios"><i class="fa-solid fa-users-gear"></i> Usuarios Admin</button>
+                <button class="admin-tab-btn" data-tab="tabUsuarios"><i class="fa-solid fa-users-gear"></i> Usuarios</button>
             </nav>
 
             <div class="admin-sidebar-footer">
                 <a href="index.html" target="_blank" class="btn btn-gold" style="justify-content: center; font-size: 0.82rem; padding: 9px;">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Web en Vivo
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver sitio web
                 </a>
-                <button id="btnCerrarSesion" class="btn btn-primary-dark" style="justify-content: center; font-size: 0.82rem; padding: 9px; border-color: rgba(255,255,255,0.25) !important;">
-                    <i class="fa-solid fa-power-off"></i> Cerrar Sesión
+                <button id="btnCerrarSesion" class="btn btn-primary-dark" style="justify-content: center; font-size: 0.82rem; padding: 9px; border-color: rgba(255,255,255,0.22) !important;">
+                    <i class="fa-solid fa-power-off"></i> Cerrar sesión
                 </button>
             </div>
         </aside>
 
-        <!-- Contenido Principal -->
+        <!-- Área Principal -->
         <main class="admin-main-area">
             <header class="admin-topbar">
-                <h1 id="adminSeccionTitulo">Resumen (KPIs)</h1>
+                <div class="admin-topbar-title">
+                    <h1 id="adminSeccionTitulo">Resumen</h1>
+                    <small id="adminFechaHoy">Estudio Jurídico Ureta & Asociados</small>
+                </div>
                 <div class="admin-topbar-actions">
                     <span class="admin-user-pill" id="adminNombreUsuario"><i class="fa-solid fa-user-shield"></i> Administrador Principal</span>
-                    <button id="btnResetDatabase" class="btn btn-primary-dark" style="padding: 8px 14px; font-size: 0.8rem;">
-                        <i class="fa-solid fa-rotate"></i> Sincronizar Supabase
+                    <button id="btnResetDatabase" class="btn btn-primary-dark" style="padding: 8px 15px; font-size: 0.8rem;">
+                        <i class="fa-solid fa-rotate"></i> Actualizar datos
                     </button>
                 </div>
             </header>
@@ -476,75 +780,129 @@
             <div class="admin-content-body">
 
                 <!-- =====================================
-                     PANEL 0: DASHBOARD KPIs
+                     RESUMEN GENERAL
                      ===================================== -->
                 <section class="admin-tab-panel active" id="tabDashboard">
-                    <div class="kpi-grid">
-                        <div class="kpi-card">
-                            <span>Especialidades Activas</span>
-                            <strong id="kpiTotalAreas">9</strong>
+                    <div class="welcome-banner">
+                        <div>
+                            <h2>Bienvenido al Panel del Estudio</h2>
+                            <p>Desde aquí puedes editar los textos, fotografías, abogados, artículos, eventos y revisar las consultas o postulaciones recibidas. Todo cambio guardado se refleja al instante en tu sitio web.</p>
                         </div>
-                        <div class="kpi-card">
-                            <span>Abogados en Staff</span>
-                            <strong id="kpiTotalAbogados">0</strong>
-                        </div>
-                        <div class="kpi-card">
-                            <span>Artículos Publicados</span>
-                            <strong id="kpiTotalBlog">0</strong>
-                        </div>
-                        <div class="kpi-card">
-                            <span>Consultas Legales</span>
-                            <strong id="kpiTotalContactos">0</strong>
-                        </div>
-                        <div class="kpi-card">
-                            <span>Postulaciones (CVs)</span>
-                            <strong id="kpiTotalPostulaciones">0</strong>
-                        </div>
-                        <div class="kpi-card">
-                            <span>Convocatorias Abiertas</span>
-                            <strong id="kpiTotalVacantes">0</strong>
-                        </div>
-                        <div class="kpi-card">
-                            <span>Comentarios Pendientes</span>
-                            <strong id="kpiComentariosPendientes">0</strong>
+                        <div class="welcome-quick-btns">
+                            <button type="button" class="btn btn-gold" onclick="irASeccionAdmin('tabContactos')">
+                                <i class="fa-solid fa-envelope-open-text"></i> Ver consultas
+                            </button>
+                            <button type="button" class="btn btn-outline-light" onclick="irASeccionAdmin('tabBlog')">
+                                <i class="fa-solid fa-plus"></i> Nuevo artículo
+                            </button>
                         </div>
                     </div>
 
-                    <div class="admin-card">
-                        <h3><i class="fa-solid fa-circle-info" style="color: #238d41;"></i> Guía Rápida de Administración</h3>
-                        <p style="font-size: 0.92rem; line-height: 1.7; color: #3d4440;">
-                            Desde este panel puedes gestionar todo el contenido de <strong>Estudio Jurídico Ureta & Asociados</strong> en tiempo real. Todos los cambios se almacenan directamente en <strong>Supabase</strong> y se reflejan automáticamente en tu portal web público. Para cambiar cualquier fotografía, puedes pegar un enlace o usar el botón <strong>"Subir foto desde mi PC"</strong>.
-                        </p>
+                    <div class="kpi-grid">
+                        <div class="kpi-card" onclick="irASeccionAdmin('tabAreas')">
+                            <div class="kpi-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                            <div class="kpi-meta">
+                                <span>Especialidades activas</span>
+                                <strong id="kpiTotalAreas">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card" onclick="irASeccionAdmin('tabStaff')">
+                            <div class="kpi-icon"><i class="fa-solid fa-user-tie"></i></div>
+                            <div class="kpi-meta">
+                                <span>Abogados en staff</span>
+                                <strong id="kpiTotalAbogados">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card" onclick="irASeccionAdmin('tabBlog')">
+                            <div class="kpi-icon"><i class="fa-solid fa-newspaper"></i></div>
+                            <div class="kpi-meta">
+                                <span>Artículos publicados</span>
+                                <strong id="kpiTotalBlog">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card" onclick="irASeccionAdmin('tabEventos')">
+                            <div class="kpi-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                            <div class="kpi-meta">
+                                <span>Eventos publicados</span>
+                                <strong id="kpiTotalEventos">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card" onclick="irASeccionAdmin('tabContactos')">
+                            <div class="kpi-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                            <div class="kpi-meta">
+                                <span>Consultas recibidas</span>
+                                <strong id="kpiTotalContactos">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card" onclick="irASeccionAdmin('tabPostulaciones')">
+                            <div class="kpi-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                            <div class="kpi-meta">
+                                <span>Postulaciones recibidas</span>
+                                <strong id="kpiTotalPostulaciones">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card" onclick="irASeccionAdmin('tabVacantes')">
+                            <div class="kpi-icon"><i class="fa-solid fa-briefcase"></i></div>
+                            <div class="kpi-meta">
+                                <span>Convocatorias abiertas</span>
+                                <strong id="kpiTotalVacantes">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card alert-kpi" onclick="irASeccionAdmin('tabTestimonios')">
+                            <div class="kpi-icon"><i class="fa-solid fa-comments"></i></div>
+                            <div class="kpi-meta">
+                                <span>Comentarios por revisar</span>
+                                <strong id="kpiComentariosPendientes">0</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-two-col">
+                        <div class="admin-card">
+                            <h3>
+                                <span><i class="fa-solid fa-envelope" style="color: var(--adm-dorado); margin-right: 8px;"></i>Últimas consultas</span>
+                                <button type="button" class="btn-sm-action" onclick="irASeccionAdmin('tabContactos')">Ver todas</button>
+                            </h3>
+                            <div id="resumenUltimasConsultas">
+                                <p style="color:#5c6661; font-size:0.86rem;">Cargando consultas recientes...</p>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>
+                                <span><i class="fa-solid fa-file-pdf" style="color: var(--adm-dorado); margin-right: 8px;"></i>Últimas postulaciones</span>
+                                <button type="button" class="btn-sm-action" onclick="irASeccionAdmin('tabPostulaciones')">Ver todas</button>
+                            </h3>
+                            <div id="resumenUltimasPostulaciones">
+                                <p style="color:#5c6661; font-size:0.86rem;">Cargando postulaciones recientes...</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <!-- =====================================
-                     PANEL 1: PORTADAS (HERO)
+                     INICIO
                      ===================================== -->
-                <!-- =====================================
-     PÁGINA: INICIO (INDEX) - 100% EDITABLE
-     ===================================== -->
                 <section class="admin-tab-panel" id="tabPaginaInicio">
                     <div class="subtab-bar">
-                        <button type="button" class="subtab-btn active" data-subtab="subIniHero"><i class="fa-solid fa-images"></i> 1. Portadas (Hero)</button>
-                        <button type="button" class="subtab-btn" data-subtab="subIniPres"><i class="fa-solid fa-building"></i> 2. Presentación y 4 Pilares</button>
-                        <button type="button" class="subtab-btn" data-subtab="subIniPorque"><i class="fa-solid fa-star"></i> 3. ¿Por qué elegirnos? y CTA</button>
-                        <button type="button" class="subtab-btn" data-subtab="subIniTitulos"><i class="fa-solid fa-heading"></i> 4. Títulos de Carruseles</button>
+                        <button type="button" class="subtab-btn active" data-subtab="subIniHero"><i class="fa-solid fa-images"></i> Portadas principales</button>
+                        <button type="button" class="subtab-btn" data-subtab="subIniPres"><i class="fa-solid fa-building"></i> Presentación y pilares</button>
+                        <button type="button" class="subtab-btn" data-subtab="subIniPorque"><i class="fa-solid fa-star"></i> Por qué elegirnos</button>
+                        <button type="button" class="subtab-btn" data-subtab="subIniTitulos"><i class="fa-solid fa-heading"></i> Títulos de secciones</button>
                     </div>
 
-                    <!-- SUB-PESTAÑA 1: PORTADAS HERO (Mantiene compatibilidad 100% con tus formularios actuales) -->
                     <div class="subtab-panel active" id="subIniHero">
                         <div class="admin-card">
-                            <h3 id="tituloFormPortada">Registrar / Editar Portada Principal (Hero)</h3>
+                            <h3 id="tituloFormPortada">Agregar o editar portada principal</h3>
                             <form id="formPortada">
                                 <input type="hidden" id="portadaIdEdit">
                                 <div class="form-row-2">
                                     <div class="form-group">
-                                        <label>Título Principal *</label>
+                                        <label>Título principal *</label>
                                         <input type="text" id="portadaTitulo" placeholder="Ej. Lealtad, trascendencia y excelencia" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Etiqueta Superior (Subtítulo)</label>
+                                        <label>Etiqueta superior</label>
                                         <input type="text" id="portadaSubtitulo" placeholder="ESTUDIO JURÍDICO URETA & ASOCIADOS">
                                     </div>
                                 </div>
@@ -553,80 +911,77 @@
                                     <textarea id="portadaDescripcion" rows="2" required></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Imagen de Fondo (URL o subir desde tu PC) *</label>
-                                    <input type="text" id="portadaImagenUrl" placeholder="https://..." required>
+                                    <label>Imagen de fondo *</label>
+                                    <input type="text" id="portadaImagenUrl" placeholder="Pega un enlace de imagen o sube una foto desde tu equipo" required>
                                     <input type="file" id="portadaArchivoImg" accept="image/*" style="display:none;">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="portadaImagenUrl" data-carpeta="portadas" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
                                     </div>
                                 </div>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Texto Botón 1</label><input type="text" id="portadaBtn1Texto" value="Conoce nuestros servicios"></div>
-                                    <div class="form-group"><label>Enlace Botón 1</label><input type="text" id="portadaBtn1Url" value="areas.html"></div>
+                                    <div class="form-group"><label>Texto del botón principal</label><input type="text" id="portadaBtn1Texto" value="Conoce nuestros servicios"></div>
+                                    <div class="form-group"><label>Página destino del botón</label><input type="text" id="portadaBtn1Url" value="areas.html"></div>
                                 </div>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Texto Botón 2</label><input type="text" id="portadaBtn2Texto" value="Solicita una asesoría"></div>
+                                    <div class="form-group"><label>Texto del segundo botón</label><input type="text" id="portadaBtn2Texto" value="Solicita una asesoría"></div>
                                     <div class="form-group"><label>Orden de aparición</label><input type="number" id="portadaOrden" value="1" min="1"></div>
                                 </div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Portada</button>
-                                <button type="button" id="btnCancelarPortada" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar portada</button>
+                                <button type="button" id="btnCancelarPortada" class="btn btn-primary-dark" style="display:none;">Cancelar edición</button>
                             </form>
                         </div>
 
                         <div class="admin-card">
-                            <h3>Portadas Registradas</h3>
+                            <h3>Portadas registradas</h3>
                             <div class="table-responsive">
                                 <table class="admin-table">
-                                    <thead><tr><th>Orden</th><th>Vista Previa</th><th>Título</th><th>Estado</th><th>Acciones</th></tr></thead>
+                                    <thead><tr><th>Orden</th><th>Vista previa</th><th>Título</th><th>Estado</th><th>Acciones</th></tr></thead>
                                     <tbody id="tablaAdminPortadas"></tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
-                    <!-- FORMULARIO ÚNICO PARA SUB-PESTAÑAS 2, 3 Y 4 DEL INDEX -->
                     <form id="formContenidoInicio">
-                        <!-- SUB-PESTAÑA 2: PRESENTACIÓN Y 4 PILARES -->
                         <div class="subtab-panel" id="subIniPres">
                             <div class="admin-card">
-                                <h3>Sección Presentación Institucional (Inicio)</h3>
+                                <h3>Presentación del estudio en Inicio</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="iniPresTag"></div>
                                     <div class="form-group"><label>Título principal</label><input type="text" id="iniPresTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Texto destacado de presentación</label><textarea id="iniPresTexto" rows="3"></textarea></div>
+                                <div class="form-group"><label>Texto de presentación</label><textarea id="iniPresTexto" rows="3"></textarea></div>
                                 <div class="form-group">
-                                    <label>Fotografía de la oficina (URL o subir desde PC)</label>
-                                    <input type="text" id="iniPresImagen">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <label>Fotografía de la oficina</label>
+                                    <input type="text" id="iniPresImagen" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="iniPresImagen" data-carpeta="inicio" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
                                     </div>
                                 </div>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Insignia flotante (Título)</label><input type="text" id="iniBadgeTitulo"></div>
-                                    <div class="form-group"><label>Insignia flotante (Frase)</label><input type="text" id="iniBadgeSub"></div>
+                                    <div class="form-group"><label>Recuadro sobre foto — Título</label><input type="text" id="iniBadgeTitulo"></div>
+                                    <div class="form-group"><label>Recuadro sobre foto — Frase</label><input type="text" id="iniBadgeSub"></div>
                                 </div>
                             </div>
 
                             <div class="admin-card">
-                                <h3>Los 4 Pilares Institucionales</h3>
+                                <h3>Los 4 pilares del estudio</h3>
                                 <div id="contenedorEditorPilares"></div>
-                                <button type="submit" class="btn btn-gold" style="margin-top:14px;"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios de Inicio</button>
+                                <button type="submit" class="btn btn-gold" style="margin-top:14px;"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios de Inicio</button>
                             </div>
                         </div>
 
-                        <!-- SUB-PESTAÑA 3: ¿POR QUÉ ELEGIRNOS? Y CTA -->
                         <div class="subtab-panel" id="subIniPorque">
                             <div class="admin-card">
-                                <h3>Encabezado y 5 Tarjetas de "¿Por qué elegirnos?"</h3>
+                                <h3>Sección ¿Por qué elegirnos?</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="iniPorqueTag"></div>
                                     <div class="form-group"><label>Título de la sección</label><input type="text" id="iniPorqueTitulo"></div>
@@ -636,85 +991,83 @@
                             </div>
 
                             <div class="admin-card">
-                                <h3>Banner Inferior de Llamada a la Acción (CTA)</h3>
-                                <div class="form-group"><label>Título del Banner CTA</label><input type="text" id="iniCtaTitulo"></div>
-                                <div class="form-group"><label>Descripción del Banner CTA</label><input type="text" id="iniCtaSub"></div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios de Inicio</button>
+                                <h3>Franja final de invitación al contacto</h3>
+                                <div class="form-group"><label>Título principal</label><input type="text" id="iniCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción</label><input type="text" id="iniCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios de Inicio</button>
                             </div>
                         </div>
 
-                        <!-- SUB-PESTAÑA 4: TÍTULOS DE CARRUSELES -->
                         <div class="subtab-panel" id="subIniTitulos">
                             <div class="admin-card">
-                                <h3>Títulos y Subtítulos de los 4 Carruseles de Inicio</h3>
+                                <h3>Títulos de las secciones en Inicio</h3>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Carrusel Áreas — Etiqueta</label><input type="text" id="iniAreasTag"></div>
-                                    <div class="form-group"><label>Carrusel Áreas — Título</label><input type="text" id="iniAreasTitulo"></div>
+                                    <div class="form-group"><label>Áreas — Etiqueta</label><input type="text" id="iniAreasTag"></div>
+                                    <div class="form-group"><label>Áreas — Título</label><input type="text" id="iniAreasTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Carrusel Áreas — Subtítulo</label><input type="text" id="iniAreasSub"></div>
-                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-group"><label>Áreas — Subtítulo</label><input type="text" id="iniAreasSub"></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Carrusel Equipo — Etiqueta</label><input type="text" id="iniStaffTag"></div>
-                                    <div class="form-group"><label>Carrusel Equipo — Título</label><input type="text" id="iniStaffTitulo"></div>
+                                    <div class="form-group"><label>Equipo — Etiqueta</label><input type="text" id="iniStaffTag"></div>
+                                    <div class="form-group"><label>Equipo — Título</label><input type="text" id="iniStaffTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Carrusel Equipo — Subtítulo</label><input type="text" id="iniStaffSub"></div>
-                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-group"><label>Equipo — Subtítulo</label><input type="text" id="iniStaffSub"></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Carrusel Testimonios — Etiqueta</label><input type="text" id="iniTestTag"></div>
-                                    <div class="form-group"><label>Carrusel Testimonios — Título</label><input type="text" id="iniTestTitulo"></div>
+                                    <div class="form-group"><label>Testimonios — Etiqueta</label><input type="text" id="iniTestTag"></div>
+                                    <div class="form-group"><label>Testimonios — Título</label><input type="text" id="iniTestTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Carrusel Testimonios — Subtítulo</label><input type="text" id="iniTestSub"></div>
-                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <div class="form-group"><label>Testimonios — Subtítulo</label><input type="text" id="iniTestSub"></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Carrusel Artículos — Etiqueta</label><input type="text" id="iniArtTag"></div>
-                                    <div class="form-group"><label>Carrusel Artículos — Título</label><input type="text" id="iniArtTitulo"></div>
+                                    <div class="form-group"><label>Artículos — Etiqueta</label><input type="text" id="iniArtTag"></div>
+                                    <div class="form-group"><label>Artículos — Título</label><input type="text" id="iniArtTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Carrusel Artículos — Subtítulo</label><input type="text" id="iniArtSub"></div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios de Inicio</button>
+                                <div class="form-group"><label>Artículos — Subtítulo</label><input type="text" id="iniArtSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios de Inicio</button>
                             </div>
                         </div>
                     </form>
                 </section>
 
                 <!-- =====================================
-                    PÁGINA: NUESTRAS ÁREAS (CRUD 9 ESPECIALIDADES + TEXTOS DE PÁGINA)
-                    ===================================== -->
+                     NUESTRAS ÁREAS
+                     ===================================== -->
                 <section class="admin-tab-panel" id="tabAreas">
                     <div class="subtab-bar">
-                        <button type="button" class="subtab-btn active" data-subtab="subAreasLista"><i class="fa-solid fa-scale-balanced"></i> 1. Especialidades Jurídicas (9)</button>
-                        <button type="button" class="subtab-btn" data-subtab="subAreasPagina"><i class="fa-solid fa-pen-to-square"></i> 2. Portada, Textos y CTA de Áreas</button>
+                        <button type="button" class="subtab-btn active" data-subtab="subAreasLista"><i class="fa-solid fa-scale-balanced"></i> Especialidades jurídicas</button>
+                        <button type="button" class="subtab-btn" data-subtab="subAreasPagina"><i class="fa-solid fa-pen-to-square"></i> Portada y textos de la página</button>
                     </div>
 
-                    <!-- SUB-PESTAÑA 1: CRUD DE LAS 9 ESPECIALIDADES -->
                     <div class="subtab-panel active" id="subAreasLista">
                         <div class="admin-card">
-                            <h3 id="tituloFormArea">Registrar / Editar Especialidad Jurídica</h3>
+                            <h3 id="tituloFormArea">Agregar o editar especialidad jurídica</h3>
                             <form id="formNuevaArea">
                                 <input type="hidden" id="areaIdEdit">
                                 <div class="form-row-2">
                                     <div class="form-group">
-                                        <label>Nombre de la Especialidad *</label>
+                                        <label>Nombre de la especialidad *</label>
                                         <input type="text" id="areaNuevoNombre" placeholder="Ej. Derecho Civil" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Clase de Ícono FontAwesome</label>
+                                        <label>Ícono decorativo</label>
                                         <input type="text" id="areaNuevoIcono" value="fa-solid fa-scale-balanced">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Imagen de la Especialidad (URL o subir desde tu PC) *</label>
-                                    <input type="text" id="areaNuevaImg" placeholder="https://..." required>
+                                    <label>Imagen de la especialidad *</label>
+                                    <input type="text" id="areaNuevaImg" placeholder="Pega un enlace de imagen o sube una foto" required>
                                     <input type="file" id="areaArchivoImg" accept="image/*" style="display:none;">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="areaNuevaImg" data-carpeta="areas" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Resumen corto para tarjeta *</label>
+                                    <label>Resumen breve para la tarjeta *</label>
                                     <textarea id="areaNuevoResumen" rows="2" required></textarea>
                                 </div>
                                 <div class="form-group">
@@ -723,26 +1076,26 @@
                                 </div>
                                 <div class="form-row-2">
                                     <div class="form-group">
-                                        <label>Servicios ofrecidos (Uno por línea) *</label>
+                                        <label>Servicios que ofrecemos — uno por línea *</label>
                                         <textarea id="areaNuevosServicios" rows="4" required></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label>Situaciones en que brindamos asesoría (Uno por línea) *</label>
+                                        <label>Casos en los que asesoramos — uno por línea *</label>
                                         <textarea id="areaNuevasSituaciones" rows="4" required></textarea>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Especialidad</button>
-                                <button type="button" id="btnCancelarArea" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar especialidad</button>
+                                <button type="button" id="btnCancelarArea" class="btn btn-primary-dark" style="display:none;">Cancelar edición</button>
                             </form>
                         </div>
 
                         <div class="admin-card">
-                            <h3>Especialidades Registradas</h3>
+                            <h3>Especialidades registradas</h3>
                             <div class="table-responsive">
                                 <table class="admin-table">
                                     <thead>
                                         <tr>
-                                            <th>Especialidad e Imagen</th>
+                                            <th>Especialidad</th>
                                             <th>Resumen</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
@@ -754,41 +1107,40 @@
                         </div>
                     </div>
 
-                    <!-- SUB-PESTAÑA 2: TEXTOS Y PORTADA DE areas.html Y area-detalle.html -->
                     <div class="subtab-panel" id="subAreasPagina">
                         <form id="formContenidoAreas">
                             <div class="admin-card">
-                                <h3>Portada Superior y Encabezado de "Nuestras Áreas" (areas.html)</h3>
+                                <h3>Portada y encabezado de Nuestras Áreas</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="arInBannerTag"></div>
-                                    <div class="form-group"><label>Título principal (H1)</label><input type="text" id="arInBannerTitulo"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="arInBannerTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Descripción del banner</label><textarea id="arInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group"><label>Descripción de portada</label><textarea id="arInBannerSub" rows="2"></textarea></div>
                                 <div class="form-group">
-                                    <label>Imagen de fondo del Banner (URL o subir desde PC)</label>
-                                    <input type="text" id="arInBannerImg" placeholder="https://...">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <label>Imagen de fondo de portada</label>
+                                    <input type="text" id="arInBannerImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="arInBannerImg" data-carpeta="areas" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
                                     </div>
                                 </div>
-                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Catálogo — Etiqueta</label><input type="text" id="arInCatTag"></div>
                                     <div class="form-group"><label>Catálogo — Título</label><input type="text" id="arInCatTitulo"></div>
                                 </div>
                                 <div class="form-group"><label>Catálogo — Subtítulo</label><input type="text" id="arInCatSub"></div>
-                                <div class="form-group"><label>Texto guía del Buscador</label><input type="text" id="arInBuscadorPh"></div>
+                                <div class="form-group"><label>Texto guía del buscador</label><input type="text" id="arInBuscadorPh"></div>
                             </div>
 
                             <div class="admin-card">
-                                <h3>Etiquetas de la Ficha Individual de Especialidad (area-detalle.html)</h3>
+                                <h3>Textos de la vista detallada de cada área</h3>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Insignia superior del banner</label><input type="text" id="arInDetBadge"></div>
-                                    <div class="form-group"><label>Etiqueta de alcance</label><input type="text" id="arInDetAlcanceTag"></div>
+                                    <div class="form-group"><label>Etiqueta superior del área</label><input type="text" id="arInDetBadge"></div>
+                                    <div class="form-group"><label>Subtítulo de alcance</label><input type="text" id="arInDetAlcanceTag"></div>
                                 </div>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Título de presentación</label><input type="text" id="arInDetAlcanceTit"></div>
@@ -798,7 +1150,7 @@
                                     <div class="form-group"><label>Título lista de situaciones</label><input type="text" id="arInDetSitTit"></div>
                                     <div class="form-group"><label>Título menú lateral de áreas</label><input type="text" id="arInDetSidebarTit"></div>
                                 </div>
-                                <hr style="margin:16px 0; border-color:#e2e8f0;">
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Formulario lateral — Etiqueta</label><input type="text" id="arInDetFormTag"></div>
                                     <div class="form-group"><label>Formulario lateral — Título</label><input type="text" id="arInDetFormTit"></div>
@@ -807,31 +1159,27 @@
                             </div>
 
                             <div class="admin-card">
-                                <h3>Banner de Llamada a la Acción (CTA en Áreas y Detalle)</h3>
-                                <div class="form-group"><label>Título del CTA</label><input type="text" id="arInCtaTitulo"></div>
-                                <div class="form-group"><label>Descripción del CTA</label><input type="text" id="arInCtaSub"></div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Configuración de Página Áreas</button>
+                                <h3>Franja final de invitación al contacto</h3>
+                                <div class="form-group"><label>Título</label><input type="text" id="arInCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción</label><input type="text" id="arInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar textos de Nuestras Áreas</button>
                             </div>
                         </form>
                     </div>
                 </section>
 
                 <!-- =====================================
-                     PANEL 3: NUESTRO STAFF
+                     NUESTRO STAFF
                      ===================================== -->
-                <!-- =====================================
-                    PÁGINA: NUESTRO STAFF (CRUD ABOGADOS + PORTADA Y TEXTOS)
-                    ===================================== -->
                 <section class="admin-tab-panel" id="tabStaff">
                     <div class="subtab-bar">
-                        <button type="button" class="subtab-btn active" data-subtab="subStaffLista"><i class="fa-solid fa-user-tie"></i> 1. Directorio de Abogados</button>
-                        <button type="button" class="subtab-btn" data-subtab="subStaffPagina"><i class="fa-solid fa-pen-to-square"></i> 2. Portada, Textos y CTA de Staff</button>
+                        <button type="button" class="subtab-btn active" data-subtab="subStaffLista"><i class="fa-solid fa-user-tie"></i> Directorio de abogados</button>
+                        <button type="button" class="subtab-btn" data-subtab="subStaffPagina"><i class="fa-solid fa-pen-to-square"></i> Portada y textos de la página</button>
                     </div>
 
-                    <!-- SUB-PESTAÑA 1: CRUD DE ABOGADOS -->
                     <div class="subtab-panel active" id="subStaffLista">
                         <div class="admin-card">
-                            <h3 id="tituloFormStaff">Registrar / Editar Abogado del Staff</h3>
+                            <h3 id="tituloFormStaff">Agregar o editar abogado</h3>
                             <form id="formNuevoAbogado">
                                 <input type="hidden" id="abIdEdit">
                                 <div class="form-row-2">
@@ -840,14 +1188,14 @@
                                         <input type="text" id="abNombre" required>
                                     </div>
                                     <div class="form-group">
-                                        <label>Cargo en el Estudio *</label>
+                                        <label>Cargo en el estudio *</label>
                                         <input type="text" id="abCargo" required>
                                     </div>
                                 </div>
                                 <div class="form-row-2">
                                     <div class="form-group">
-                                        <label>Colegiatura (Ej. CAA N.° ...)</label>
-                                        <input type="text" id="abColegiatura">
+                                        <label>Número de colegiatura</label>
+                                        <input type="text" id="abColegiatura" placeholder="Ej. CAA N.° 0000">
                                     </div>
                                     <div class="form-group">
                                         <label>Correo profesional</label>
@@ -855,54 +1203,52 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Fotografía del Abogado (URL o subir desde tu PC) *</label>
-                                    <input type="text" id="abFoto" placeholder="https://..." required>
+                                    <label>Fotografía del abogado *</label>
+                                    <input type="text" id="abFoto" placeholder="Pega un enlace de imagen o sube una foto" required>
                                     <input type="file" id="abArchivoFoto" accept="image/*" style="display:none;">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="abFoto" data-carpeta="staff" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Especialidades del Abogado (Marca una o varias) *</label>
-                                    <div id="abEspecialidadesChecks" class="checks-especialidades-grid">
-                                        <!-- Se carga automáticamente con las áreas activas de Supabase -->
-                                    </div>
+                                    <label>Especialidades del abogado — marca una o varias *</label>
+                                    <div id="abEspecialidadesChecks" class="checks-especialidades-grid"></div>
                                     <small id="errorAbEspecialidades" style="color: #dc2626; display: none; margin-top: 6px; font-weight: 600;">
-                                        Debes marcar al menos una especialidad jurídica.
+                                        Marca al menos una especialidad antes de guardar.
                                     </small>
                                 </div>
                                 <div class="form-row-2">
                                     <div class="form-group">
-                                        <label>Formación Académica *</label>
+                                        <label>Formación académica *</label>
                                         <textarea id="abFormacion" rows="3" required></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label>Cursos y Especializaciones</label>
+                                        <label>Cursos y especializaciones</label>
                                         <textarea id="abCursos" rows="3"></textarea>
                                     </div>
                                 </div>
                                 <input type="hidden" id="abExperiencia" value="">
                                 <div class="form-group">
-                                    <label>Biografía / Perfil Profesional *</label>
+                                    <label>Perfil profesional y biografía *</label>
                                     <textarea id="abBiografia" rows="3" required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Abogado</button>
-                                <button type="button" id="btnCancelarAbogado" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar abogado</button>
+                                <button type="button" id="btnCancelarAbogado" class="btn btn-primary-dark" style="display:none;">Cancelar edición</button>
                             </form>
                         </div>
 
                         <div class="admin-card">
-                            <h3>Directorio de Abogados</h3>
+                            <h3>Equipo registrado</h3>
                             <div class="table-responsive">
                                 <table class="admin-table">
                                     <thead>
                                         <tr>
                                             <th>Abogado</th>
-                                            <th>Cargo / Colegiatura</th>
+                                            <th>Cargo y colegiatura</th>
                                             <th>Especialidades</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
@@ -914,22 +1260,21 @@
                         </div>
                     </div>
 
-                    <!-- SUB-PESTAÑA 2: PORTADA, TEXTOS Y CTA DE staff.html -->
                     <div class="subtab-panel" id="subStaffPagina">
                         <form id="formContenidoStaff">
                             <div class="admin-card">
-                                <h3>Portada Superior (Banner de Nuestro Staff)</h3>
+                                <h3>Portada de Nuestro Staff</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="stInBannerTag"></div>
-                                    <div class="form-group"><label>Título principal (H1)</label><input type="text" id="stInBannerTitulo"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="stInBannerTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Descripción del banner</label><textarea id="stInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group"><label>Descripción de portada</label><textarea id="stInBannerSub" rows="2"></textarea></div>
                                 <div class="form-group">
-                                    <label>Imagen de fondo del Banner (URL o subir desde PC)</label>
-                                    <input type="text" id="stInBannerImg" placeholder="https://...">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <label>Imagen de fondo de portada</label>
+                                    <input type="text" id="stInBannerImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="stInBannerImg" data-carpeta="staff" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
@@ -938,244 +1283,371 @@
                             </div>
 
                             <div class="admin-card">
-                                <h3>Encabezado, Buscador y Etiquetas del Directorio</h3>
+                                <h3>Encabezado y buscador del directorio</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="stInDirTag"></div>
                                     <div class="form-group"><label>Título de la sección</label><input type="text" id="stInDirTitulo"></div>
                                 </div>
                                 <div class="form-group"><label>Subtítulo</label><input type="text" id="stInDirSub"></div>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Texto guía del Buscador</label><input type="text" id="stInBuscadorPh"></div>
-                                    <div class="form-group"><label>Opción por defecto del filtro</label><input type="text" id="stInFiltroTodas"></div>
+                                    <div class="form-group"><label>Texto guía del buscador</label><input type="text" id="stInBuscadorPh"></div>
+                                    <div class="form-group"><label>Opción principal del filtro</label><input type="text" id="stInFiltroTodas"></div>
                                 </div>
                                 <div class="form-group"><label>Texto del botón en cada tarjeta</label><input type="text" id="stInBtnPerfil"></div>
                             </div>
 
                             <div class="admin-card">
-                                <h3>Banner Inferior de Llamada a la Acción (CTA)</h3>
-                                <div class="form-group"><label>Título del CTA</label><input type="text" id="stInCtaTitulo"></div>
-                                <div class="form-group"><label>Descripción del CTA</label><input type="text" id="stInCtaSub"></div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Configuración de Página Staff</button>
+                                <h3>Franja final de invitación al contacto</h3>
+                                <div class="form-group"><label>Título</label><input type="text" id="stInCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción</label><input type="text" id="stInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar textos de Nuestro Staff</button>
                             </div>
                         </form>
                     </div>
                 </section>
 
                 <!-- =====================================
-                     PANEL 4: ARTÍCULOS JURÍDICOS (ANTES BLOG)
+                     ARTÍCULOS
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabBlog">
-                    <div class="admin-card">
-                        <h3 id="tituloFormBlog">Crear / Editar Artículo Jurídico</h3>
-                        <form id="formNuevoBlog">
-                            <input type="hidden" id="blogIdEdit">
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Título del Artículo *</label>
-                                    <input type="text" id="blogTitulo" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Autor *</label>
-                                    <input type="text" id="blogAutor" value="Peter Hans Ureta Escobedo" required>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Categoría</label>
-                                    <select id="blogCategoria">
-                                        <option value="Opinión jurídica">Opinión jurídica</option>
-                                        <option value="Actualidad jurídica">Actualidad jurídica</option>
-                                        <option value="Derecho Civil">Derecho Civil</option>
-                                        <option value="Derecho Laboral">Derecho Laboral</option>
-                                        <option value="Derecho de Familia">Derecho de Familia</option>
-                                        <option value="Derecho Penal">Derecho Penal</option>
-                                        <option value="Saneamientos">Saneamientos</option>
-                                        <option value="Arbitraje">Arbitraje</option>
-                                        <option value="Derecho Empresarial">Derecho Empresarial</option>
-                                        <option value="Derecho Administrativo">Derecho Administrativo</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Tipo de Contenido</label>
-                                    <select id="blogTipo">
-                                        <option value="ArticuloPropio">Artículo propio del Estudio</option>
-                                        <option value="AnalisisJuridico">Análisis jurídico / Jurisprudencia</option>
-                                        <option value="NoticiaExterna">Noticia jurídica externa</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Imagen de Portada del Artículo (URL o subir desde tu PC) *</label>
-                                <input type="text" id="blogImagen" placeholder="https://..." required>
-                                <input type="file" id="blogArchivoImg" accept="image/*" style="display:none;">
-                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
-                                        <input type="file" class="input-subir-foto-pc" data-target="blogImagen" data-carpeta="articulos" accept="image/*" style="display:none;">
-                                    </label>
-                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Nombre de Fuente Externa (Opcional)</label>
-                                    <input type="text" id="blogFuenteNombre" placeholder="Ej. Diario Oficial El Peruano">
-                                </div>
-                                <div class="form-group">
-                                    <label>URL de Fuente Externa (Opcional)</label>
-                                    <input type="url" id="blogFuenteUrl" placeholder="https://...">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Resumen / Bajada *</label>
-                                <textarea id="blogSubtitulo" rows="2" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Contenido Completo del Artículo *</label>
-                                <textarea id="blogContenido" rows="5" required></textarea>
-                            </div>
-                            <div style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
-                                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-                                    <input type="checkbox" id="blogDestacado"> Destacar en la parte superior
-                                </label>
-                                <select id="blogEstado" style="width:auto;">
-                                    <option value="Publicado">Publicado</option>
-                                    <option value="Archivado">Archivado</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Publicar / Guardar Artículo</button>
-                            <button type="button" id="btnCancelarBlog" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
-                        </form>
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subBlogLista"><i class="fa-solid fa-newspaper"></i> Gestión de artículos</button>
+                        <button type="button" class="subtab-btn" data-subtab="subBlogPagina"><i class="fa-solid fa-pen-to-square"></i> Portada y textos de la página</button>
                     </div>
 
-                    <div class="admin-card">
-                        <h3>Artículos Registrados</h3>
-                        <div class="table-responsive">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Título</th>
-                                        <th>Categoría</th>
-                                        <th>Autor</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaAdminBlog"></tbody>
-                            </table>
+                    <div class="subtab-panel active" id="subBlogLista">
+                        <div class="admin-card">
+                            <h3 id="tituloFormBlog">Publicar o editar artículo</h3>
+                            <form id="formNuevoBlog">
+                                <input type="hidden" id="blogIdEdit">
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Título del artículo *</label>
+                                        <input type="text" id="blogTitulo" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Autor *</label>
+                                        <input type="text" id="blogAutor" value="Peter Hans Ureta Escobedo" required>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Categoría</label>
+                                        <select id="blogCategoria">
+                                            <option value="Opinión jurídica">Opinión jurídica</option>
+                                            <option value="Actualidad jurídica">Actualidad jurídica</option>
+                                            <option value="Derecho Civil">Derecho Civil</option>
+                                            <option value="Derecho Laboral">Derecho Laboral</option>
+                                            <option value="Derecho de Familia">Derecho de Familia</option>
+                                            <option value="Derecho Penal">Derecho Penal</option>
+                                            <option value="Derecho Penal - Delitos Especiales">Derecho Penal - Delitos Especiales</option>
+                                            <option value="Derecho Penal - Delitos Comunes">Derecho Penal - Delitos Comunes</option>
+                                            <option value="Saneamientos">Saneamientos</option>
+                                            <option value="Arbitraje">Arbitraje</option>
+                                            <option value="Derecho Empresarial">Derecho Empresarial</option>
+                                            <option value="Derecho Administrativo">Derecho Administrativo</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tipo de publicación</label>
+                                        <select id="blogTipo">
+                                            <option value="ArticuloPropio">Artículo propio del Estudio</option>
+                                            <option value="AnalisisJuridico">Análisis jurídico</option>
+                                            <option value="NoticiaExterna">Noticia jurídica externa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Imagen principal del artículo *</label>
+                                    <input type="text" id="blogImagen" placeholder="Pega un enlace de imagen o sube una foto" required>
+                                    <input type="file" id="blogArchivoImg" accept="image/*" style="display:none;">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
+                                            <input type="file" class="input-subir-foto-pc" data-target="blogImagen" data-carpeta="articulos" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Nombre de fuente externa — opcional</label>
+                                        <input type="text" id="blogFuenteNombre" placeholder="Ej. Diario Oficial El Peruano">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Enlace de fuente externa — opcional</label>
+                                        <input type="url" id="blogFuenteUrl" placeholder="https://...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Resumen breve *</label>
+                                    <textarea id="blogSubtitulo" rows="2" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contenido completo *</label>
+                                    <textarea id="blogContenido" rows="5" required></textarea>
+                                </div>
+                                <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
+                                    <label style="display:flex; align-items:center; gap:7px; cursor:pointer; font-size:0.86rem; font-weight:600;">
+                                        <input type="checkbox" id="blogDestacado" style="width:16px; height:16px; accent-color:#123c2a;"> Destacar en la parte superior
+                                    </label>
+                                    <select id="blogEstado" style="width:auto; padding:8px 12px; border-radius:7px; border:1.5px solid #d8d4cb;">
+                                        <option value="Publicado">Publicado</option>
+                                        <option value="Archivado">Archivado</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar artículo</button>
+                                <button type="button" id="btnCancelarBlog" class="btn btn-primary-dark" style="display:none;">Cancelar edición</button>
+                            </form>
                         </div>
+
+                        <div class="admin-card">
+                            <h3>Artículos publicados</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Categoría</th>
+                                            <th>Autor</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAdminBlog"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subtab-panel" id="subBlogPagina">
+                        <form id="formContenidoArticulos">
+                            <div class="admin-card">
+                                <h3>Portada de Artículos</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="artInBannerTag"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="artInBannerTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Descripción de portada</label><textarea id="artInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Imagen de fondo de portada</label>
+                                    <input type="text" id="artInBannerImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
+                                            <input type="file" class="input-subir-foto-pc" data-target="artInBannerImg" data-carpeta="articulos" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Encabezado y filtros de artículos</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="artInSecTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="artInSecTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Subtítulo</label><input type="text" id="artInSecSub"></div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Texto guía del buscador</label><input type="text" id="artInBuscadorPh"></div>
+                                    <div class="form-group"><label>Etiqueta del artículo destacado</label><input type="text" id="artInDestacado"></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Opción todas las categorías</label><input type="text" id="artInCatTodas"></div>
+                                    <div class="form-group"><label>Opción todos los tipos</label><input type="text" id="artInTipoTodos"></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Texto del botón leer</label><input type="text" id="artInBtnLeer"></div>
+                                    <div class="form-group"><label>Título de la caja de comentarios</label><input type="text" id="artInComTitulo"></div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Franja final de invitación al contacto</h3>
+                                <div class="form-group"><label>Título</label><input type="text" id="artInCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción</label><input type="text" id="artInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar textos de Artículos</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
 
                 <!-- =====================================
-                     PANEL 5: EVENTOS ACADÉMICOS (CON LINK FORMS)
+                     EVENTOS
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabEventos">
-                    <div class="admin-card">
-                        <h3 id="tituloFormEvento">Crear / Editar Evento Académico</h3>
-                        <form id="formAdminEvento">
-                            <input type="hidden" id="evId">
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Título del Evento *</label>
-                                    <input type="text" id="evTitulo" placeholder="Ej. Seminario de Derecho Penal Económico" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Categoría *</label>
-                                    <input type="text" id="evCategoria" value="Jornada Académica" required>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Fecha del Evento *</label>
-                                    <input type="date" id="evFecha" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Modalidad *</label>
-                                    <select id="evModalidad">
-                                        <option value="Presencial / Virtual">Presencial / Virtual</option>
-                                        <option value="Presencial">Presencial</option>
-                                        <option value="Virtual">Virtual</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Hora y Lugar *</label>
-                                    <input type="text" id="evHoraLugar" placeholder="Ej. 6:00 p.m. • Sede Vallecito / Zoom" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Ponente(s) *</label>
-                                    <input type="text" id="evPonente" placeholder="Ej. Dr. Peter Hans Ureta Escobedo" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fa-brands fa-google" style="color:#238d41;"></i> Enlace de Inscripción (Google Forms editable por evento) *</label>
-                                <input type="url" id="evLinkForms" placeholder="https://forms.gle/tu-formulario-aqui" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Afiche o Imagen del Evento (URL o subir desde tu PC)</label>
-                                <input type="text" id="evImagen" placeholder="https://...">
-                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                        <i class="fa-solid fa-upload"></i> Subir afiche desde mi PC
-                                        <input type="file" class="input-subir-foto-pc" data-target="evImagen" data-carpeta="eventos" accept="image/*" style="display:none;">
-                                    </label>
-                                    <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Resumen breve (Subtítulo) *</label>
-                                <textarea id="evSubtitulo" rows="2" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Información detallada del evento (Temario, certificación, etc.) *</label>
-                                <textarea id="evDescripcion" rows="4" required></textarea>
-                            </div>
-                            <div style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
-                                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-                                    <input type="checkbox" id="evDestacado"> Marcar como Evento Destacado
-                                </label>
-                                <select id="evEstado" style="width:auto;">
-                                    <option value="Publicado">Publicado</option>
-                                    <option value="Oculto">Oculto</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Evento</button>
-                            <button type="button" id="btnCancelarEvento" class="btn btn-primary-dark">Limpiar / Nuevo</button>
-                        </form>
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subEvLista"><i class="fa-solid fa-calendar-days"></i> Gestión de eventos</button>
+                        <button type="button" class="subtab-btn" data-subtab="subEvPagina"><i class="fa-solid fa-pen-to-square"></i> Portada y textos de la página</button>
                     </div>
 
-                    <div class="admin-card">
-                        <h3>Eventos Académicos Registrados</h3>
-                        <div class="table-responsive">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Evento</th>
-                                        <th>Fecha / Modalidad</th>
-                                        <th>Enlace Forms</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaAdminEventos"></tbody>
-                            </table>
+                    <div class="subtab-panel active" id="subEvLista">
+                        <div class="admin-card">
+                            <h3 id="tituloFormEvento">Crear o editar evento</h3>
+                            <form id="formAdminEvento">
+                                <input type="hidden" id="evId">
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Título del evento *</label>
+                                        <input type="text" id="evTitulo" placeholder="Ej. Seminario de Derecho Penal Económico" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Categoría *</label>
+                                        <input type="text" id="evCategoria" value="Jornada Académica" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Fecha del evento *</label>
+                                        <input type="date" id="evFecha" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Modalidad *</label>
+                                        <select id="evModalidad">
+                                            <option value="Presencial / Virtual">Presencial / Virtual</option>
+                                            <option value="Presencial">Presencial</option>
+                                            <option value="Virtual">Virtual</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Hora y lugar *</label>
+                                        <input type="text" id="evHoraLugar" placeholder="Ej. 6:00 p.m. • Sede Vallecito / Zoom" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ponente *</label>
+                                        <input type="text" id="evPonente" placeholder="Ej. Dr. Peter Hans Ureta Escobedo" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Enlace del formulario de inscripción *</label>
+                                    <input type="url" id="evLinkForms" placeholder="https://forms.gle/..." required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Imagen o afiche del evento</label>
+                                    <input type="text" id="evImagen" placeholder="Pega un enlace de imagen o sube un afiche">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir afiche desde mi equipo
+                                            <input type="file" class="input-subir-foto-pc" data-target="evImagen" data-carpeta="eventos" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Resumen breve *</label>
+                                    <textarea id="evSubtitulo" rows="2" required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Información detallada del evento *</label>
+                                    <textarea id="evDescripcion" rows="4" required></textarea>
+                                </div>
+
+                                <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
+                                    <label style="display:flex; align-items:center; gap:7px; cursor:pointer; font-size:0.86rem; font-weight:600;">
+                                        <input type="checkbox" id="evDestacado" style="width:16px; height:16px; accent-color:#123c2a;"> Mostrar como evento destacado
+                                    </label>
+                                    <select id="evEstado" style="width:auto; padding:8px 12px; border-radius:7px; border:1.5px solid #d8d4cb;">
+                                        <option value="Publicado">Publicado</option>
+                                        <option value="Oculto">Oculto</option>
+                                    </select>
+                                </div>
+
+                                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                                    <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar evento</button>
+                                    <button type="button" class="btn btn-primary-dark" id="btnCancelarEvento">Limpiar formulario</button>
+                                </div>
+                            </form>
                         </div>
+
+                        <div class="admin-card">
+                            <h3>Eventos registrados</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Evento</th>
+                                            <th>Fecha y modalidad</th>
+                                            <th>Inscripción</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAdminEventos"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subtab-panel" id="subEvPagina">
+                        <form id="formContenidoEventos">
+                            <div class="admin-card">
+                                <h3>Portada de Eventos</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="evInBannerTag"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="evInBannerTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Descripción de portada</label><textarea id="evInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Imagen de fondo de portada</label>
+                                    <input type="text" id="evInBannerImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
+                                            <input type="file" class="input-subir-foto-pc" data-target="evInBannerImg" data-carpeta="eventos" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Encabezado, filtros y botones</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="evInSecTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="evInSecTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Subtítulo</label><input type="text" id="evInSecSub"></div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Texto guía del buscador</label><input type="text" id="evInBuscadorPh"></div>
+                                    <div class="form-group"><label>Opción todas las modalidades</label><input type="text" id="evInFiltroTodas"></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta de evento destacado</label><input type="text" id="evInDestacado"></div>
+                                    <div class="form-group"><label>Texto del botón de detalles</label><input type="text" id="evInBtnDetalle"></div>
+                                </div>
+                                <div class="form-group"><label>Texto del botón de inscripción</label><input type="text" id="evInBtnInscribir"></div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Franja final de invitación al contacto</h3>
+                                <div class="form-group"><label>Título</label><input type="text" id="evInCtaTitulo"></div>
+                                <div class="form-group"><label>Descripción</label><input type="text" id="evInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar textos de Eventos</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
 
                 <!-- =====================================
-                     PANEL 6: DE PRACTICANTE A ABOGADO
+                     DE PRACTICANTE A ABOGADO
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabHistorias">
                     <div class="admin-card">
-                        <h3 id="tituloFormHistoria">Agregar / Editar Historia "De Practicante a Abogado"</h3>
+                        <h3 id="tituloFormHistoria">Agregar o editar historia de crecimiento</h3>
                         <form id="formAdminHistoria">
                             <input type="hidden" id="histId">
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label>Nombre completo del integrante *</label>
+                                    <label>Nombre completo *</label>
                                     <input type="text" id="histNombre" placeholder="Ej. Dra. María Fernanda López" required>
                                 </div>
                                 <div class="form-group">
@@ -1185,42 +1657,42 @@
                             </div>
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label>Etapa de inicio (Insignia sobre la foto) *</label>
-                                    <input type="text" id="histInicio" placeholder="Ej. Ingresó como Practicante en 2021" required>
+                                    <label>Etapa de inicio *</label>
+                                    <input type="text" id="histInicio" placeholder="Ej. Ingresó como practicante en 2021" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Orden de aparición (1, 2, 3, 4...)</label>
+                                    <label>Orden de aparición</label>
                                     <input type="number" id="histOrden" value="1" min="1">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Fotografía del integrante (URL o subir desde tu PC) *</label>
-                                <input type="text" id="histFoto" placeholder="https://..." required>
-                                <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                    <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                <label>Fotografía del integrante *</label>
+                                <input type="text" id="histFoto" placeholder="Pega un enlace de imagen o sube una foto" required>
+                                <div class="upload-img-inline">
+                                    <label class="btn-upload-soft">
+                                        <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                         <input type="file" class="input-subir-foto-pc" data-target="histFoto" data-carpeta="historias" accept="image/*" style="display:none;">
                                     </label>
                                     <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Historia y trayectoria dentro del estudio *</label>
-                                <textarea id="histRelato" rows="3" placeholder="Relato de su crecimiento desde practicante hasta abogado..." required></textarea>
+                                <label>Testimonio de trayectoria *</label>
+                                <textarea id="histRelato" rows="3" placeholder="Cuenta cómo comenzó como practicante y creció dentro del estudio..." required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Historia</button>
-                            <button type="button" id="btnCancelarHistoria" class="btn btn-primary-dark">Limpiar / Nuevo</button>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar historia</button>
+                            <button type="button" id="btnCancelarHistoria" class="btn btn-primary-dark">Limpiar formulario</button>
                         </form>
                     </div>
 
                     <div class="admin-card">
-                        <h3>Integrantes publicados en "De Practicante a Abogado"</h3>
+                        <h3>Historias publicadas</h3>
                         <div class="table-responsive">
                             <table class="admin-table">
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
-                                        <th>Nombre y Cargo Actual</th>
+                                        <th>Nombre y cargo actual</th>
                                         <th>Inicio</th>
                                         <th>Orden</th>
                                         <th>Acciones</th>
@@ -1233,44 +1705,44 @@
                 </section>
 
                 <!-- =====================================
-                     PANEL 7: TESTIMONIOS Y COMENTARIOS
+                     TESTIMONIOS Y COMENTARIOS
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabTestimonios">
                     <div class="admin-card">
-                        <h3 id="tituloFormTestimonio">Registrar / Editar Testimonio de Cliente</h3>
+                        <h3 id="tituloFormTestimonio">Registrar o editar testimonio de cliente</h3>
                         <form id="formTestimonio">
                             <input type="hidden" id="testimonioIdEdit">
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label>Identificación / Iniciales del Cliente *</label>
+                                    <label>Nombre o iniciales del cliente *</label>
                                     <input type="text" id="testCliente" placeholder="Ej. J. R. M." required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Tipo de Cliente / Empresa</label>
+                                    <label>Tipo de cliente o empresa</label>
                                     <input type="text" id="testCargo" placeholder="Ej. Cliente Corporativo">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Comentario del Cliente *</label>
+                                <label>Testimonio *</label>
                                 <textarea id="testComentario" rows="3" required></textarea>
                             </div>
-                            <div style="display:flex; gap:16px; align-items:center; margin-bottom:16px;">
-                                <select id="testEstado" style="width:auto;">
+                            <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
+                                <select id="testEstado" style="width:auto; padding:8px 12px; border-radius:7px; border:1.5px solid #d8d4cb;">
                                     <option value="Aprobado">Aprobado</option>
                                     <option value="Pendiente">Pendiente</option>
                                     <option value="Rechazado">Rechazado</option>
                                 </select>
-                                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-                                    <input type="checkbox" id="testDestacado"> Mostrar en Inicio
+                                <label style="display:flex; align-items:center; gap:7px; cursor:pointer; font-size:0.86rem; font-weight:600;">
+                                    <input type="checkbox" id="testDestacado" style="width:16px; height:16px; accent-color:#123c2a;"> Mostrar en Inicio
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Testimonio</button>
-                            <button type="button" id="btnCancelarTestimonio" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar testimonio</button>
+                            <button type="button" id="btnCancelarTestimonio" class="btn btn-primary-dark" style="display:none;">Cancelar edición</button>
                         </form>
                     </div>
 
                     <div class="admin-card">
-                        <h3>Testimonios Registrados</h3>
+                        <h3>Testimonios registrados</h3>
                         <div class="table-responsive">
                             <table class="admin-table">
                                 <thead>
@@ -1287,7 +1759,7 @@
                     </div>
 
                     <div class="admin-card">
-                        <h3>Comentarios en Artículos Jurídicos</h3>
+                        <h3>Comentarios en artículos</h3>
                         <div class="table-responsive">
                             <table class="admin-table">
                                 <thead>
@@ -1307,35 +1779,107 @@
                 </section>
 
                 <!-- =====================================
-                     PANEL 8: CONSULTAS RECIBIDAS
+                     CONTACTO
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabContactos">
-                    <div class="admin-card">
-                        <h3>Bandeja Confidencial de Consultas Legales</h3>
-                        <div class="table-responsive">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Solicitante</th>
-                                        <th>Área / Asunto</th>
-                                        <th>Descripción y Notas Internas</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaAdminContactos"></tbody>
-                            </table>
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subConLista"><i class="fa-solid fa-envelope-open-text"></i> Consultas recibidas</button>
+                        <button type="button" class="subtab-btn" data-subtab="subConPagina"><i class="fa-solid fa-pen-to-square"></i> Portada, textos y mapa</button>
+                    </div>
+
+                    <div class="subtab-panel active" id="subConLista">
+                        <div class="admin-card">
+                            <h3>Bandeja confidencial de consultas</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Solicitante</th>
+                                            <th>Área y asunto</th>
+                                            <th>Detalle y notas internas</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAdminContactos"></tbody>
+                                </table>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="subtab-panel" id="subConPagina">
+                        <form id="formContenidoContacto">
+                            <div class="admin-card">
+                                <h3>Portada de Contacto</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="conInBannerTag"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="conInBannerTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Descripción de portada</label><textarea id="conInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Imagen de fondo de portada</label>
+                                    <input type="text" id="conInBannerImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
+                                            <input type="file" class="input-subir-foto-pc" data-target="conInBannerImg" data-carpeta="contacto" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Textos de atención y formulario</h3>
+                                <div class="helper-note">
+                                    <i class="fa-solid fa-circle-info" style="color:var(--adm-dorado); margin-right:6px;"></i>
+                                    La dirección, teléfonos, WhatsApp, correo y horario se actualizan desde <strong>Nosotros → Datos del estudio</strong> para cambiar a la vez en todo el sitio web.
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Canales — Etiqueta</label><input type="text" id="conInInfoTag"></div>
+                                    <div class="form-group"><label>Canales — Título</label><input type="text" id="conInInfoTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Canales — Descripción</label><textarea id="conInInfoDesc" rows="2"></textarea></div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>WhatsApp — Título</label><input type="text" id="conInWaTitulo"></div>
+                                    <div class="form-group"><label>WhatsApp — Descripción</label><input type="text" id="conInWaSub"></div>
+                                </div>
+                                <div class="form-group"><label>Sello de confidencialidad</label><textarea id="conInPrivNota" rows="2"></textarea></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Formulario — Etiqueta</label><input type="text" id="conInFormTag"></div>
+                                    <div class="form-group"><label>Formulario — Título</label><input type="text" id="conInFormTitulo"></div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Formulario — Descripción</label><input type="text" id="conInFormSub"></div>
+                                    <div class="form-group"><label>Formulario — Texto del botón</label><input type="text" id="conInFormBtn"></div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Ubicación y mapa</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Mapa — Etiqueta</label><input type="text" id="conInMapaTag"></div>
+                                    <div class="form-group"><label>Mapa — Título</label><input type="text" id="conInMapaTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Dirección o referencia</label><input type="text" id="conInMapaSub"></div>
+                                <div class="form-group">
+                                    <label>Enlace del mapa de Google Maps</label>
+                                    <input type="url" id="conInMapaUrl" placeholder="https://www.google.com/maps/...">
+                                </div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar textos de Contacto</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
 
                 <!-- =====================================
-                     PANEL 9: POSTULACIONES Y CVS
+                     POSTULACIONES
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabPostulaciones">
                     <div class="admin-card">
-                        <h3>Postulaciones Recibidas y Descarga de CVs (PDF)</h3>
+                        <h3>Postulaciones recibidas y currículums</h3>
                         <div class="table-responsive">
                             <table class="admin-table">
                                 <thead>
@@ -1343,8 +1887,8 @@
                                         <th>Fecha</th>
                                         <th>Postulante</th>
                                         <th>Convocatoria</th>
-                                        <th>Grado / Experiencia</th>
-                                        <th>Currículum PDF</th>
+                                        <th>Perfil</th>
+                                        <th>Currículum</th>
                                         <th>Etapa</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -1356,129 +1900,212 @@
                 </section>
 
                 <!-- =====================================
-                     PANEL 10: CONVOCATORIAS PARA PRACTICANTES
+                     TRABAJA CON NOSOTROS
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabVacantes">
-                    <div class="admin-card">
-                        <h3 id="tituloFormVacante">Publicar / Editar Convocatoria para Practicantes</h3>
-                        <form id="formNuevaVacante">
-                            <input type="hidden" id="vacIdEdit">
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Título de la Convocatoria *</label>
-                                    <input type="text" id="vacPuesto" placeholder="Ej. Practicante Preprofesional de Derecho Civil" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Área Jurídica *</label>
-                                    <input type="text" id="vacArea" placeholder="Ej. Derecho Civil / Saneamientos" required>
-                                </div>
-                            </div>
-                            <div class="form-row-2">
-                                <div class="form-group">
-                                    <label>Modalidad *</label>
-                                    <input type="text" id="vacModalidad" value="Presencial - Arequipa" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Fecha Límite *</label>
-                                    <input type="date" id="vacFechaLimite" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Descripción del Puesto / Prácticas *</label>
-                                <textarea id="vacDescripcion" rows="2" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Requisitos (Uno por línea) *</label>
-                                <textarea id="vacRequisitos" rows="3" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Convocatoria</button>
-                            <button type="button" id="btnCancelarVacante" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
-                        </form>
+                    <div class="subtab-bar">
+                        <button type="button" class="subtab-btn active" data-subtab="subTrabVacantes"><i class="fa-solid fa-briefcase"></i> Convocatorias vigentes</button>
+                        <button type="button" class="subtab-btn" data-subtab="subTrabPagina"><i class="fa-solid fa-pen-to-square"></i> Portada, beneficios y textos</button>
                     </div>
 
-                    <div class="admin-card">
-                        <h3>Convocatorias Publicadas</h3>
-                        <div class="table-responsive">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Convocatoria</th>
-                                        <th>Área</th>
-                                        <th>Modalidad</th>
-                                        <th>Cierre</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablaAdminVacantes"></tbody>
-                            </table>
+                    <div class="subtab-panel active" id="subTrabVacantes">
+                        <div class="admin-card">
+                            <h3 id="tituloFormVacante">Publicar o editar convocatoria</h3>
+                            <form id="formNuevaVacante">
+                                <input type="hidden" id="vacIdEdit">
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Título de la convocatoria *</label>
+                                        <input type="text" id="vacPuesto" placeholder="Ej. Practicante Preprofesional de Derecho Civil" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Área jurídica *</label>
+                                        <input type="text" id="vacArea" placeholder="Ej. Derecho Civil / Saneamientos" required>
+                                    </div>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label>Modalidad *</label>
+                                        <input type="text" id="vacModalidad" value="Presencial - Arequipa" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fecha límite *</label>
+                                        <input type="date" id="vacFechaLimite" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descripción de la convocatoria *</label>
+                                    <textarea id="vacDescripcion" rows="2" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Requisitos — uno por línea *</label>
+                                    <textarea id="vacRequisitos" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar convocatoria</button>
+                                <button type="button" id="btnCancelarVacante" class="btn btn-primary-dark" style="display:none;">Cancelar edición</button>
+                            </form>
                         </div>
+
+                        <div class="admin-card">
+                            <h3>Convocatorias registradas</h3>
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Convocatoria</th>
+                                            <th>Área</th>
+                                            <th>Modalidad</th>
+                                            <th>Cierre</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaAdminVacantes"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subtab-panel" id="subTrabPagina">
+                        <form id="formContenidoTrabaja">
+                            <div class="admin-card">
+                                <h3>Portada de Trabaja con Nosotros</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="trInBannerTag"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="trInBannerTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Descripción de portada</label><textarea id="trInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group">
+                                    <label>Imagen de fondo de portada</label>
+                                    <input type="text" id="trInBannerImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
+                                            <input type="file" class="input-subir-foto-pc" data-target="trInBannerImg" data-carpeta="trabaja" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Beneficios de integrarse a la firma</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Etiqueta superior</label><input type="text" id="trInBenTag"></div>
+                                    <div class="form-group"><label>Título de la sección</label><input type="text" id="trInBenTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Subtítulo</label><input type="text" id="trInBenSub"></div>
+                                <div id="contenedorEditorBeneficiosTrabaja"></div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Encabezados de historias y convocatorias</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Historias — Etiqueta</label><input type="text" id="trInHistTag"></div>
+                                    <div class="form-group"><label>Historias — Título</label><input type="text" id="trInHistTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Historias — Subtítulo</label><input type="text" id="trInHistSub"></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Convocatorias — Etiqueta</label><input type="text" id="trInVacTag"></div>
+                                    <div class="form-group"><label>Convocatorias — Título</label><input type="text" id="trInVacTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Convocatorias — Subtítulo</label><input type="text" id="trInVacSub"></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Postulación espontánea — Título</label><input type="text" id="trInEspTitulo"></div>
+                                    <div class="form-group"><label>Texto del botón</label><input type="text" id="trInEspBtn"></div>
+                                </div>
+                                <div class="form-group"><label>Postulación espontánea — Descripción</label><input type="text" id="trInEspSub"></div>
+                            </div>
+
+                            <div class="admin-card">
+                                <h3>Formulario, etapas de selección y fotografía de sede</h3>
+                                <div class="form-row-2">
+                                    <div class="form-group"><label>Formulario — Etiqueta</label><input type="text" id="trInFormTag"></div>
+                                    <div class="form-group"><label>Formulario — Título</label><input type="text" id="trInFormTitulo"></div>
+                                </div>
+                                <div class="form-group"><label>Formulario — Descripción</label><textarea id="trInFormSub" rows="2"></textarea></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
+                                <div class="form-group"><label>Título de las etapas de selección</label><input type="text" id="trInProcTitulo"></div>
+                                <div class="form-group"><label>Pasos del proceso — uno por línea</label><textarea id="trInProcLista" rows="4"></textarea></div>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
+                                <div class="form-group"><label>Título del bloque de sede</label><input type="text" id="trInSedeTitulo"></div>
+                                <div class="form-group">
+                                    <label>Fotografía de la sede</label>
+                                    <input type="text" id="trInSedeImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
+                                            <input type="file" class="input-subir-foto-pc" data-target="trInSedeImg" data-carpeta="trabaja" accept="image/*" style="display:none;">
+                                        </label>
+                                        <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
+                                    </div>
+                                </div>
+                                <div class="form-group"><label>Texto descriptivo de la sede</label><textarea id="trInSedeTexto" rows="2"></textarea></div>
+
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar textos de Trabaja con Nosotros</button>
+                            </div>
+                        </form>
                     </div>
                 </section>
 
                 <!-- =====================================
-                     PANEL 11: CONFIGURACIÓN GENERAL Y NOSOTROS
+                     NOSOTROS Y DATOS DEL ESTUDIO
                      ===================================== -->
-                <!-- =====================================
-                    PÁGINA: NOSOTROS Y DATOS GLOBALES (100% EDITABLE)
-                    ===================================== -->
                 <section class="admin-tab-panel" id="tabConfig">
                     <div class="subtab-bar">
-                        <button type="button" class="subtab-btn active" data-subtab="subNosDatos"><i class="fa-solid fa-gear"></i> 1. Datos Globales (Header/Footer/WA)</button>
-                        <button type="button" class="subtab-btn" data-subtab="subNosHist"><i class="fa-solid fa-building-columns"></i> 2. Portada e Historia</button>
-                        <button type="button" class="subtab-btn" data-subtab="subNosMv"><i class="fa-solid fa-bullseye"></i> 3. Misión, Visión y Filosofía</button>
-                        <button type="button" class="subtab-btn" data-subtab="subNosVal"><i class="fa-solid fa-shield-halved"></i> 4. Valores, Foto y CTA</button>
+                        <button type="button" class="subtab-btn active" data-subtab="subNosDatos"><i class="fa-solid fa-gear"></i> Datos del estudio</button>
+                        <button type="button" class="subtab-btn" data-subtab="subNosHist"><i class="fa-solid fa-building-columns"></i> Portada e historia</button>
+                        <button type="button" class="subtab-btn" data-subtab="subNosMv"><i class="fa-solid fa-bullseye"></i> Misión, visión y filosofía</button>
+                        <button type="button" class="subtab-btn" data-subtab="subNosVal"><i class="fa-solid fa-shield-halved"></i> Valores y contacto final</button>
                     </div>
 
-                    <!-- SUB-PESTAÑA 1: DATOS GLOBALES DEL SITIO (configuracion_sitio) -->
                     <div class="subtab-panel active" id="subNosDatos">
                         <div class="admin-card">
-                            <h3>Datos Oficiales Globales (Barra Superior, Footer y WhatsApp)</h3>
+                            <h3>Datos oficiales visibles en todo el sitio web</h3>
                             <form id="formConfigGeneral">
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Nombre del Estudio *</label><input type="text" id="cfgNombreEstudio" required></div>
-                                    <div class="form-group"><label>Lema / Frase Institucional *</label><input type="text" id="cfgFrase" required></div>
+                                    <div class="form-group"><label>Nombre del estudio *</label><input type="text" id="cfgNombreEstudio" required></div>
+                                    <div class="form-group"><label>Lema institucional *</label><input type="text" id="cfgFrase" required></div>
                                 </div>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Dirección Física *</label><input type="text" id="cfgDireccion" required></div>
-                                    <div class="form-group"><label>Teléfonos de Central *</label><input type="text" id="cfgTelefono" required></div>
+                                    <div class="form-group"><label>Dirección de la oficina *</label><input type="text" id="cfgDireccion" required></div>
+                                    <div class="form-group"><label>Teléfonos de atención *</label><input type="text" id="cfgTelefono" required></div>
                                 </div>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Número de WhatsApp (Con código 51) *</label><input type="text" id="cfgWhatsapp" placeholder="51980249579" required></div>
-                                    <div class="form-group"><label>Correo Electrónico Oficial *</label><input type="email" id="cfgCorreo" required></div>
+                                    <div class="form-group"><label>Número de WhatsApp — con código 51 *</label><input type="text" id="cfgWhatsapp" placeholder="51980249579" required></div>
+                                    <div class="form-group"><label>Correo electrónico oficial *</label><input type="email" id="cfgCorreo" required></div>
                                 </div>
-                                <div class="form-group"><label>Horario de Atención *</label><input type="text" id="cfgHorario" required></div>
+                                <div class="form-group"><label>Horario de atención *</label><input type="text" id="cfgHorario" required></div>
 
-                                <!-- Campos ocultos de respaldo para compatibilidad con sp_actualizar_configuracion_sitio -->
                                 <input type="hidden" id="cfgHistoria">
                                 <input type="hidden" id="cfgMision">
                                 <input type="hidden" id="cfgVision">
 
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Datos Globales</button>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar datos del estudio</button>
                                 <p id="msgConfigGuardada" style="display:none; color:#238d41; font-weight:700; margin-top:12px;">
-                                    ✓ Datos globales actualizados correctamente en Supabase.
+                                    ✓ Datos actualizados correctamente en tu sitio web.
                                 </p>
                             </form>
                         </div>
                     </div>
 
-                    <!-- FORMULARIO ÚNICO PARA SUB-PESTAÑAS 2, 3 Y 4 DE NOSOTROS -->
                     <form id="formContenidoNosotros">
-                        <!-- SUB-PESTAÑA 2: PORTADA E HISTORIA -->
                         <div class="subtab-panel" id="subNosHist">
                             <div class="admin-card">
-                                <h3>Portada Superior (Banner de Nosotros)</h3>
+                                <h3>Portada de Nosotros</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInBannerTag"></div>
-                                    <div class="form-group"><label>Título principal (H1)</label><input type="text" id="nosInBannerTitulo"></div>
+                                    <div class="form-group"><label>Título principal</label><input type="text" id="nosInBannerTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Descripción del banner</label><textarea id="nosInBannerSub" rows="2"></textarea></div>
+                                <div class="form-group"><label>Descripción de portada</label><textarea id="nosInBannerSub" rows="2"></textarea></div>
                                 <div class="form-group">
-                                    <label>Imagen de fondo del Banner (URL o subir desde PC)</label>
-                                    <input type="text" id="nosInBannerImg" placeholder="https://...">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <label>Imagen de fondo de portada</label>
+                                    <input type="text" id="nosInBannerImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="nosInBannerImg" data-carpeta="nosotros" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
@@ -1487,71 +2114,69 @@
                             </div>
 
                             <div class="admin-card">
-                                <h3>Sección "Quiénes Somos" e Historia</h3>
+                                <h3>Quiénes somos e historia</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInHistTag"></div>
                                     <div class="form-group"><label>Título de la sección</label><input type="text" id="nosInHistTitulo"></div>
                                 </div>
-                                <div class="form-group"><label>Párrafo principal destacado</label><textarea id="nosInHistTexto1" rows="3"></textarea></div>
-                                <div class="form-group"><label>Segundo párrafo complementario</label><textarea id="nosInHistTexto2" rows="3"></textarea></div>
+                                <div class="form-group"><label>Primer párrafo</label><textarea id="nosInHistTexto1" rows="3"></textarea></div>
+                                <div class="form-group"><label>Segundo párrafo</label><textarea id="nosInHistTexto2" rows="3"></textarea></div>
                                 <div class="form-group">
-                                    <label>Fotografía de la firma / oficina (URL o subir desde PC)</label>
-                                    <input type="text" id="nosInHistImg" placeholder="https://...">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <label>Fotografía de la firma u oficina</label>
+                                    <input type="text" id="nosInHistImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="nosInHistImg" data-carpeta="nosotros" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
                                     </div>
                                 </div>
                                 <div class="form-row-2">
-                                    <div class="form-group"><label>Insignia flotante (Título)</label><input type="text" id="nosInBadgeTitulo"></div>
-                                    <div class="form-group"><label>Insignia flotante (Frase)</label><input type="text" id="nosInBadgeSub"></div>
+                                    <div class="form-group"><label>Recuadro sobre foto — Título</label><input type="text" id="nosInBadgeTitulo"></div>
+                                    <div class="form-group"><label>Recuadro sobre foto — Frase</label><input type="text" id="nosInBadgeSub"></div>
                                 </div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Página Nosotros</button>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios de Nosotros</button>
                             </div>
                         </div>
 
-                        <!-- SUB-PESTAÑA 3: MISIÓN, VISIÓN Y FILOSOFÍA -->
                         <div class="subtab-panel" id="subNosMv">
                             <div class="admin-card">
-                                <h3>Encabezado y 3 Tarjetas (Misión, Visión y Filosofía)</h3>
+                                <h3>Misión, visión y filosofía de trabajo</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInMvTag"></div>
                                     <div class="form-group"><label>Título de la sección</label><input type="text" id="nosInMvTitulo"></div>
                                 </div>
                                 <div class="form-group"><label>Subtítulo</label><input type="text" id="nosInMvSub"></div>
-                                <hr style="margin:16px 0; border-color:#e2e8f0;">
-                                <div class="form-group"><label>Tarjeta 1 — Título (Misión)</label><input type="text" id="nosInMisionTit"></div>
-                                <div class="form-group"><label>Tarjeta 1 — Texto de la Misión</label><textarea id="nosInMisionTxt" rows="3"></textarea></div>
-                                <div class="form-group"><label>Tarjeta 2 — Título (Visión)</label><input type="text" id="nosInVisionTit"></div>
-                                <div class="form-group"><label>Tarjeta 2 — Texto de la Visión</label><textarea id="nosInVisionTxt" rows="3"></textarea></div>
-                                <div class="form-group"><label>Tarjeta 3 — Título (Filosofía)</label><input type="text" id="nosInFiloTit"></div>
-                                <div class="form-group"><label>Tarjeta 3 — Texto de la Filosofía</label><textarea id="nosInFiloTxt" rows="3"></textarea></div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Página Nosotros</button>
+                                <hr style="margin:18px 0; border:none; border-top:1px solid #efede8;">
+                                <div class="form-group"><label>Misión — Título</label><input type="text" id="nosInMisionTit"></div>
+                                <div class="form-group"><label>Misión — Texto</label><textarea id="nosInMisionTxt" rows="3"></textarea></div>
+                                <div class="form-group"><label>Visión — Título</label><input type="text" id="nosInVisionTit"></div>
+                                <div class="form-group"><label>Visión — Texto</label><textarea id="nosInVisionTxt" rows="3"></textarea></div>
+                                <div class="form-group"><label>Filosofía — Título</label><input type="text" id="nosInFiloTit"></div>
+                                <div class="form-group"><label>Filosofía — Texto</label><textarea id="nosInFiloTxt" rows="3"></textarea></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios de Nosotros</button>
                             </div>
                         </div>
 
-                        <!-- SUB-PESTAÑA 4: VALORES, FOTO Y CTA -->
                         <div class="subtab-panel" id="subNosVal">
                             <div class="admin-card">
-                                <h3>Sección Valores y Compromiso Ético</h3>
+                                <h3>Valores y compromiso ético</h3>
                                 <div class="form-row-2">
                                     <div class="form-group"><label>Etiqueta superior</label><input type="text" id="nosInValTag"></div>
                                     <div class="form-group"><label>Título de la sección</label><input type="text" id="nosInValTitulo"></div>
                                 </div>
                                 <div class="form-group"><label>Introducción</label><textarea id="nosInValDesc" rows="2"></textarea></div>
                                 <div class="form-group">
-                                    <label>Lista de Valores (Escribe uno por cada línea)</label>
+                                    <label>Lista de valores — uno por línea</label>
                                     <textarea id="nosInValLista" rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Fotografía lateral de Valores (URL o subir desde PC)</label>
-                                    <input type="text" id="nosInValImg" placeholder="https://...">
-                                    <div class="upload-img-inline" style="margin-top:6px; display:flex; align-items:center; gap:10px;">
-                                        <label class="btn btn-primary-dark" style="padding:7px 12px; font-size:0.8rem; cursor:pointer; margin:0;">
-                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi PC
+                                    <label>Fotografía lateral</label>
+                                    <input type="text" id="nosInValImg" placeholder="Pega un enlace de imagen o sube una foto">
+                                    <div class="upload-img-inline">
+                                        <label class="btn-upload-soft">
+                                            <i class="fa-solid fa-upload"></i> Subir foto desde mi equipo
                                             <input type="file" class="input-subir-foto-pc" data-target="nosInValImg" data-carpeta="nosotros" accept="image/*" style="display:none;">
                                         </label>
                                         <small class="estado-subida-foto" style="color:#238d41; font-weight:600;"></small>
@@ -1560,30 +2185,30 @@
                             </div>
 
                             <div class="admin-card">
-                                <h3>Banner Inferior de Llamada a la Acción (CTA)</h3>
-                                <div class="form-group"><label>Título del Banner CTA</label><input type="text" id="nosInCtaTitulo"></div>
-                                <div class="form-group"><label>Subtítulo del Banner CTA</label><input type="text" id="nosInCtaSub"></div>
-                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Página Nosotros</button>
+                                <h3>Franja final de invitación al contacto</h3>
+                                <div class="form-group"><label>Título</label><input type="text" id="nosInCtaTitulo"></div>
+                                <div class="form-group"><label>Subtítulo</label><input type="text" id="nosInCtaSub"></div>
+                                <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios de Nosotros</button>
                             </div>
                         </div>
                     </form>
                 </section>
 
                 <!-- =====================================
-                     PANEL 12: USUARIOS ADMINISTRADORES
+                     USUARIOS
                      ===================================== -->
                 <section class="admin-tab-panel" id="tabUsuarios">
                     <div class="admin-card">
-                        <h3 id="tituloFormUsuario">Registrar / Editar Usuario Administrador</h3>
+                        <h3 id="tituloFormUsuario">Agregar o editar usuario</h3>
                         <form id="formUsuarioAdmin">
                             <input type="hidden" id="userIdEdit">
                             <div class="form-row-2">
                                 <div class="form-group">
-                                    <label>Nombre Completo *</label>
+                                    <label>Nombre completo *</label>
                                     <input type="text" id="userNombre" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Correo de Acceso *</label>
+                                    <label>Correo de acceso *</label>
                                     <input type="email" id="userEmail" required>
                                 </div>
                             </div>
@@ -1596,17 +2221,17 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Contraseña (Dejar vacío si no desea cambiarla)</label>
+                                    <label>Contraseña — déjala vacía para no cambiarla</label>
                                     <input type="password" id="userPassword">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar Usuario</button>
-                            <button type="button" id="btnCancelarUsuario" class="btn btn-primary-dark" style="display:none;">Cancelar Edición</button>
+                            <button type="submit" class="btn btn-gold"><i class="fa-solid fa-floppy-disk"></i> Guardar usuario</button>
+                            <button type="button" id="btnCancelarUsuario" class="btn btn-primary-dark" style="display:none;">Cancelar edición</button>
                         </form>
                     </div>
 
                     <div class="admin-card">
-                        <h3>Usuarios con Acceso al Panel</h3>
+                        <h3>Usuarios con acceso al panel</h3>
                         <div class="table-responsive">
                             <table class="admin-table">
                                 <thead>
@@ -1631,5 +2256,112 @@
 
     <script src="js/datos-estudio.js"></script>
     <script src="js/admin.js"></script>
+    <script>
+        // Navegación rápida desde las tarjetas de indicadores y botones del Resumen
+        window.irASeccionAdmin = function (tabId) {
+            const btn = document.querySelector(`.admin-tab-btn[data-tab="${tabId}"]`);
+            if (btn) btn.click();
+        };
+
+        // Motor en tiempo real para los 8 indicadores y el resumen de actividad reciente
+        async function actualizarResumenEnVivo() {
+            const setNum = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = Number.isFinite(Number(val)) ? val : 0;
+            };
+
+            // Fecha amigable en la cabecera
+            const fechaEl = document.getElementById('adminFechaHoy');
+            if (fechaEl) {
+                const hoy = new Date().toLocaleDateString('es-PE', {
+                    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                });
+                fechaEl.textContent = hoy.charAt(0).toUpperCase() + hoy.slice(1);
+            }
+
+            try {
+                if (typeof supabaseRest === 'function' && typeof supabaseEstaConfigurado === 'function' && supabaseEstaConfigurado()) {
+                    const [areas, abogados, blog, eventos, contactos, postulaciones, vacantes, comentarios] = await Promise.all([
+                        supabaseRest('areas_legales', 'GET', '?select=area_id,activo'),
+                        supabaseRest('abogados', 'GET', '?select=abogado_id,activo'),
+                        supabaseRest('publicaciones_blog', 'GET', '?select=publicacion_id,estado'),
+                        supabaseRest('eventos_academicos', 'GET', '?select=evento_id,estado'),
+                        supabaseRest('solicitudes_contacto', 'GET', '?select=solicitud_id,nombres_apellidos,nombre_area_texto,asunto,estado,fecha_solicitud&order=solicitud_id.desc'),
+                        supabaseRest('postulaciones', 'GET', '?select=postulacion_id,nombres_apellidos,puesto_postula,estado,fecha_postulacion&order=postulacion_id.desc'),
+                        supabaseRest('vacantes', 'GET', '?select=vacante_id,activa'),
+                        supabaseRest('comentarios_blog', 'GET', '?select=comentario_id,estado')
+                    ]);
+
+                    setNum('kpiTotalAreas', (areas || []).filter(a => a.activo).length);
+                    setNum('kpiTotalAbogados', (abogados || []).filter(a => a.activo).length);
+                    setNum('kpiTotalBlog', (blog || []).filter(b => b.estado === 'Publicado').length);
+                    setNum('kpiTotalEventos', (eventos || []).filter(e => (e.estado || 'Publicado') === 'Publicado').length);
+                    setNum('kpiTotalContactos', (contactos || []).length);
+                    setNum('kpiTotalPostulaciones', (postulaciones || []).length);
+                    setNum('kpiTotalVacantes', (vacantes || []).filter(v => v.activa).length);
+                    setNum('kpiComentariosPendientes', (comentarios || []).filter(c => c.estado === 'Pendiente').length);
+
+                    // Pintar últimas 5 consultas en el Resumen
+                    const boxCon = document.getElementById('resumenUltimasConsultas');
+                    if (boxCon) {
+                        const ultCon = (contactos || []).slice(0, 5);
+                        boxCon.innerHTML = ultCon.length === 0
+                            ? '<p style="color:#5c6661; font-size:0.86rem;">Todavía no hay consultas registradas.</p>'
+                            : ultCon.map(c => `
+                                <div class="recent-item">
+                                    <div>
+                                        <strong>${c.nombres_apellidos || 'Solicitante'}</strong>
+                                        <small>${c.nombre_area_texto || 'Consulta general'} · ${c.asunto || ''}</small>
+                                    </div>
+                                    <span class="badge-status ${c.estado === 'Atendida' ? 'badge-active' : 'badge-hidden'}">${c.estado || 'Nueva'}</span>
+                                </div>
+                            `).join('');
+                    }
+
+                    // Pintar últimas 5 postulaciones en el Resumen
+                    const boxPost = document.getElementById('resumenUltimasPostulaciones');
+                    if (boxPost) {
+                        const ultPost = (postulaciones || []).slice(0, 5);
+                        boxPost.innerHTML = ultPost.length === 0
+                            ? '<p style="color:#5c6661; font-size:0.86rem;">Todavía no hay postulaciones registradas.</p>'
+                            : ultPost.map(p => `
+                                <div class="recent-item">
+                                    <div>
+                                        <strong>${p.nombres_apellidos || 'Postulante'}</strong>
+                                        <small>${p.puesto_postula || 'Postulación espontánea'}</small>
+                                    </div>
+                                    <span class="badge-status badge-active">${p.estado || 'Recibida'}</span>
+                                </div>
+                            `).join('');
+                    }
+                    return;
+                }
+            } catch (err) {
+                console.warn('No se pudieron actualizar los indicadores en línea:', err);
+            }
+
+            // Respaldo automático con datos locales si no hay conexión
+            if (typeof obtenerAreasLegales === 'function') setNum('kpiTotalAreas', obtenerAreasLegales().filter(a => a.activo).length);
+            if (typeof obtenerStaff === 'function') setNum('kpiTotalAbogados', obtenerStaff().filter(s => s.activo).length);
+            if (typeof obtenerBlog === 'function') setNum('kpiTotalBlog', obtenerBlog().filter(b => b.estado === 'Publicado').length);
+            if (typeof obtenerVacantes === 'function') setNum('kpiTotalVacantes', obtenerVacantes().filter(v => v.activa).length);
+            setNum('kpiTotalEventos', JSON.parse(localStorage.getItem('ureta_eventos_db') || '[]').length);
+            setNum('kpiTotalContactos', JSON.parse(localStorage.getItem('ureta_contactos_db') || '[]').length);
+            setNum('kpiTotalPostulaciones', JSON.parse(localStorage.getItem('ureta_postulaciones_db') || '[]').length);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            actualizarResumenEnVivo();
+            setTimeout(actualizarResumenEnVivo, 900);
+
+            document.getElementById('btnResetDatabase')?.addEventListener('click', () => {
+                setTimeout(actualizarResumenEnVivo, 600);
+            });
+            document.getElementById('formLoginAdmin')?.addEventListener('submit', () => {
+                setTimeout(actualizarResumenEnVivo, 900);
+            });
+            document.querySelector('.admin-tab-btn[data-tab="tabDashboard"]')?.addEventListener('click', actualizarResumenEnVivo);
+        });
+    </script>
 </body>
 </html>

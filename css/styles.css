@@ -3430,3 +3430,20 @@ ul {
     border-color: #123c2a;
     color: #123c2a;
 }
+/* =========================================================================
+   CORRECCIÓN DE CONTRASTE: BOTÓN "VER INFORMACIÓN" (.btn-outline-light)
+   ========================================================================= */
+.btn-outline-light,
+button.btn-outline-light {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+    border: 1.5px solid #ffffff !important;
+    cursor: pointer;
+}
+
+.btn-outline-light:hover,
+button.btn-outline-light:hover {
+    background-color: #ffffff !important;
+    color: #123c2a !important;
+    border-color: #ffffff !important;
+}

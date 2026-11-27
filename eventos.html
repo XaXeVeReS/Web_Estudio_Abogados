@@ -1,159 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos Académicos | Estudio Jurídico Ureta & Asociados</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Eventos académicos, seminarios y jornadas jurídicas del Estudio Jurídico Ureta & Asociados en Arequipa.">
+        <title>Eventos Académicos | Estudio Jurídico Ureta & Asociados</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
 
-    <div id="master-header"></div>
+        <!-- HEADER MAESTRO -->
+        <div id="master-header"></div>
 
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=80');">
-        <div class="page-banner-overlay"></div>
-        <div class="container page-banner-content">
-            <span class="hero-badge">ACTIVIDADES ACADÉMICAS DEL ESTUDIO</span>
-            <h1>Eventos, Conferencias y Seminarios</h1>
-            <p>Espacios de formación continua, debate jurisprudencial y capacitación organizados por el Estudio Jurídico Ureta & Asociados.</p>
-        </div>
-    </section>
+        <!-- PORTADA INTERNA (EDITABLE) -->
+        <section class="page-banner" id="evBanner" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=80');">
+            <div class="page-banner-overlay"></div>
+            <div class="container page-banner-content">
+                <span class="hero-badge" id="evBannerTag">CAPACITACIÓN Y EXTENSIÓN JURÍDICA</span>
+                <h1 id="evBannerTitulo">Eventos Académicos</h1>
+                <p id="evBannerSub">Conferencias, seminarios y jornadas de actualización jurídica organizadas por Estudio Jurídico Ureta & Asociados para profesionales y estudiantes de Derecho.</p>
+            </div>
+        </section>
 
-    <section class="section bg-light">
-        <div class="container">
-            <!-- Evento Destacado -->
-            <div id="eventoDestacadoContainer" class="featured-post-wrapper"></div>
-
-            <!-- Barra de Filtros -->
-            <div class="filter-bar blog-filters">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="buscarEventoInput" placeholder="Buscar evento por título, tema o ponente...">
+        <!-- AGENDA DE EVENTOS: DESTACADO + BUSCADOR + FILTRO + TARJETAS -->
+        <section class="section bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag" id="evSecTag">AGENDA ACADÉMICA</span>
+                    <h2 class="section-title" id="evSecTitulo">Próximos Eventos y Jornadas</h2>
+                    <p class="section-subtitle" id="evSecSub">Consulta el temario, ponentes y modalidad de cada actividad académica e inscríbete directamente mediante nuestro formulario oficial.</p>
                 </div>
-                <div class="select-box">
-                    <select id="filtroModalidadEvento">
-                        <option value="Todas">Todas las modalidades</option>
-                        <option value="Presencial">Presencial</option>
-                        <option value="Virtual">Virtual</option>
-                        <option value="Presencial / Virtual">Presencial / Virtual</option>
-                    </select>
+
+                <!-- Evento Destacado -->
+                <div id="eventoDestacadoContainer"></div>
+
+                <!-- Barra de búsqueda y filtro por modalidad -->
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="buscarEventoInput" placeholder="Buscar evento por título, categoría o ponente...">
+                    </div>
+                    <div class="select-box">
+                        <select id="filtroModalidadEvento" aria-label="Filtrar por modalidad">
+                            <option value="Todas">Todas las modalidades</option>
+                            <option value="Presencial / Virtual">Presencial / Virtual</option>
+                            <option value="Presencial">Presencial</option>
+                            <option value="Virtual">Virtual</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grilla de Eventos conectados a Supabase -->
+                <div class="cards-grid-3" id="eventosListadoGrid"></div>
+            </div>
+        </section>
+
+        <!-- BANNER CTA (EDITABLE) -->
+        <section class="cta-banner">
+            <div class="container cta-content">
+                <div class="cta-text">
+                    <h2 id="evCtaTitulo">¿Deseas proponer un convenio académico o capacitación institucional?</h2>
+                    <p id="evCtaSub">Coordinamos conferencias, talleres corporativos y jornadas universitarias con nuestros abogados especialistas.</p>
+                </div>
+                <div class="cta-buttons">
+                    <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20informaci%C3%B3n%20sobre%20los%20eventos%20acad%C3%A9micos" target="_blank" class="btn btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
+                    </a>
+                    <a href="contacto.html" class="btn btn-gold">Ir a la página de Contacto</a>
                 </div>
             </div>
+        </section>
 
-            <!-- Grilla de Eventos -->
-            <div class="cards-grid-3" id="eventosListadoGrid"></div>
+        <!-- MODAL DETALLE DE EVENTO + LINK A GOOGLE FORMS -->
+        <div class="modal-overlay" id="modalDetalleEvento">
+            <div class="modal-card">
+                <button type="button" class="modal-close" id="cerrarModalEvento" aria-label="Cerrar detalle del evento">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div id="modalEventoContenido"></div>
+            </div>
         </div>
-    </section>
 
-    <!-- Modal de Información Completa del Evento + Botón de Inscripción a Forms -->
-    <div class="modal-overlay" id="modalDetalleEvento">
-        <div class="modal-card modal-article">
-            <button class="modal-close" id="cerrarModalEvento" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
-            <div id="modalEventoContenido"></div>
-        </div>
-    </div>
+        <!-- FOOTER MAESTRO + REDES + WHATSAPP -->
+        <div id="master-footer"></div>
 
-    <div id="master-footer"></div>
-
-    <script src="js/datos-estudio.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const destContainer = document.getElementById('eventoDestacadoContainer');
-            const grid = document.getElementById('eventosListadoGrid');
-            const inputBuscar = document.getElementById('buscarEventoInput');
-            const selectMod = document.getElementById('filtroModalidadEvento');
-            const modal = document.getElementById('modalDetalleEvento');
-            const modalBody = document.getElementById('modalEventoContenido');
-
-            let eventos = [];
-            if (typeof consultarVistaSupabase === 'function' && supabaseEstaConfigurado()) {
-                eventos = await consultarVistaSupabase('eventos_academicos', '?select=*&estado=neq.Oculto&order=evento_id.desc') || [];
-            }
-
-            window.abrirModalEvento = (id) => {
-                const ev = eventos.find(e => e.evento_id === id);
-                if (!ev) return;
-                modalBody.innerHTML = `
-                    <img src="${ev.imagen_url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80'}" style="width:100%; max-height:320px; object-fit:cover; border-radius:6px; margin-bottom:20px;">
-                    <span class="section-tag">${ev.categoria} • ${ev.modalidad}</span>
-                    <h2 style="font-family:var(--fuente-titulos); color:#123c2a; margin:8px 0 12px;">${ev.titulo}</h2>
-                    <div style="background:#e6e0db; padding:14px 18px; border-radius:6px; margin-bottom:18px; font-size:0.9rem; color:#171a18;">
-                        <p style="margin-bottom:6px;"><i class="fa-regular fa-calendar" style="color:#238d41;"></i> <strong>Fecha:</strong> ${ev.fecha_evento || 'Por confirmar'}</p>
-                        <p style="margin-bottom:6px;"><i class="fa-solid fa-location-dot" style="color:#238d41;"></i> <strong>Hora y Lugar:</strong> ${ev.hora_lugar || 'Sede Arequipa / Virtual'}</p>
-                        <p style="margin:0;"><i class="fa-solid fa-user-tie" style="color:#238d41;"></i> <strong>Ponente(s):</strong> ${ev.ponente}</p>
-                    </div>
-                    <div style="line-height:1.8; color:#3d4440; margin-bottom:24px;">${ev.descripcion_html || ev.subtitulo}</div>
-                    ${ev.link_inscripcion ? `
-                        <a href="${ev.link_inscripcion}" target="_blank" rel="noopener noreferrer" class="btn btn-gold" style="width:100%; justify-content:center; padding:15px;">
-                            <i class="fa-solid fa-clipboard-check"></i> Inscribirse en el Formulario Oficial (Forms)
-                        </a>
-                    ` : ''}
-                `;
-                modal.classList.add('active');
-            };
-
-            document.getElementById('cerrarModalEvento').addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
-
-            function renderEventos() {
-                const q = (inputBuscar.value || '').toLowerCase();
-                const mod = selectMod.value;
-
-                const destacado = eventos.find(e => e.destacado) || eventos[0];
-                if (destacado && destContainer) {
-                    destContainer.innerHTML = `
-                        <div class="featured-post-card" style="display:grid; grid-template-columns:1fr 1.2fr; gap:28px; background:#fff; border-radius:8px; overflow:hidden; margin-bottom:32px; border:1px solid #a8ada8;">
-                            <img src="${destacado.imagen_url}" alt="${destacado.titulo}" style="width:100%; height:100%; min-height:280px; object-fit:cover;">
-                            <div style="padding:32px;">
-                                <span class="section-tag">EVENTO DESTACADO • ${destacado.categoria}</span>
-                                <h2 style="font-family:var(--fuente-titulos); color:#123c2a; margin:8px 0 12px;">${destacado.titulo}</h2>
-                                <p style="color:#3d4440; margin-bottom:14px;">${destacado.subtitulo}</p>
-                                <p style="font-size:0.86rem; color:#238d41; font-weight:600; margin-bottom:20px;">
-                                    <i class="fa-regular fa-calendar"></i> ${destacado.fecha_evento} | <i class="fa-solid fa-location-dot"></i> ${destacado.hora_lugar}
-                                </p>
-                                <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                                    <button onclick="abrirModalEvento(${destacado.evento_id})" class="btn btn-primary-dark">Ver información del evento</button>
-                                    ${destacado.link_inscripcion ? `<a href="${destacado.link_inscripcion}" target="_blank" class="btn btn-gold"><i class="fa-solid fa-pen-to-square"></i> Inscribirme (Forms)</a>` : ''}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                const filtrados = eventos.filter(e =>
-                    (mod === 'Todas' || (e.modalidad || '').includes(mod)) &&
-                    (e.titulo.toLowerCase().includes(q) || (e.subtitulo || '').toLowerCase().includes(q) || (e.ponente || '').toLowerCase().includes(q))
-                );
-
-                grid.innerHTML = filtrados.map(ev => `
-                    <article class="blog-card">
-                        <div class="blog-card-img">
-                            <span class="blog-category">${ev.categoria}</span>
-                            <img src="${ev.imagen_url || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80'}" alt="${ev.titulo}">
-                        </div>
-                        <div class="blog-card-body">
-                            <span class="blog-date"><i class="fa-regular fa-calendar"></i> ${ev.fecha_evento || ''} • ${ev.modalidad}</span>
-                            <h3>${ev.titulo}</h3>
-                            <p>${ev.subtitulo}</p>
-                            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:14px; flex-wrap:wrap;">
-                                <a href="javascript:void(0)" onclick="abrirModalEvento(${ev.evento_id})" class="card-link">Información del evento <i class="fa-solid fa-arrow-right"></i></a>
-                                ${ev.link_inscripcion ? `<a href="${ev.link_inscripcion}" target="_blank" class="btn btn-gold" style="padding:7px 14px; font-size:0.8rem;">Inscribirme</a>` : ''}
-                            </div>
-                        </div>
-                    </article>
-                `).join('') || `<p style="grid-column:1/-1; text-align:center; padding:30px;">Próximamente publicaremos nuevos eventos académicos.</p>`;
-            }
-
-            inputBuscar.addEventListener('input', renderEventos);
-            selectMod.addEventListener('change', renderEventos);
-            renderEventos();
-        });
-    </script>
-</body>
+        <script src="js/datos-estudio.js"></script>
+        <script src="js/layout.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>

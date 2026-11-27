@@ -1,100 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog y Actualidad Jurídica | Estudio Jurídico Ureta & Asociados</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Artículos jurídicos, análisis legales y actualidad normativa del Estudio Jurídico Ureta & Asociados.">
+        <title>Artículos Jurídicos | Estudio Jurídico Ureta & Asociados</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
 
-    <!-- BARRA SUPERIOR CONECTADA A SUPABASE -->
-    <div id="master-header"></div>
+        <!-- HEADER MAESTRO -->
+        <div id="master-header"></div>
 
-    <!-- PORTADA DE ACTUALIDAD JURÍDICA -->
-    <section class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1600&q=80');">
-        <div class="page-banner-overlay"></div>
-        <div class="container page-banner-content">
-            <span class="hero-badge">ACTUALIDAD JURÍDICA Y DOCTRINA</span>
-            <h1>Blog, Doctrina y Novedades Legales</h1>
-            <p>Artículos propios, análisis jurisprudenciales y noticias relevantes del ámbito jurídico nacional elaborados por los especialistas de nuestra firma.</p>
-        </div>
-    </section>
+        <!-- PORTADA INTERNA (EDITABLE) -->
+        <section class="page-banner" id="artBanner" style="background-image: url('https://images.unsplash.com/photo-1453945619913-79ec89a82c51?auto=format&fit=crop&w=1600&q=80');">
+            <div class="page-banner-overlay"></div>
+            <div class="container page-banner-content">
+                <span class="hero-badge" id="artBannerTag">ACTUALIDAD Y OPINIÓN JURÍDICA</span>
+                <h1 id="artBannerTitulo">Artículos Jurídicos</h1>
+                <p id="artBannerSub">Análisis doctrinales, criterios jurisprudenciales y novedades normativas elaborados por el equipo de Estudio Jurídico Ureta & Asociados.</p>
+            </div>
+        </section>
 
-    <!-- CONTENIDO PRINCIPAL DEL BLOG -->
-    <section class="section bg-light">
-        <div class="container">
-            
-            <!-- Publicación Destacada -->
-            <div id="blogDestacadoContainer" class="featured-post-wrapper"></div>
-
-            <!-- Barra de Filtros: Buscador, Categorías y Tipo de Publicación -->
-            <div class="filter-bar blog-filters">
-                <div class="search-box">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="buscarBlogInput" placeholder="Buscar artículo por título, tema o autor...">
+        <!-- PORTAL DE ARTÍCULOS: DESTACADO + BUSCADOR + FILTROS + GRILLA -->
+        <section class="section bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag" id="artSecTag">PUBLICACIONES RECIENTES</span>
+                    <h2 class="section-title" id="artSecTitulo">Biblioteca de Artículos y Análisis</h2>
+                    <p class="section-subtitle" id="artSecSub">Explora nuestras publicaciones propias, análisis jurídicos y notas de actualidad filtrando por tema o palabra clave.</p>
                 </div>
-                <div class="select-box">
-                    <select id="filtroCategoriaBlog">
-                        <option value="Todas">Todas las categorías</option>
-                        <option value="Opinión jurídica">Opinión jurídica</option>
-                        <option value="Actualidad jurídica">Actualidad jurídica</option>
-                        <option value="Derecho Corporativo">Derecho Corporativo</option>
-                        <option value="Derecho Laboral">Derecho Laboral</option>
-                        <option value="Derecho Penal">Derecho Penal</option>
-                        <option value="Derecho Civil">Derecho Civil</option>
-                        <option value="Derecho Administrativo">Derecho Administrativo</option>
-                        <option value="Noticias institucionales">Noticias institucionales</option>
-                    </select>
+
+                <!-- Tarjeta del Artículo Destacado -->
+                <div id="blogDestacadoContainer"></div>
+
+                <!-- Barra de Búsqueda y Filtros -->
+                <div class="filter-bar blog-filters">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="buscarBlogInput" placeholder="Buscar artículo por título, tema o autor...">
+                    </div>
+                    <div class="select-box">
+                        <select id="filtroCategoriaBlog" aria-label="Filtrar por categoría">
+                            <option value="Todas">Todas las categorías</option>
+                        </select>
+                    </div>
+                    <div class="select-box">
+                        <select id="filtroTipoBlog" aria-label="Filtrar por tipo de artículo">
+                            <option value="Todos">Todos los tipos</option>
+                            <option value="ArticuloPropio">Artículo Propio</option>
+                            <option value="AnalisisJuridico">Análisis Jurídico</option>
+                            <option value="NoticiaExterna">Noticia Externa</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="select-box">
-                    <select id="filtroTipoBlog">
-                        <option value="Todos">Todos los tipos de contenido</option>
-                        <option value="ArticuloPropio">Artículos propios del Estudio</option>
-                        <option value="AnalisisJuridico">Análisis jurídicos y sentencias</option>
-                        <option value="NoticiaExterna">Noticias jurídicas externas</option>
-                    </select>
+
+                <!-- Listado de Artículos conectados a Supabase -->
+                <div class="cards-grid-3" id="blogListadoGrid"></div>
+            </div>
+        </section>
+
+        <!-- BANNER CTA (EDITABLE) -->
+        <section class="cta-banner">
+            <div class="container cta-content">
+                <div class="cta-text">
+                    <h2 id="artCtaTitulo">¿Tienes dudas sobre algún tema normativo o jurisprudencial?</h2>
+                    <p id="artCtaSub">Nuestros abogados especialistas pueden orientarte con un análisis aplicado a tu caso concreto.</p>
+                </div>
+                <div class="cta-buttons">
+                    <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20realizar%20una%20consulta%20legal" target="_blank" class="btn btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp
+                    </a>
+                    <a href="contacto.html" class="btn btn-gold">Ir a la página de Contacto</a>
                 </div>
             </div>
+        </section>
 
-            <!-- Listado de Artículos -->
-            <div class="cards-grid-3" id="blogListadoGrid"></div>
-        </div>
-    </section>
-
-    <!-- LECTOR COMPLETO DEL ARTÍCULO + COMENTARIOS (MODAL) -->
-    <div class="modal-overlay" id="modalArticuloBlog">
-        <div class="modal-card modal-article">
-            <button class="modal-close" id="cerrarModalBlog" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
-            <div id="modalBlogContenido"></div>
-        </div>
-    </div>
-
-    <!-- BANNER CTA DE CONSULTA -->
-    <section class="cta-banner">
-        <div class="container cta-content">
-            <div class="cta-text">
-                <h2>¿Tienes dudas sobre la aplicación de una norma o proceso judicial?</h2>
-                <p>Nuestros abogados especialistas están disponibles para brindarte una opinión legal fundamentada sobre tu caso.</p>
-            </div>
-            <div class="cta-buttons">
-                <a href="https://api.whatsapp.com/send/?phone=51999322490&text=Hola,%20deseo%20realizar%20una%20consulta%20legal" target="_blank" class="btn btn-whatsapp">
-                    <i class="fa-brands fa-whatsapp"></i> Consultar por WhatsApp
-                </a>
-                <a href="contacto.html" class="btn btn-gold">Solicitar Asesoría</a>
+        <!-- MODAL LECTOR DE ARTÍCULO + COMENTARIOS -->
+        <div class="modal-overlay" id="modalArticuloBlog">
+            <div class="modal-card">
+                <button type="button" class="modal-close" id="cerrarModalBlog" aria-label="Cerrar artículo">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div id="modalBlogContenido"></div>
             </div>
         </div>
-    </section>
 
-    <!-- FOOTER INSTITUCIONAL COMPLETO DE 4 COLUMNAS -->
-    <div id="master-footer"></div>
+        <!-- FOOTER MAESTRO + REDES + WHATSAPP -->
+        <div id="master-footer"></div>
 
-    <script src="js/datos-estudio.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/main.js"></script>
-</body>
+        <script src="js/datos-estudio.js"></script>
+        <script src="js/layout.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>
