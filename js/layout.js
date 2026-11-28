@@ -131,8 +131,8 @@
         `;
     }
 
-    // 3. Inyectar Botón Desplegable de Redes Sociales + Botón de WhatsApp (Siempre visible en document.body)
-    document.querySelectorAll('.whatsapp-float, .whatsapp-float-btn, #floatingDock').forEach(el => el.remove());
+    // 3. Inyectar Botón Desplegable de Redes Sociales + Opinión/Testimonio + WhatsApp
+    document.querySelectorAll('.whatsapp-float, .whatsapp-float-btn, #floatingDock, #modalOpinionCliente').forEach(el => el.remove());
 
     const dock = document.createElement('div');
     dock.className = 'floating-dock';
@@ -162,6 +162,11 @@
             </button>
         </div>
 
+        <button type="button" class="review-float-pro" id="btnAbrirModalOpinion" aria-label="Dejar un comentario o testimonio" title="Déjanos tu opinión">
+            <i class="fa-solid fa-comment-dots"></i>
+            <span>Déjanos tu opinión</span>
+        </button>
+
         <a href="https://api.whatsapp.com/send/?phone=51980249579&text=Hola,%20deseo%20realizar%20una%20consulta%20legal" target="_blank" rel="noopener noreferrer" class="whatsapp-float-pro" id="btnWhatsappFloat" aria-label="Consultar por WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
             <span>Consulta por WhatsApp</span>
@@ -169,7 +174,46 @@
     `;
     document.body.appendChild(dock);
 
-    // Lógica de abrir y cerrar el menú de redes sociales
+    // Ventana modal global para enviar comentarios hacia "Confianza y Respaldo"
+    const modalOpinion = document.createElement('div');
+    modalOpinion.className = 'opinion-modal-overlay';
+    modalOpinion.id = 'modalOpinionCliente';
+    modalOpinion.innerHTML = `
+        <div class="opinion-modal-card" role="dialog" aria-modal="true" aria-labelledby="tituloModalOpinion">
+            <button type="button" class="opinion-modal-close" id="btnCerrarModalOpinion" aria-label="Cerrar ventana">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="opinion-modal-header">
+                <span>Confianza y Respaldo</span>
+                <h3 id="tituloModalOpinion">Comparte tu experiencia</h3>
+                <p>Cuéntanos cómo fue tu atención con nuestro estudio. Tu comentario podrá publicarse en nuestra sección de Confianza y Respaldo.</p>
+            </div>
+            <form id="formOpinionClienteFloat">
+                <div class="form-group">
+                    <label for="opNombreCliente">Tu nombre o iniciales *</label>
+                    <input type="text" id="opNombreCliente" placeholder="Ej. Carlos M. / J. R. M." maxlength="120" required>
+                </div>
+                <div class="form-group">
+                    <label for="opCargoCliente">Tipo de cliente o empresa (opcional)</label>
+                    <input type="text" id="opCargoCliente" placeholder="Ej. Cliente Particular / Gerente Corporativo" maxlength="120">
+                </div>
+                <div class="form-group">
+                    <label for="opTextoCliente">Tu comentario sobre el estudio *</label>
+                    <textarea id="opTextoCliente" rows="4" placeholder="Describe tu experiencia con la asesoría o patrocinio recibido..." required></textarea>
+                </div>
+                <button type="submit" id="btnEnviarOpinionFloat" class="btn btn-gold" style="width:100%; justify-content:center;">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar comentario
+                </button>
+                <p class="opinion-msg-err" id="opMsgError"></p>
+                <div class="opinion-msg-ok" id="opMsgExito">
+                    <i class="fa-solid fa-circle-check"></i> ¡Gracias por tu comentario! Fue enviado correctamente y aparecerá en <strong>Confianza y Respaldo</strong> una vez verificado por el estudio.
+                </div>
+            </form>
+        </div>
+    `;
+    document.body.appendChild(modalOpinion);
+
+    // Lógica del menú desplegable de redes sociales
     const socialWrapper = document.getElementById('socialFabWrapper');
     const btnToggleRedes = document.getElementById('btnToggleRedes');
 
@@ -190,6 +234,69 @@
         });
     }
 
+    // Lógica para abrir, cerrar y enviar comentarios de "Confianza y Respaldo"
+    const btnAbrirOp = document.getElementById('btnAbrirModalOpinion');
+    const btnCerrarOp = document.getElementById('btnCerrarModalOpinion');
+    const formOp = document.getElementById('formOpinionClienteFloat');
+
+    function cerrarModalOpinion() {
+        modalOpinion.classList.remove('open');
+    }
+
+    btnAbrirOp?.addEventListener('click', () => {
+        document.getElementById('opMsgExito').style.display = 'none';
+        document.getElementById('opMsgError').style.display = 'none';
+        modalOpinion.classList.add('open');
+    });
+
+    btnCerrarOp?.addEventListener('click', cerrarModalOpinion);
+    modalOpinion.addEventListener('click', (e) => {
+        if (e.target === modalOpinion) cerrarModalOpinion();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOpinion.classList.contains('open')) cerrarModalOpinion();
+    });
+
+    formOp?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btnEnviar = document.getElementById('btnEnviarOpinionFloat');
+        const msgOk = document.getElementById('opMsgExito');
+        const msgErr = document.getElementById('opMsgError');
+
+        msgOk.style.display = 'none';
+        msgErr.style.display = 'none';
+
+        const nombre = document.getElementById('opNombreCliente').value.trim();
+        const cargo = document.getElementById('opCargoCliente').value.trim() || 'Cliente Patrocinado';
+        const comentario = document.getElementById('opTextoCliente').value.trim();
+
+        if (!nombre || !comentario) return;
+
+        btnEnviar.disabled = true;
+        btnEnviar.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+
+        try {
+            if (typeof supabaseRest === 'function' && typeof supabaseEstaConfigurado === 'function' && supabaseEstaConfigurado()) {
+                const res = await supabaseRest('testimonios_clientes', 'POST', '', {
+                    identificacion_cliente: nombre,
+                    cargo_o_tipo_cliente: cargo,
+                    comentario: comentario,
+                    destacado: true,
+                    estado: 'Pendiente'
+                });
+                if (!res) throw new Error('No se pudo guardar el comentario');
+            }
+            formOp.reset();
+            msgOk.style.display = 'block';
+        } catch (err) {
+            console.error('Error al enviar opinión:', err);
+            msgErr.textContent = 'No se pudo enviar tu comentario en este momento. Intenta nuevamente.';
+            msgErr.style.display = 'block';
+        } finally {
+            btnEnviar.disabled = false;
+            btnEnviar.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar comentario';
+        }
+    });
     // 4. Activar menú móvil
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');

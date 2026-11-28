@@ -3447,3 +3447,195 @@ button.btn-outline-light:hover {
     color: #123c2a !important;
     border-color: #ffffff !important;
 }
+/* =========================================================================
+   BOTÓN FLOTANTE DE OPINIONES / TESTIMONIOS + VENTANA MODAL
+   ========================================================================= */
+.review-float-pro {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 9px;
+    background: #123c2a !important;
+    color: #ffffff !important;
+    border: 2px solid #b59a62;
+    padding: 11px 18px;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(18, 60, 42, 0.35);
+    transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.review-float-pro i {
+    font-size: 1.15rem;
+    color: #b59a62;
+    transition: color 0.25s ease;
+}
+
+.review-float-pro:hover {
+    background: #b59a62 !important;
+    color: #171a18 !important;
+    transform: translateY(-2px);
+}
+
+.review-float-pro:hover i {
+    color: #171a18;
+}
+
+/* Ventana emergente para dejar testimonio */
+.opinion-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(12, 32, 23, 0.78);
+    backdrop-filter: blur(4px);
+    z-index: 10050;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.opinion-modal-overlay.open {
+    display: flex;
+}
+
+.opinion-modal-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    border-top: 5px solid #b59a62;
+    padding: 30px 28px;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    animation: opinionFadeIn 0.22s ease;
+}
+
+@keyframes opinionFadeIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.opinion-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: #f1f5f9;
+    color: #123c2a;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.opinion-modal-close:hover {
+    background: #b59a62;
+    color: #171a18;
+}
+
+.opinion-modal-header span {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #b59a62;
+    margin-bottom: 4px;
+}
+
+.opinion-modal-header h3 {
+    font-family: 'Playfair Display', serif;
+    color: #123c2a;
+    font-size: 1.5rem;
+    margin: 0 0 6px;
+}
+
+.opinion-modal-header p {
+    color: #5c6661;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0 0 18px;
+}
+
+.opinion-modal-card .form-group {
+    margin-bottom: 14px;
+}
+
+.opinion-modal-card .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #123c2a;
+    margin-bottom: 5px;
+}
+
+.opinion-modal-card .form-group input,
+.opinion-modal-card .form-group textarea {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1.5px solid #d8d4cb;
+    border-radius: 7px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.88rem;
+    color: #171a18;
+}
+
+.opinion-modal-card .form-group input:focus,
+.opinion-modal-card .form-group textarea:focus {
+    outline: none;
+    border-color: #b59a62;
+    box-shadow: 0 0 0 3px rgba(181, 154, 98, 0.18);
+}
+
+.opinion-msg-ok {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #ecfdf5;
+    border-left: 4px solid #238d41;
+    color: #14532d;
+    font-size: 0.83rem;
+    font-weight: 600;
+    border-radius: 6px;
+    line-height: 1.45;
+}
+
+.opinion-msg-err {
+    display: none;
+    margin-top: 10px;
+    color: #dc2626;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .review-float-pro {
+        width: 54px;
+        height: 54px;
+        padding: 0;
+        justify-content: center;
+    }
+    .review-float-pro span {
+        display: none;
+    }
+    .review-float-pro i {
+        font-size: 1.3rem;
+    }
+    .opinion-modal-card {
+        padding: 24px 20px;
+    }
+    
+    /* Ocultar la barra superior oscura en celulares */
+    @media (max-width: 768px) {
+        .top-bar {
+            display: none !important;
+        }
+    }
+}

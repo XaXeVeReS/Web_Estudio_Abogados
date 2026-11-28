@@ -304,7 +304,7 @@
 
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             margin-bottom: 26px;
         }
@@ -848,7 +848,14 @@
                                 <strong id="kpiTotalVacantes">0</strong>
                             </div>
                         </div>
-                        <div class="kpi-card alert-kpi" onclick="irASeccionAdmin('tabTestimonios')">
+                        <div class="kpi-card" id="cardKpiTestimonios" onclick="irASeccionAdmin('tabTestimonios')">
+                            <div class="kpi-icon"><i class="fa-solid fa-star-half-stroke"></i></div>
+                            <div class="kpi-meta">
+                                <span>Testimonios por revisar</span>
+                                <strong id="kpiTestimoniosPendientes">0</strong>
+                            </div>
+                        </div>
+                        <div class="kpi-card" id="cardKpiComentarios" onclick="irASeccionAdmin('tabTestimonios')">
                             <div class="kpi-icon"><i class="fa-solid fa-comments"></i></div>
                             <div class="kpi-meta">
                                 <span>Comentarios por revisar</span>
@@ -2281,7 +2288,7 @@
 
             try {
                 if (typeof supabaseRest === 'function' && typeof supabaseEstaConfigurado === 'function' && supabaseEstaConfigurado()) {
-                    const [areas, abogados, blog, eventos, contactos, postulaciones, vacantes, comentarios] = await Promise.all([
+                    const [areas, abogados, blog, eventos, contactos, postulaciones, vacantes, comentarios, testimonios] = await Promise.all([
                         supabaseRest('areas_legales', 'GET', '?select=area_id,activo'),
                         supabaseRest('abogados', 'GET', '?select=abogado_id,activo'),
                         supabaseRest('publicaciones_blog', 'GET', '?select=publicacion_id,estado'),
@@ -2289,11 +2296,14 @@
                         supabaseRest('solicitudes_contacto', 'GET', '?select=*&order=solicitud_id.desc'),
                         supabaseRest('postulaciones', 'GET', '?select=*&order=postulacion_id.desc'),
                         supabaseRest('vacantes', 'GET', '?select=vacante_id,activa'),
-                        supabaseRest('comentarios_blog', 'GET', '?select=comentario_id,estado')
+                        supabaseRest('comentarios_blog', 'GET', '?select=comentario_id,estado'),
+                        supabaseRest('testimonios_clientes', 'GET', '?select=testimonio_id,estado')
                     ]);
 
                     const listaCon = Array.isArray(contactos) ? contactos : [];
                     const listaPost = Array.isArray(postulaciones) ? postulaciones : [];
+                    const pendTest = (testimonios || []).filter(t => t.estado === 'Pendiente').length;
+                    const pendCom = (comentarios || []).filter(c => c.estado === 'Pendiente').length;
 
                     setNum('kpiTotalAreas', (areas || []).filter(a => a.activo).length);
                     setNum('kpiTotalAbogados', (abogados || []).filter(a => a.activo).length);
@@ -2302,8 +2312,12 @@
                     setNum('kpiTotalContactos', listaCon.length);
                     setNum('kpiTotalPostulaciones', listaPost.length);
                     setNum('kpiTotalVacantes', (vacantes || []).filter(v => v.activa).length);
-                    setNum('kpiComentariosPendientes', (comentarios || []).filter(c => c.estado === 'Pendiente').length);
+                    setNum('kpiTestimoniosPendientes', pendTest);
+                    setNum('kpiComentariosPendientes', pendCom);
 
+                    // Resaltar en ámbar solo si hay elementos pendientes por revisar
+                    document.getElementById('cardKpiTestimonios')?.classList.toggle('alert-kpi', pendTest > 0);
+                    document.getElementById('cardKpiComentarios')?.classList.toggle('alert-kpi', pendCom > 0);
                     // Pintar últimas 5 consultas en el Resumen
                     const boxCon = document.getElementById('resumenUltimasConsultas');
                     if (boxCon) {
